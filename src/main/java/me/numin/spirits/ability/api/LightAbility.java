@@ -1,11 +1,10 @@
 package me.numin.spirits.ability.api;
 
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.ability.ElementalAbility;
 import me.numin.spirits.SpiritElement;
 import org.bukkit.entity.Player;
 
-public abstract class LightAbility extends ElementalAbility {
+public abstract class LightAbility extends SpiritAbility {
 
     public LightAbility(Player player) {
         super(player);
@@ -13,6 +12,6 @@ public abstract class LightAbility extends ElementalAbility {
 
     @Override
     public Element getElement() {
-        return SpiritElement.LIGHT_SPIRIT;
+        return SpiritElement.LIGHT;
     }
 }

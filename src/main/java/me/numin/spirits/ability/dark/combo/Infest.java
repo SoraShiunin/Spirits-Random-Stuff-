@@ -3,17 +3,20 @@ package me.numin.spirits.ability.dark.combo;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.ClickType;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import me.numin.spirits.Spirits;
-import me.numin.spirits.Methods;
-import me.numin.spirits.Methods.SpiritType;
+import me.numin.spirits.utilities.Methods;
 import me.numin.spirits.ability.api.DarkAbility;
+import me.numin.spirits.SpiritElement;
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -25,21 +28,23 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
+public class Infest extends DarkAbility implements ComboAbility {
 
-    private Location location;
-    private Location location2;
-    private Location circleCenter;
-    private long time;
-    private long cooldown;
-    private long duration;
-    private int radius;
-    private int effectInt;
-    private boolean damageEntities;
-    private boolean healDarkSpirits;
+    //TODO: Add sounds.
+
+    private Location circleCenter, location, location2, location3;
+
+    private boolean damageEntities, healDarkSpirits;
+    @Attribute(Attribute.DAMAGE)
     private double damage;
-    private int currPoint;
-    private Location location3;
+    @Attribute(Attribute.RADIUS)
+    private double radius;
+    private double counter;
+    private int currPoint, effectInt;
+    @Attribute(Attribute.COOLDOWN)
+    private long cooldown;
+    @Attribute(Attribute.DURATION)
+    private long duration;
 
     public Infest(Player player) {
         super(player);
@@ -48,16 +53,20 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
             return;
         }
         setFields();
-        time = System.currentTimeMillis();
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 0.3F, -1);
         start();
         bPlayer.addCooldown(this);
     }
 
+    @Override
+    public String getAbilityType() {
+        return OFFENSE;
+    }
+
     private void setFields() {
         this.cooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.DarkSpirit.Combo.Infest.Cooldown");
         this.duration = Spirits.plugin.getConfig().getLong("Abilities.Spirits.DarkSpirit.Combo.Infest.Duration");
-        this.radius = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.Radius");
+        this.radius = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.DarkSpirit.Combo.Infest.Radius");
         this.effectInt = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.EffectInterval");
         this.damage = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.Damage");
         this.damageEntities = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.Combo.Infest.DamageEntities");
@@ -70,21 +79,20 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
 
     @Override
     public void progress() {
-        if (player.isDead() || !player.isOnline() || GeneralMethods.isRegionProtectedFromBuild(this, location) || !bPlayer.canBendIgnoreBindsCooldowns(this)) {
+        if (!bPlayer.canBendIgnoreBindsCooldowns(this)) {
+            remove();
+            return;
+        }
+        if (System.currentTimeMillis() > getStartTime() + duration) {
             remove();
             return;
         }
         spawnCircle();
         grabEntities();
-        if (System.currentTimeMillis() > time + duration) {
-            remove();
-            return;
-        }
-
     }
 
-    public void spawnCircle() {
-        Methods.createPolygon(location, 8, radius, 0.2, ParticleEffect.SPELL_WITCH);
+    private void spawnCircle() {
+        Methods.createPolygon(location, 8, radius, 0.2, Particle.SPELL_WITCH);
         for (int i = 0; i < 6; i++) {
             this.currPoint += 360 / 300;
             if (this.currPoint > 360) {
@@ -103,10 +111,23 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
             ParticleEffect.SMOKE_NORMAL.display(location3, 1, 0, 0, 0, 0);
             location3.subtract(x2, 0, z2);
         }
-        ParticleEffect.DRAGON_BREATH.display(location, 1, radius / 2, 0.4F, radius / 2, 0.01F);
+        counter += Math.PI / 32;
+        if (!(counter >= Math.PI * 4)) {
+            for (double i = 0; i <= Math.PI * 2; i += Math.PI / 1.2) {
+                double x = 0.5 * (Math.PI * 4 - counter) * Math.cos(counter - i);
+                double y = 0.4 * counter;
+                double z = 0.5 * (Math.PI * 4 - counter) * Math.sin(counter - i);
+                location.add(x, y, z);
+                Methods.playSpiritParticles(SpiritElement.DARK, location, 0, 0, 0, 0, 1);
+                player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(100, 100, 100), 1));
+                location.subtract(x, y, z);
+            }
+        }
+
+        player.getWorld().spawnParticle(Particle.TOWN_AURA, location, 10, radius / 2, 0.6, radius / 2, 0);
     }
 
-    public void grabEntities() {
+    private void grabEntities() {
         for (Entity entity : GeneralMethods.getEntitiesAroundPoint(circleCenter, radius)) {
             if (entity instanceof LivingEntity) {
                 infestEntities(entity);
@@ -114,7 +135,7 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
         }
     }
 
-    public void infestEntities(Entity entity) {
+    private void infestEntities(Entity entity) {
         if (new Random().nextInt(effectInt) == 0) {
             if (entity instanceof Player) {
                 Player ePlayer = (Player) entity;
@@ -122,12 +143,15 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
                 if (bEntity.hasElement(Element.getElement("DarkSpirit"))) {
                     if (healDarkSpirits) {
                         LivingEntity le = (LivingEntity)entity;
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, 1));
-                        ParticleEffect.HEART.display(entity.getLocation().add(0, 2, 0), 1, 0, 0, 0, 0);
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 0));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 60, 0));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60, 1));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 1));
+                        ParticleEffect.SOUL.display(entity.getLocation().add(0, 2, 0), 1, 0, 0, 0, 0);
                     }
                 } else {
                     DamageHandler.damageEntity(entity, damage, this);
-                    ParticleEffect.PORTAL.display(entity.getLocation().add(0, 1, 0), 5, 0, 0, 0, 1.5F);
+                    ParticleEffect.PORTAL.display(entity.getLocation().add(0, 1, 0), 0, 0, 0, 1.5F, 5);
                 }
 
             } else if (entity instanceof Monster) {
@@ -136,7 +160,7 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
                 ParticleEffect.VILLAGER_ANGRY.display(entity.getLocation().add(0, 1, 0), 1, 0, 0, 0, 0);
             } else if (entity instanceof LivingEntity && damageEntities) {
                 DamageHandler.damageEntity(entity, damage, this);
-                ParticleEffect.PORTAL.display(entity.getLocation().add(0, 1, 0), 5, 0, 0, 0, 1.5F);
+                ParticleEffect.PORTAL.display(entity.getLocation().add(0, 1, 0),0, 0, 0, 1.5F, 5);
 
             }
         }
@@ -150,8 +174,9 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
     @Override
     public ArrayList<AbilityInformation> getCombination() {
         ArrayList<AbilityInformation> combo = new ArrayList<AbilityInformation>();
+        combo.add(new AbilityInformation("Intoxicate", ClickType.LEFT_CLICK));
+        combo.add(new AbilityInformation("Intoxicate", ClickType.LEFT_CLICK));
         combo.add(new AbilityInformation("Intoxicate", ClickType.SHIFT_DOWN));
-        combo.add(new AbilityInformation("Intoxicate", ClickType.RIGHT_CLICK_BLOCK));
         combo.add(new AbilityInformation("Intoxicate", ClickType.SHIFT_UP));
         return combo;
     }
@@ -163,39 +188,17 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
 
     @Override
     public Location getLocation() {
-        return null;
+        return location;
+    }
+
+    @Override
+    public double getCollisionRadius() {
+        return radius;
     }
 
     @Override
     public String getName() {
         return "Infest";
-    }
-
-    @Override
-    public String getDescription() {
-        return Methods.setSpiritDescription(SpiritType.DARK, "Combo") +
-                Spirits.plugin.getConfig().getString("Language.Abilities.DarkSpirit.Infest.Description");
-    }
-
-    @Override
-    public String getInstructions() {
-        return Methods.setSpiritDescriptionColor(SpiritType.DARK) +
-                Spirits.plugin.getConfig().getString("Language.Abilities.DarkSpirit.Infest.Instructions");
-    }
-
-    @Override
-    public String getAuthor() {
-        return Methods.setSpiritDescriptionColor(SpiritType.DARK) + Methods.getAuthor();
-    }
-
-    @Override
-    public String getVersion() {
-        return Methods.setSpiritDescriptionColor(SpiritType.DARK) + Methods.getVersion();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.Combo.Infest.Enabled");
     }
 
     @Override
@@ -217,13 +220,4 @@ public class Infest extends DarkAbility implements AddonAbility, ComboAbility {
     public boolean isSneakAbility() {
         return false;
     }
-
-    @Override
-    public void load() {
-    }
-
-    @Override
-    public void stop() {
-    }
-
 }

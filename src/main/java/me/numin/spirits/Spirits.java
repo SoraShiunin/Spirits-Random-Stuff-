@@ -2,11 +2,18 @@ package me.numin.spirits;
 
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.ability.util.CollisionInitializer;
+import me.numin.spirits.ability.dark.DarkBlast;
+import me.numin.spirits.ability.dark.Shackle;
+import me.numin.spirits.ability.dark.Strike;
+import me.numin.spirits.ability.light.LightBlast;
+import me.numin.spirits.ability.light.Shelter;
 import me.numin.spirits.config.Config;
 import me.numin.spirits.listeners.Abilities;
 import me.numin.spirits.listeners.Passives;
-import org.bukkit.permissions.Permission;
-import org.bukkit.permissions.PermissionDefault;
+import me.numin.spirits.listeners.PKEvents;
+import me.numin.spirits.utilities.SpiritPlaceholder;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Spirits extends JavaPlugin {
@@ -17,12 +24,17 @@ public final class Spirits extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
+        getLogger().info("Init config");
         new Config(this);
-        new SpiritElement();
-
+        getLogger().info("Init abilities");
         CoreAbility.registerPluginAbilities(plugin, "me.numin.spirits.ability");
-        this.registerPermissions();
-        this.registerListeners();
+
+        registerListeners();
+        registerCollisions();
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new SpiritPlaceholder().register();
+        }
 
         plugin.getLogger().info("Successfully enabled Spirits.");
     }
@@ -36,28 +48,20 @@ public final class Spirits extends JavaPlugin {
         return plugin;
     }
 
-    private void registerPermissions() {
-        String[] abilities = {"Infest", "Intoxicate", "Shackle", "Strike",
-        "Rejuvenate", "Alleviate", "Orb", "Shelter",
-        "Phase", "Agility", "Vanish", "Possess"};
-
-        for (String ability : abilities) {
-            CoreAbility coreAbility = CoreAbility.getAbility(ability);
-
-            if (coreAbility == null) return;
-
-            if (coreAbility.isEnabled()) {
-                if (ProjectKorra.plugin.getServer().getPluginManager().getPermission("bending.ability." + ability.toLowerCase()) == null) {
-                    Permission perm = new Permission("bending.ability." + ability.toLowerCase());
-                    perm.setDefault(PermissionDefault.TRUE);
-                    ProjectKorra.plugin.getServer().getPluginManager().addPermission(perm);
-                }
-            }
-        }
+    //TODO: collision system needs testing
+    private void registerCollisions() {
+        CollisionInitializer collisionInitializer = ProjectKorra.getCollisionInitializer();
+        collisionInitializer.addSmallAbility(CoreAbility.getAbility(DarkBlast.class));
+        collisionInitializer.addSmallAbility(CoreAbility.getAbility(Shackle.class));
+        collisionInitializer.addSmallAbility(CoreAbility.getAbility(Strike.class));
+        collisionInitializer.addSmallAbility(CoreAbility.getAbility(LightBlast.class));
+        collisionInitializer.addLargeAbility(CoreAbility.getAbility(Shelter.class));
+        collisionInitializer.initializeDefaultCollisions();
     }
 
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new Abilities(), this);
         getServer().getPluginManager().registerEvents(new Passives(), this);
+        getServer().getPluginManager().registerEvents(new PKEvents(), this);
     }
 }

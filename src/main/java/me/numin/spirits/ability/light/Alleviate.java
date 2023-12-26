@@ -12,39 +12,32 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.AddonAbility;
+import com.projectkorra.projectkorra.ProjectKorra;
+import com.projectkorra.projectkorra.ability.ElementalAbility;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
 import me.numin.spirits.Spirits;
-import me.numin.spirits.Methods;
-import me.numin.spirits.Methods.SpiritType;
+import me.numin.spirits.utilities.Methods;
 import me.numin.spirits.ability.api.LightAbility;
 
-public class Alleviate extends LightAbility implements AddonAbility {
+public class Alleviate extends LightAbility {
 
-    private LivingEntity target = null;
+    //TODO: Make new sounds.
+    //TODO: Implement configuration.
+
+    private DustOptions customColor;
+    private LivingEntity target;
     private Location location;
-    private Location origin;
-    private Location entityCheck;
-    private Vector direction;
-    private int currPoint;
-    private int healDuration;
-    private int nightVisDuration;
-    private int red,green,blue;
-    private double range;
-    private double selfDamage;
-    private long time;
-    private long potInt;
-    private long healInt;
-    private long otherCooldown;
-    private long selfCooldown;
-    private long chargeTime;
-    private boolean progress;
-    private boolean playingAlleviate;
-    private boolean removeNegPots;
+    private Vector vector = new Vector(1, 0, 0);
+
+    private boolean hasReached, removeNegPots;
+    private double range, selfDamage;
+    private int currPoint, healDuration, nightVisDuration;
+    private long chargeTime, healInt, otherCooldown, potInt, selfCooldown, time;
 
     public Alleviate(Player player) {
         super(player);
@@ -54,6 +47,10 @@ public class Alleviate extends LightAbility implements AddonAbility {
         }
 
         setFields();
+        Entity targetEntity = GeneralMethods.getTargetedEntity(player, range);
+        if (targetEntity instanceof LivingEntity)
+            this.target = (LivingEntity) targetEntity;
+
         time = System.currentTimeMillis();
         start();
     }
@@ -73,151 +70,166 @@ public class Alleviate extends LightAbility implements AddonAbility {
         this.nightVisDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Self.NightVisionDuration");
         this.removeNegPots = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Alleviate.Self.RemoveNegativePotionEffects");
 
-        this.red = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Red");
-        this.green = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Green");
-        this.blue = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Blue");
+        int red = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Red");
+        int green = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Green");
+        int blue = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Blue");
+        this.customColor = new DustOptions(Color.fromRGB(red, green, blue), 1);
 
-        this.origin = player.getLocation().clone().add(0, 1, 0);
-        this.location = origin.clone();
-        this.direction = player.getLocation().getDirection();
-        this.progress = true;
-        this.playingAlleviate = false;
+        this.location = player.getLocation().clone().add(0, 1, 0);
     }
 
     @Override
     public void progress() {
-        if (player.isDead() || !player.isOnline() || GeneralMethods.isRegionProtectedFromBuild(this, location)) {
+        if (!bPlayer.canBend(this) || !player.isSneaking()) {
             remove();
             return;
         }
 
-        if (!bPlayer.getBoundAbilityName().equals(getName())) {
+        if (target != null && player.getLocation().distance(target.getLocation()) > range) {
             remove();
             return;
         }
+
         if (player.isSneaking()) {
-            if (progress) {
-                entityCheck = location;
-                entityCheck.add(direction.multiply(1));
-                // ParticleEffect.FLAME.display(location, 0, 0, 0, 0, 1);
-            }
-            if (origin.distanceSquared(entityCheck) > range * range) {
-                progress = false;
-                progressSanctity(200, 0.04F);
-            }
             if (target == null) {
-                for (Entity entity : GeneralMethods.getEntitiesAroundPoint(entityCheck, 1)) {
-                    if ((entity instanceof LivingEntity) && entity.getUniqueId() != player.getUniqueId()) {
-                        target = (LivingEntity) entity;
-                    }
-                }
+                progressSanctity();
             } else {
-                progress = false;
-                entityCheck = target.getLocation();
-                progressAlleviate(200, 0.04F, target, target.getLocation().clone());
+                if (!hasReached) showSelection();
+                else progressAlleviate();
             }
-        } else {
-            remove();
-            return;
         }
     }
 
-    public void progressAlleviate(int points, float size, Entity target, Location location) {
-        Color color = Color.fromBGR(blue, green, red);
-        DustOptions dustOptions = new DustOptions(color, 1);
-        playingAlleviate = true;
-        LivingEntity le = (LivingEntity)target;
+    private void showSelection() {
+        Location blast = Methods.advanceLocationToPoint(vector, location, target.getLocation().add(0, 1, 0), 0.5);
 
-        for (int i = 0; i < 6; i++) {
-            currPoint += 360 / points;
-            if (currPoint > 360) {
-                currPoint = 0;
-            }
-            double angle = currPoint * Math.PI / 180 * Math.cos(Math.PI);
-            double x = size * (Math.PI * 4 - angle) * Math.cos(angle + i);
-            double y = 1.2 * Math.cos(angle) + 1.2;
-            double z = size * (Math.PI * 4 - angle) * Math.sin(angle + i);
-            location.add(x, y, z);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, dustOptions);
-            //GeneralMethods.displayColoredParticle(location, hexColor);
-            location.subtract(x, y, z);
+        player.getWorld().spawnParticle(Particle.REDSTONE, blast, 10, 0.1, 0.1, 0.1, 0, customColor);
+
+        if (blast.distance(player.getLocation()) > range ||
+                blast.getBlock().isLiquid() ||
+                GeneralMethods.isSolid(blast.getBlock())) {
+            remove();
+            return;
         }
 
+        for (Entity entity : GeneralMethods.getEntitiesAroundPoint(blast, 1.3)) {
+            if (entity.equals(target)) {
+                hasReached = true;
+                break;
+            }
+        }
+    }
+
+    private void progressAlleviate() {
+        showSpirals(target.getLocation());
+
         if (System.currentTimeMillis() - time > potInt) {
-            for (PotionEffect targetEffect : le.getActivePotionEffects()) {
+            for (PotionEffect targetEffect : target.getActivePotionEffects()) {
                 if (isNegativeEffect(targetEffect.getType())) {
-                    le.removePotionEffect(targetEffect.getType());
+                    target.removePotionEffect(targetEffect.getType());
                 }
             }
             bPlayer.addCooldown(this, otherCooldown);
         }
         if (System.currentTimeMillis() - time > healInt) {
-            le.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1), true);
+            target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 220, 1));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 220, 1));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 220, 1));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 220, 0));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 220, 0));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 220, 4));
+        	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 220, 1));
+        	player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 220, 1));
+        	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 220, 1));
+    		for (final PotionEffect effect : target.getActivePotionEffects()) {
+    			if (ElementalAbility.isNegativeEffect(effect.getType())) {
+    				target.removePotionEffect(effect.getType());
+    			}
+    		}
+            target.getWorld().spawnParticle(Particle.END_ROD, player.getLocation(), 5, (float) Math.random() / 3, (float) Math.random() / 3, (float) Math.random() / 3, 0.05);
             DamageHandler.damageEntity(player, selfDamage, this);
-            bPlayer.addCooldown(this, otherCooldown);
+
             remove();
             return;
-        }
-        if (!player.isSneaking()) {
-            bPlayer.addCooldown(this, otherCooldown);
         }
         if (new Random().nextInt(20) == 0) {
             target.getWorld().playSound(target.getLocation(), Sound.ENTITY_ENDER_EYE_DEATH, 1, 1);
         }
     }
 
-    public void progressSanctity(int points, float size) {
-        Color color = Color.fromBGR(blue, green, red);
-        DustOptions dustOptions = new DustOptions(color, 1);
+    private void progressSanctity() {
+        showSpirals(player.getLocation());
 
-        if (playingAlleviate) {
+        if (System.currentTimeMillis() > time + chargeTime) {
+            for (PotionEffect playerEffects : player.getActivePotionEffects()) {
+                if (isNegativeEffect(playerEffects.getType()) && removeNegPots) {
+                    player.removePotionEffect(playerEffects.getType());
+                }
+            }
+            if (player.getHealth() > 41) {
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 0));
+            } else if (player.getHealth() <= 40 && player.getHealth() > 31 ) {
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 1));
+            } else if (player.getHealth() <= 30 && player.getHealth() > 21 ) {
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 0));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 140, 0));
+            } else if (player.getHealth() <= 20 && player.getHealth() > 10 ) {
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 140, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 0));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 140, 1));
+            } else if (player.getHealth() <= 10) {
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 160, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 60, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 160, 3));
+            } 
+            
+    		for (final PotionEffect effect : player.getActivePotionEffects()) {
+    			if (ElementalAbility.isNegativeEffect(effect.getType())) {
+    				player.removePotionEffect(effect.getType());
+    			}
+    		}
+            player.getWorld().spawnParticle(Particle.END_ROD, player.getLocation(), 5, (float) Math.random() / 3, (float) Math.random() / 3, (float) Math.random() / 3, 0.05);
+            remove();
             return;
-        } else {
-            Location location = player.getLocation();
-            for (int i = 0; i < 6; i++) {
-                currPoint += 360 / points;
-                if (currPoint > 360) {
-                    currPoint = 0;
-                }
-                double angle = currPoint * Math.PI / 180 * Math.cos(Math.PI);
-                double x = size * (Math.PI * 4 - angle) * Math.cos(angle + i);
-                double y = 1.2 * Math.cos(angle) + 1.2;
-                double z = size * (Math.PI * 4 - angle) * Math.sin(angle + i);
-                location.add(x, y, z);
-                player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, dustOptions);
-                //GeneralMethods.displayColoredParticle(location, selfHexColor);
-                location.subtract(x, y, z);
-            }
-            if (System.currentTimeMillis() > time + chargeTime) {
-                for (PotionEffect playerEffects : player.getActivePotionEffects()) {
-                    if (isNegativeEffect(playerEffects.getType()) && removeNegPots) {
-                        player.removePotionEffect(playerEffects.getType());
-                    }
-                }
-                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, healDuration * 100, 1), true);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, nightVisDuration * 100, 1));
+        }
 
-                bPlayer.addCooldown(this, selfCooldown);
-                remove();
-                return;
-            }
-        }
-        if (!player.isSneaking()) {
-            bPlayer.addCooldown(this, selfCooldown);
-        }
-        if (new Random().nextInt(20) == 0) {
+        if (new Random().nextInt(20) == 0)
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_EYE_DEATH, 1, 1);
+    }
+
+    private void showSpirals(Location location) {
+        for (int i = 0; i < 6; i++) {
+            currPoint += 360 / 200;
+            if (currPoint > 360) {
+                currPoint = 0;
+            }
+            double angle = currPoint * Math.PI / 180 * Math.cos(Math.PI);
+            double x = (float) 0.04 * (Math.PI * 4 - angle) * Math.cos(angle + i);
+            double y = 1.2 * Math.cos(angle) + 1.2;
+            double z = (float) 0.04 * (Math.PI * 4 - angle) * Math.sin(angle + i);
+            location.add(x, y, z);
+            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, customColor);
+            location.subtract(x, y, z);
         }
+    }
+
+    @Override
+    public void remove() {
+        bPlayer.addCooldown(this);
+        super.remove();
     }
 
     @Override
     public long getCooldown() {
-        return 0;
+        return target != null ? otherCooldown : selfCooldown;
     }
 
     @Override
     public Location getLocation() {
-        return null;
+        return target != null ? target.getLocation() : player.getLocation();
     }
 
     @Override
@@ -226,30 +238,8 @@ public class Alleviate extends LightAbility implements AddonAbility {
     }
 
     @Override
-    public String getDescription() {
-        return Methods.setSpiritDescription(SpiritType.LIGHT, "Utility") +
-                Spirits.plugin.getConfig().getString("Language.Abilities.LightSpirit.Alleviate.Description");
-    }
-
-    @Override
-    public String getInstructions() {
-        return Methods.setSpiritDescriptionColor(SpiritType.LIGHT) +
-                Spirits.plugin.getConfig().getString("Language.Abilities.LightSpirit.Alleviate.Instructions");
-    }
-
-    @Override
-    public String getAuthor() {
-        return Methods.setSpiritDescriptionColor(SpiritType.LIGHT) + Methods.getAuthor();
-    }
-
-    @Override
-    public String getVersion() {
-        return Methods.setSpiritDescriptionColor(SpiritType.LIGHT) + Methods.getVersion();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Alleviate.Enabled");
+    public String getAbilityType() {
+        return UTILITY;
     }
 
     @Override
@@ -270,13 +260,5 @@ public class Alleviate extends LightAbility implements AddonAbility {
     @Override
     public boolean isSneakAbility() {
         return true;
-    }
-
-    @Override
-    public void load() {
-    }
-
-    @Override
-    public void stop() {
     }
 }

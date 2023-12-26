@@ -2,6 +2,7 @@ package me.numin.spirits.ability.dark;
 
 import java.util.Random;
 
+import com.projectkorra.projectkorra.attribute.Attribute;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -15,30 +16,35 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
 import me.numin.spirits.Spirits;
-import me.numin.spirits.Methods;
-import me.numin.spirits.Methods.SpiritType;
+import me.numin.spirits.utilities.Methods;
 import me.numin.spirits.ability.api.DarkAbility;
 
-public class Intoxicate extends DarkAbility implements AddonAbility {
+public class Intoxicate extends DarkAbility {
 
-    LivingEntity target = null;
+    //TODO: Make new sounds
+
+    private DustOptions black = new DustOptions(Color.fromRGB(0, 0, 0), 1);
+    private DustOptions customColor;
+    private LivingEntity target;
     private Location location;
-    private Location origin;
-    private Location entityCheck;
-    private Vector direction;
-    private int currPoint;
-    private int red,green,blue;
+    private Vector vector = new Vector(1, 0, 0);
+
+    private boolean hasReached;
+    @Attribute(Attribute.SPEED)
+    private double blastSpeed;
+    @Attribute(Attribute.RANGE)
     private double range;
+    @Attribute("SelfDamage")
     private double selfDamage;
-    private long time;
-    private long potInt;
-    private long harmInt;
+    private int currPoint;
+    private int witherDuration, hungerDuration, confusionDuration;
+    private int witherPower, hungerPower, confusionPower;
+    @Attribute(Attribute.COOLDOWN)
     private long cooldown;
-    private boolean progress;
+    private long harmInt, potInt;
 
     public Intoxicate(Player player) {
         super(player);
@@ -48,104 +54,124 @@ public class Intoxicate extends DarkAbility implements AddonAbility {
         }
 
         setFields();
-        time = System.currentTimeMillis();
-        start();
+        Entity targetEntity = GeneralMethods.getTargetedEntity(player, range);
+        if (targetEntity instanceof LivingEntity) {
+            this.target = (LivingEntity) targetEntity;
+            start();
+        }
+    }
+
+    @Override
+    public String getAbilityType() {
+        return OFFENSE;
     }
 
     private void setFields() {
         this.cooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.DarkSpirit.Intoxicate.Cooldown");
-        this.range = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.DarkSpirit.Intoxicate.Radius");
+        this.range = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.DarkSpirit.Intoxicate.Range");
         this.potInt = Spirits.plugin.getConfig().getLong("Abilities.Spirits.DarkSpirit.Intoxicate.PotionInterval");
         this.harmInt = Spirits.plugin.getConfig().getLong("Abilities.Spirits.DarkSpirit.Intoxicate.HarmInterval");
         this.selfDamage = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.DarkSpirit.Intoxicate.SelfDamage");
+        this.blastSpeed = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.DarkSpirit.Intoxicate.BlastSpeed");
+        this.witherDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.Potions.WitherDuration");
+        this.witherPower = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.Potions.WitherPower");
+        this.hungerDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.Potions.HungerDuration");
+        this.hungerPower = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.Potions.HungerPower");
+        this.confusionDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.Potions.ConfusionDuration");
+        this.confusionPower = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.Potions.ConfusionPower");
 
-        this.red = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.ParticleColor.Red");
-        this.green = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.ParticleColor.Green");
-        this.blue = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.ParticleColor.Blue");
+        int red = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.ParticleColor.Red");
+        int green = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.ParticleColor.Green");
+        int blue = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Intoxicate.ParticleColor.Blue");
+        this.customColor = new DustOptions(Color.fromRGB(red, green, blue), 1);
 
-        this.origin = player.getLocation().clone().add(0, 1, 0);
-        this.location = origin.clone();
-        this.direction = player.getLocation().getDirection();
-        this.progress = true;
+        this.location = player.getLocation().clone().add(0, 1, 0);
     }
 
     @Override
     public void progress() {
-        if (player.isDead() || !player.isOnline() || GeneralMethods.isRegionProtectedFromBuild(this, location)) {
+        if (!bPlayer.canBend(this) || !player.isSneaking()) {
             remove();
             return;
         }
 
-        if (!bPlayer.getBoundAbilityName().equals(getName())) {
-            remove();
-            return;
-        }
-
-        if (player.isSneaking()) {
-            if (progress) {
-                entityCheck = location;
-                entityCheck.add(direction.multiply(1));
-                //ParticleEffect.FLAME.display(entityCheck, 0, 0, 0, 0, 1);
-            }
-            if (origin.distanceSquared(entityCheck) > range * range) {
-                progress = false;
-            }
-            if (target == null) {
-                for (Entity entity : GeneralMethods.getEntitiesAroundPoint(entityCheck, 1)) {
-                    if ((entity instanceof LivingEntity) && entity.getUniqueId() != player.getUniqueId()) {
-                        target = (LivingEntity) entity;
-                    }
-                }
-            } else {
-                progress = false;
-                entityCheck = target.getLocation();
-                effect(200, 0.04F, target, target.getLocation().clone());
-            }
-        } else {
-            remove();
-            return;
+        if (target != null) {
+            if (!hasReached) showSelection();
+            else doEffects();
         }
     }
 
-    public void effect(int points, float size, Entity target, Location location) {
-        Color color = Color.fromBGR(blue, green, red);
-        DustOptions dustOptions = new DustOptions(color,1);
-        LivingEntity le = (LivingEntity)target;
+    private void showSelection() {
+        Location blast = Methods.advanceLocationToPoint(vector, location, target.getLocation().add(0, 1, 0), blastSpeed);
 
+        player.getWorld().spawnParticle(Particle.REDSTONE, blast, 10, 0.1, 0.1, 0.1, 0, black);
+        player.getWorld().spawnParticle(Particle.REDSTONE, blast, 10, 0.1, 0.1, 0.1, 0, customColor);
+
+        if (blast.distance(player.getLocation()) > range ||
+                blast.getBlock().isLiquid() ||
+                GeneralMethods.isSolid(blast.getBlock())) {
+            remove();
+            return;
+        }
+
+        for (Entity entity : GeneralMethods.getEntitiesAroundPoint(blast, 1.3)) {
+            if (entity.equals(target)) {
+                hasReached = true;
+                break;
+            }
+        }
+    }
+
+    private void doEffects() {
+        showSpirals();
+
+        if (System.currentTimeMillis() - getStartTime() > potInt) {
+            for (PotionEffect targetEffect : target.getActivePotionEffects()) {
+                if (isPositiveEffect(targetEffect.getType())) {
+                    target.removePotionEffect(targetEffect.getType());
+                }
+            }
+        }
+
+        if (System.currentTimeMillis() - getStartTime() > harmInt) {
+            target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * witherDuration, witherPower, false, true, false));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 20 * hungerDuration, hungerPower, false, true, false));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20 * confusionDuration, confusionPower, false, true, false));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 20 * confusionDuration, confusionPower));
+            DamageHandler.damageEntity(player, selfDamage, this);
+            remove();
+            return;
+        }
+
+        if (new Random().nextInt(20) == 0) {
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_EYE_DEATH, 1, -1);
+        }
+    }
+
+    private void showSpirals() {
+        if (target == null) return;
+
+        Location location = target.getLocation();
         for (int i = 0; i < 6; i++) {
-            currPoint += 360 / points;
+            currPoint += 360 / 200;
             if (currPoint > 360) {
                 currPoint = 0;
             }
             double angle = currPoint * Math.PI / 180 * Math.cos(Math.PI);
-            double x = size * (Math.PI * 4 - angle) * Math.cos(angle + i);
+            double x = (float) 0.04 * (Math.PI * 4 - angle) * Math.cos(angle + i);
             double y = 1.2 * Math.cos(angle) + 1.2;
-            double z = size * (Math.PI * 4 - angle) * Math.sin(angle + i);
+            double z = (float) 0.04 * (Math.PI * 4 - angle) * Math.sin(angle + i);
             location.add(x, y, z);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, dustOptions);
+            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, black);
+            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, customColor);
             location.subtract(x, y, z);
         }
+    }
 
-        if (System.currentTimeMillis() - time > potInt) {
-            for (PotionEffect targetEffect : le.getActivePotionEffects()) {
-                if (isPositiveEffect(targetEffect.getType())) {
-                    le.removePotionEffect(targetEffect.getType());
-                }
-            }
-            bPlayer.addCooldown(this);
-        }
-        if (System.currentTimeMillis() - time > harmInt) {
-            le.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 1), true);
-            le.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 1000, 1), true);
-            le.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 300, 1), true);
-            DamageHandler.damageEntity(player, selfDamage, this);
-            bPlayer.addCooldown(this);
-            remove();
-            return;
-        }
-        if (new Random().nextInt(20) == 0) {
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_EYE_DEATH, 1, -1);
-        }
+    @Override
+    public void remove() {
+        bPlayer.addCooldown(this);
+        super.remove();
     }
 
     @Override
@@ -155,39 +181,12 @@ public class Intoxicate extends DarkAbility implements AddonAbility {
 
     @Override
     public Location getLocation() {
-        return null;
+        return target != null ? target.getLocation() : player.getLocation();
     }
 
     @Override
     public String getName() {
         return "Intoxicate";
-    }
-
-    @Override
-    public String getDescription() {
-        return Methods.setSpiritDescription(SpiritType.DARK, "Offense") +
-                Spirits.plugin.getConfig().getString("Language.Abilities.DarkSpirit.Intoxicate.Description");
-    }
-
-    @Override
-    public String getInstructions() {
-        return Methods.setSpiritDescriptionColor(SpiritType.DARK) +
-                Spirits.plugin.getConfig().getString("Language.Abilities.DarkSpirit.Intoxicate.Instructions");
-    }
-
-    @Override
-    public String getAuthor() {
-        return Methods.setSpiritDescriptionColor(SpiritType.DARK) + Methods.getAuthor();
-    }
-
-    @Override
-    public String getVersion() {
-        return Methods.setSpiritDescriptionColor(SpiritType.DARK) + Methods.getVersion();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.Intoxicate.Enabled");
     }
 
     @Override
@@ -209,13 +208,4 @@ public class Intoxicate extends DarkAbility implements AddonAbility {
     public boolean isSneakAbility() {
         return true;
     }
-
-    @Override
-    public void load() {
-    }
-
-    @Override
-    public void stop() {
-    }
-
 }

@@ -1,33 +1,51 @@
 name: Spirits
-version: BETA-1.0.14
+version: 1.1.3
 main: me.numin.spirits.Spirits
-api-version: 1.13
+api-version: 1.16
 depend: [ProjectKorra]
-authors: [Numin]
+softdepend: [PlaceholderAPI]
+authors: [Numin, StrangeOne101]
 description: Enables your players to be Spirits.
 
 permissions:
-  bending.spirit:
-    default: true
-    description: Grants access to all Spirit abilities.
+  bending.neutralspirit:
+    default: false
+    description: Gives access to all neutral Spirit Abilities
     children:
       bending.ability.agility: true
+      bending.ability.levitation: true
+      bending.ability.spiritstruck: true
       bending.ability.phase: true
       bending.ability.possess: true
+      bending.ability.swap: true
       bending.ability.vanish: true
+      bending.spirit.passive: true
+      bending.ability.SpiritualBody: true
+      bending.ability.SpiritBlast: true
   bending.lightspirit:
     default: true
-    description: Grants access to all LightSpirit abilities.
+    description: Gives access to all LightSpirit abilities.
     children:
+      bending.command.choose.lightspirit: true
       bending.ability.alleviate: true
+      bending.ability.lightagility: true
       bending.ability.orb: true
       bending.ability.rejuvenate: true
       bending.ability.shelter: true
+      bending.ability.lightblast: true
+      bending.neutralspirit: true
   bending.darkspirit:
     default: true
-    description: Grants access to all DarkSpirit abilities.
+    description: Gives access to all DarkSpirit abilities.
     children:
+      bending.command.choose.darkspirit: true
       bending.ability.infest: true
+      bending.ability.darkagility: true
       bending.ability.intoxicate: true
       bending.ability.shackle: true
       bending.ability.strike: true
+      bending.ability.berserker: true
+      bending.neutralspirit: true
+  bending.spirit:
+    default: false
+    description: Do not grant this permission. This being false stops players from becoming ONLY a neutral spirit

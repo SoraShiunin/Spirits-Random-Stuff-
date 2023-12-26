@@ -1,23 +1,42 @@
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\light\Orb.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\light\Shelter.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\dark\Intoxicate.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\dark\Strike.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\api\SpiritAbility.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\light\Alleviate.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\spirit\Vanish.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\config\Config.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\dark\Shackle.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\Spirits.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\spirit\Dash.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\SpiritElement.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\config\ConfigFile.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\api\DarkAbility.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\spirit\Possess.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\listeners\Abilities.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\listeners\Passives.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\api\LightAbility.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\spirit\combo\Phase.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\dark\combo\Infest.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\Methods.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\light\combo\Rejuvenate.java
-C:\Users\tyler\IdeaProjects\Spirits\src\main\java\me\numin\spirits\ability\spirit\Soar.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\SpiritBlast.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\utilities\PossessRecoil.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\Vanish.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\combo\Levitation.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\Dash.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\listeners\PKEvents.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\utilities\Methods.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\Orb.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\api\SpiritAbility.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\combo\Rejuvenate.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\Soar.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\listeners\Passives.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\Shelter.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\DarkBlast.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\water\Purify.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\config\Config.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\water\Corrupt.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\combo\Infest.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\DarkDash.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\utilities\TempSpectator.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\passive\SpiritualBody.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\utilities\SpiritPlaceholder.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\Shackle.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\Spirits.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\api\DarkAbility.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\Intoxicate.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\LightBlast.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\LightDash.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\Alleviate.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\combo\Phase.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\DarkSoar.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\config\ConfigFile.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\Strike.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\Possess.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\dark\Berserker.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\api\WaterAbility.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\light\LightSoar.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\Swap.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\spirit\SpiritStruck.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\SpiritElement.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\listeners\Abilities.java
+C:\Users\rodol\Desktop\Spirits Changes\Spirits-1.1.3\src\main\java\me\numin\spirits\ability\api\LightAbility.java
