@@ -50,11 +50,12 @@ public class Abilities implements Listener {
 	public void onPlayerDamageByPlayer(final EntityDamageByEntityEvent e) {
 		final Entity source = e.getDamager();
 		final Entity entity = e.getEntity();
+		if (source instanceof Player) { // This is the player hitting someone.
 		final Player sourcePlayer = (Player) source;
 		final BendingPlayer sourceBPlayer = BendingPlayer.getBendingPlayer(sourcePlayer);
 		final Ability boundAbil = sourceBPlayer.getBoundAbility();
 		
-	if (source instanceof Player) { // This is the player hitting someone.
+
 		if (e.getCause() == DamageCause.ENTITY_ATTACK) {
 			if (boundAbil.equals(SpiritAbility.getAbility(SpiritStruck.class))) {
 				new SpiritStruck(sourcePlayer, entity);
