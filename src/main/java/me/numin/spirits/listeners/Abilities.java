@@ -56,16 +56,15 @@ public class Abilities implements Listener {
 		final Ability boundAbil = sourceBPlayer.getBoundAbility();
 		
 
-		if (e.getCause() == DamageCause.ENTITY_ATTACK) {
+		if (boundAbil != null && e.getCause() == DamageCause.ENTITY_ATTACK) {
 			if (boundAbil.equals(SpiritAbility.getAbility(SpiritStruck.class))) {
 				new SpiritStruck(sourcePlayer, entity);
 				System.out.println("SpiritStruck Works");
 			}
 		}
 	}
-	}
+}
 
-	
 	
 	
     @EventHandler
