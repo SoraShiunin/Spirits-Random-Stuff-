@@ -1,7 +1,26 @@
 ![Spirits](https://i.imgur.com/5UgocDY.jpg) 
 
 
-# Changes
-Does not give Dark or Light spirit by choosing Spirit.
-Adds a few new abilities.
-Reworks a few effects.
+# Changes from Numin/StrangeOne1 Spirits branch
+
+  Does not give Dark/Light spirit by choosing Spirit.
+  
+  Reworks most ability effects.
+  
+  Adds new abilities:
+  
+DarkSpirit:
+  - DarkAgility (Dash + Soar)
+  - Berserker
+
+Spirit
+  - SpiritStruck
+
+LightSpirit
+  - LightAgility (Dash + Soar)
+
+
+
+  1st Disclaimer: The Default Config is set to fit the Bending Masters Server, it is much faster paced and would not be in any way balanced in the default Config of PK. Configure it to your liking.
+  
+  2nd Disclaimer: I do not know how to code properly. I can read it and do some edits. Feel free to PR stuff.
