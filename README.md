@@ -20,7 +20,7 @@ Spirit
 LightSpirit
   - LightAgility (Dash + Soar)
 
-
+And yes feel free to take any of the code for yourself.
 
   1st Disclaimer: The Default Config is set to fit the Bending Masters Server, it is much faster paced and would not be in any way balanced in the default Config of PK. Configure it to your liking.
   
