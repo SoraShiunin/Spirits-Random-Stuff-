@@ -15,6 +15,7 @@ DarkSpirit:
 
 Spirit
   - SpiritStruck
+  - Swap
 
 LightSpirit
   - LightAgility (Dash + Soar)
