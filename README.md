@@ -16,9 +16,12 @@ DarkSpirit:
 Spirit
   - SpiritStruck
   - Swap
+  - EnergyVeil (Passive)
 
 LightSpirit
   - LightAgility (Dash + Soar)
+  - Luminous Corruption
+  - Radiant Corruption (Combo)
 
 And yes feel free to take any of the code for yourself.
 
