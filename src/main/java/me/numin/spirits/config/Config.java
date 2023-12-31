@@ -38,12 +38,15 @@ public class Config {
         config.addDefault("Language.Abilities.Spirit.Swap.Description", "Swap places with the targets hit");
         config.addDefault("Language.Abilities.Spirit.Swap.Instructions", "Left-Click: Blast");
         
-        config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body");
+        config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body. However this takes a toll on you, you will take damage.");
         config.addDefault("Language.Abilities.Spirit.SpiritStruck.Instructions", "Punch someone");
         
         config.addDefault("Language.Abilities.LightSpirit.LightAgility.Description", "Just like a Spirits Agility, except... the landing is much rougher and you can't really keep it as long.");
         config.addDefault("Language.Abilities.LightSpirit.LightAgility.Instructions", "Left-Click: Dash ⏐ Hold shift: Soar");
  
+        config.addDefault("Language.Abilities.LightSpirit.LuminousCorruption.Description", "Speed up and Invert the natural healing component of a creature by touching them. Inflict Hunger and Damage based on saturation levels to a Player . Deals a base amount to creatures. Converts Absorption, Health Boost, Regeneration effects into Wither.");
+        config.addDefault("Language.Abilities.LightSpirit.LuminousCorruption.Instructions", "Punch someone");
+        
         config.addDefault("Language.Abilities.DarkSpirit.DarkAgility.Description", "You gave in to the earthly tethers, you are not as free but your Dash is strong");
         config.addDefault("Language.Abilities.DarkSpirit.DarkAgility.Instructions", "Left-Click: Dash ⏐ Hold shift: Soar");
 
@@ -52,6 +55,9 @@ public class Config {
         
         config.addDefault("Language.Abilities.Spirit.Passive.SpiritualBody.Description", "Spirits do not have a physical form. As such, they are immune to all forms of kinetic damage like fall damage");
         config.addDefault("Language.Abilities.Spirit.Passive.SpiritualBody.Instructions", "Spirits are passively immune to fall damage");
+        
+        config.addDefault("Language.Abilities.Spirit.Passive.EnergyVeil.Description", "Spirits naturally draw more energy to them and use it more efficiently.");
+        config.addDefault("Language.Abilities.Spirit.Passive.EnergyVeil.Instructions", "Spirits gain a boosted amount of XP based on their current Health. The healthier you are, the more you get.");
 
         config.addDefault("Language.Abilities.Spirit.Combo.Levitation.Description", "Spirits lack any earthly tethers which allow themselves to detach and enter the void, empty and become wind. Using this combo takes a toll on your essence and may weaken your mobility for a time.");
         config.addDefault("Language.Abilities.Spirit.Combo.Levitation.Instructions", "Agility (Left-click) > Agility (Hold shift) > Vanish (Left-click)");
@@ -86,6 +92,9 @@ public class Config {
         config.addDefault("Language.Abilities.LightSpirit.Combo.Rejuvenate.Description", "After executing the combo sequence, you will mark the ground with positively charged spiritual energy for a duration of time. Entities can come to this location to heal themselves, but dark creatures must beware!");
         config.addDefault("Language.Abilities.LightSpirit.Combo.Rejuvenate.Instructions", "Alleviate (Left Click) > Alleviate (Left Click) > Alleviate (Sneak)");
 
+        config.addDefault("Language.Abilities.LightSpirit.Combo.RadiantCorruption.Description", "Effects similar to LuminousCorruption applied as an Area of Effect.");
+        config.addDefault("Language.Abilities.LightSpirit.Combo.RadiantCorruption.Instructions", "LuminousCorruption (Left Click) > LuminousCorruption (Left Click) > LuminousCorruption (Sneak)");
+
         config.addDefault("Language.Abilities.LightSpirit.Orb.Description", "Plant an orb of positive energy on the ground which awaits for oncoming entities. If the orb detects something moving past it, it'll expand and harm anyone in its wake! More features to come...");
         config.addDefault("Language.Abilities.LightSpirit.Orb.Instructions", "Hold shift until you see particles. Release shift while looking at an area nearby on the ground to plant it there.");
 
@@ -117,8 +126,14 @@ public class Config {
         config.addDefault("Abilities.Spirits.Neutral.Agility.Soar.Speed", 0.8);
 
         config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Enabled", true);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Cooldown", 7000);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 400);   
+        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Cooldown", 3500);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 1000);   
+        
+        config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Cooldown", 2500);
+        config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Duration", 8);
+        config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.luminouscorruptionMobDamage", 10);
+        config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.playerDamage", 3);
         
         config.addDefault("Abilities.Spirits.LightSpirit.LightAgility.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.LightAgility.LightDash.Cooldown", 2000);
@@ -162,7 +177,12 @@ public class Config {
         
         config.addDefault("Abilities.Spirits.Neutral.Passive.SpiritualBody.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Passive.SpiritualBody.FallDamageModifier", 0.0);
-
+        
+        config.addDefault("Abilities.Spirits.Neutral.Passive.EnergyVeil.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.Passive.EnergyVeil.experienceMultiplier", 1.0);
+        config.addDefault("Abilities.Spirits.Neutral.Passive.EnergyVeil.healthDivider", 1.0);
+        config.addDefault("Abilities.Spirits.Neutral.Passive.EnergyVeil.maxHPBonus", 1.0);
+        
         config.addDefault("Abilities.Spirits.Neutral.Vanish.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Vanish.Cooldown", 2800);
         config.addDefault("Abilities.Spirits.Neutral.Vanish.Duration", 1000);
@@ -203,8 +223,8 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.LightBlast.BlastRadius", 2);
 
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.Enabled", true);
-        config.addDefault("Abilities.Spirits.LightSpirit.Orb.Cooldown", 2500);
-        config.addDefault("Abilities.Spirits.LightSpirit.Orb.ChargeTime", 400);
+        config.addDefault("Abilities.Spirits.LightSpirit.Orb.Cooldown", 4500);
+        config.addDefault("Abilities.Spirits.LightSpirit.Orb.ChargeTime", 2000);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.Duration", 1500);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.WarmUpTime", 10);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.Damage", 4);
@@ -276,6 +296,16 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.EffectInterval", 15);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.HurtDarkSpirits", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.HurtMonsters", true);
+
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.Cooldown", 12600);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.Duration", 7500);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.Radius", 2);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.EffectInterval", 15);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.HurtDarkSpirits", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.HurtMonsters", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.playerDamage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.radiantcorruptionMobDamage", 1);
 
         config.addDefault("Abilities.Spirits.Neutral.Combo.Levitation.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Combo.Levitation.Cooldown", 5000);

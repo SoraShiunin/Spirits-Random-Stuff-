@@ -16,6 +16,7 @@ import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.airbending.Suffocate;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.command.Commands;
+import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.MovementHandler;
 
 import me.numin.spirits.Spirits;
@@ -53,6 +54,8 @@ public class SpiritStruck extends SpiritAbility {
 				}
 			}
 			this.spiritstruck(this.target);
+			double HPDamage = player.getHealth()*0.1;
+			DamageHandler.damageEntity(player, HPDamage+1, this);
 			this.bPlayer.addCooldown(this);
 		}
 		this.remove();
@@ -69,10 +72,10 @@ public class SpiritStruck extends SpiritAbility {
 			}
 		}
 		final MovementHandler mh = new MovementHandler((LivingEntity) entity, SpiritAbility.getAbility(SpiritStruck.class));
-		mh.stopWithDuration(this.duration / 1000 * 20, Element.CHI.getColor() + "* Spirit Struck *");
-		entity.getWorld().spawnParticle(Particle.SONIC_BOOM, target.getLocation(), 2, (float) Math.random() / 3, (float) Math.random() / 3, (float) Math.random() / 3, 0);
+		mh.stopWithDuration(this.duration / 1000 * 20, Element.CHI.getColor() + "* Spirit Struck *"); //duration calculation is for milliseconds
+		entity.getWorld().spawnParticle(Particle.SONIC_BOOM, target.getLocation(), 2, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
 		entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_ALLAY_HURT, 2, 0);
-		((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 10, 1));
+		((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 20, 1));
 	}
 
 	@Override

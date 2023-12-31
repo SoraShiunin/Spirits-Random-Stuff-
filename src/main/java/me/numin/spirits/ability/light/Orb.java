@@ -120,7 +120,7 @@ public class Orb extends LightAbility {
             ParticleEffect.END_ROD.display(location, 0, 0, 0, 0, 2);
             ParticleEffect.CRIT_MAGIC.display(location, 3, 0.2F, 0.2F, 0.2F, 0);
             if (player.isSneaking() && hasOrb()) {
-                progressExplosion = false;
+                progressExplosion = true;
                 playDormant = false;
             }
         }
@@ -140,6 +140,7 @@ public class Orb extends LightAbility {
                 if (entity instanceof LivingEntity && entity.getUniqueId() != player.getUniqueId()) {
                     progressExplosion = true;
                     playDormant = false;
+                   
                 }
             }
         }
