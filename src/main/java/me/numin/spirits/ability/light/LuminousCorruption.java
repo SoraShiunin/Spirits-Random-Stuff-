@@ -36,6 +36,7 @@ public class LuminousCorruption extends LightAbility {
 	private long luminouscorruptionMobDamage;
 	@Attribute(Attribute.DAMAGE)
 	private long playerDamage;
+	private long saturationMultiplier;
 	private Entity target;
 
     
@@ -52,6 +53,7 @@ public class LuminousCorruption extends LightAbility {
         this.duration = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.LuminousCorruption.Duration");
         this.luminouscorruptionMobDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.LuminousCorruption.luminouscorruptionMobDamage");
         this.playerDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.LuminousCorruption.playerDamage");
+        this.saturationMultiplier = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.LuminousCorruption.saturationMultiplier");
 		this.start();
 	}
 
@@ -83,12 +85,15 @@ public class LuminousCorruption extends LightAbility {
 			int saturationT = (int) ((HumanEntity) entity).getSaturation();
 			((HumanEntity) entity).setSaturation(0);
 			((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, (int) duration*20, saturationT));
-			DamageHandler.damageEntity(entity, saturationT+playerDamage, this);
-			System.out.println("If player Entity Triggered");
+			DamageHandler.damageEntity(entity, saturationMultiplier*saturationT+playerDamage, this);
+			System.out.println("LuminousCorruption Debug: If player Entity Triggered");
 		}
 		else if (entity instanceof Mob) {
-			System.out.println("If Mob Entity Triggered");
+			System.out.println("LuminousCorruption Debug: If Mob Entity Triggered");
 			DamageHandler.damageEntity(entity, luminouscorruptionMobDamage, this);
+		}
+		else {
+			
 		}
 
 		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.ABSORPTION)) {

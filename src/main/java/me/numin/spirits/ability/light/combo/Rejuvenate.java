@@ -135,7 +135,7 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
             if (entity instanceof Player) {
                 Player ePlayer = (Player) entity;
                 BendingPlayer bEntity = BendingPlayer.getBendingPlayer(ePlayer);
-                if (!bEntity.hasElement(Element.getElement("DarkSpirit"))) {
+                if (!bEntity.hasElement(Element.getElement("DarkSpirit")) || bEntity.hasElement(Element.getElement("Lightspirit"))) {
                     ePlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, 0));
                     ParticleEffect.HEART.display(ePlayer.getLocation().add(0, 2, 0), 0, 0, 0, 0, 1);
                 } else {

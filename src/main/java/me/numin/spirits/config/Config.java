@@ -134,6 +134,7 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Duration", 8);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.luminouscorruptionMobDamage", 10);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.playerDamage", 3);
+        config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.saturationMultiplier", 0.5);
         
         config.addDefault("Abilities.Spirits.LightSpirit.LightAgility.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.LightAgility.LightDash.Cooldown", 2000);
