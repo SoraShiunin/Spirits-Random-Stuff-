@@ -22,6 +22,7 @@ LightSpirit
   - LightAgility (Dash + Soar)
   - Luminous Corruption
   - Radiant Corruption (Combo)
+  - LightShot
 
 And yes feel free to take any of the code for yourself.
 
