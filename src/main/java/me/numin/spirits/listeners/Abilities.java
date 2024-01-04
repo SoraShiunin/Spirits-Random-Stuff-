@@ -1,15 +1,32 @@
 package me.numin.spirits.listeners;
 
 import com.projectkorra.projectkorra.ability.Ability;
+import com.projectkorra.projectkorra.ability.AddonAbility;
+import com.projectkorra.projectkorra.ability.AirAbility;
 import com.projectkorra.projectkorra.ability.ChiAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.ability.util.ComboManager;
+import com.projectkorra.projectkorra.ability.util.PassiveManager;
+import com.projectkorra.projectkorra.airbending.AirBlast;
+import com.projectkorra.projectkorra.airbending.AirBurst;
+import com.projectkorra.projectkorra.airbending.AirShield;
+import com.projectkorra.projectkorra.airbending.AirSuction;
+import com.projectkorra.projectkorra.airbending.AirSwipe;
+import com.projectkorra.projectkorra.airbending.Suffocate;
+import com.projectkorra.projectkorra.airbending.Tornado;
 import com.projectkorra.projectkorra.chiblocking.Paralyze;
 import com.projectkorra.projectkorra.chiblocking.QuickStrike;
 import com.projectkorra.projectkorra.chiblocking.RapidPunch;
 import com.projectkorra.projectkorra.chiblocking.SwiftKick;
 import com.projectkorra.projectkorra.chiblocking.passive.ChiPassive;
+import com.projectkorra.projectkorra.earthbending.passive.FerroControl;
 import com.projectkorra.projectkorra.event.PlayerSwingEvent;
+import com.projectkorra.projectkorra.util.BlockSource;
+import com.projectkorra.projectkorra.util.ClickType;
 import com.projectkorra.projectkorra.util.DamageHandler;
+import com.projectkorra.projectkorra.util.MovementHandler;
+import com.projectkorra.projectkorra.waterbending.blood.Bloodbending;
+import com.projectkorra.projectkorra.waterbending.passive.FastSwim;
 
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
@@ -50,6 +67,7 @@ import me.numin.spirits.SpiritElement;
 import me.numin.spirits.ability.dark.Intoxicate;
 import me.numin.spirits.ability.dark.Shackle;
 import me.numin.spirits.ability.spirit.Swap;
+import me.numin.spirits.ability.light.LightShot;
 import me.numin.spirits.ability.spirit.passive.EnergyVeil;
 import me.numin.spirits.ability.dark.Berserker;
 import me.numin.spirits.ability.dark.Strike;
@@ -149,7 +167,6 @@ public class Abilities implements Listener {
 }
 
 	
-	
     @EventHandler
     public void onClick(PlayerAnimationEvent event) {
         Player player = event.getPlayer();
@@ -181,6 +198,9 @@ public class Abilities implements Listener {
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Swap")) {
             new Swap(player);
             
+        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("LightShot")) {
+            new LightShot(player);
+                        
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Shelter") && !CoreAbility.hasAbility(player, Shelter.class)) {
             new Shelter(player, ShelterType.CLICK);
 

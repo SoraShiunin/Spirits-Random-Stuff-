@@ -47,6 +47,9 @@ public class Config {
         config.addDefault("Language.Abilities.LightSpirit.LuminousCorruption.Description", "Speed up and Invert the natural healing component of a creature by touching them. Inflict Hunger and Damage based on saturation levels to a Player . Deals a base amount to creatures. Converts Absorption, Health Boost, Regeneration effects into Wither.");
         config.addDefault("Language.Abilities.LightSpirit.LuminousCorruption.Instructions", "Punch someone");
         
+        config.addDefault("Language.Abilities.LightSpirit.LightShot.Description", "At the cost of your livelihood. Send out energy to a location, exploding on contact with any being and giving positive effects to anything nearby");
+        config.addDefault("Language.Abilities.LightSpirit.LightShot.Instructions", "Shift and Left-Click: Blast");
+        
         config.addDefault("Language.Abilities.DarkSpirit.DarkAgility.Description", "You gave in to the earthly tethers, you are not as free but your Dash is strong");
         config.addDefault("Language.Abilities.DarkSpirit.DarkAgility.Instructions", "Left-Click: Dash ⏐ Hold shift: Soar");
 
@@ -253,6 +256,14 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Self.BlockArrows", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Others.BlockArrows", true);
 
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.Cooldown", 4000);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.Range", 28);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.Radius", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.AoeRadius", 6);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.PotionDuration", 200);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightShot.SelfDamage", 8);
+        
         config.addDefault("Abilities.Spirits.DarkSpirit.Intoxicate.Enabled", true);
         config.addDefault("Abilities.Spirits.DarkSpirit.Intoxicate.Cooldown", 2000);
         config.addDefault("Abilities.Spirits.DarkSpirit.Intoxicate.Range", 9);

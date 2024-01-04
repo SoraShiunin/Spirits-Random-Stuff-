@@ -36,6 +36,7 @@ permissions:
       bending.ability.radiantcorruption: true
       bending.ability.shelter: true
       bending.ability.lightblast: true
+      bending.ability.lightshot: true
       bending.neutralspirit: true
   bending.darkspirit:
     default: true
