@@ -22,6 +22,7 @@ permissions:
       bending.spirit.passive: true
       bending.ability.SpiritualBody: true
       bending.ability.EnergyVeil: true
+      bending.ability.SpiritVortex: true
       bending.ability.SpiritBlast: true
   bending.lightspirit:
     default: true
@@ -32,8 +33,8 @@ permissions:
       bending.ability.lightagility: true
       bending.ability.orb: true
       bending.ability.rejuvenate: true
-      bending.ability.luminouscorruption: true
-      bending.ability.radiantcorruption: true
+      bending.ability.LuminousCorruption: true
+      bending.ability.RadiantCorruption: true
       bending.ability.shelter: true
       bending.ability.lightblast: true
       bending.ability.lightshot: true

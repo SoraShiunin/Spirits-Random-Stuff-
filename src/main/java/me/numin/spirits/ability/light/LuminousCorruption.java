@@ -66,7 +66,7 @@ public class LuminousCorruption extends LightAbility {
 					return;
 				}
 			}
-			this.luminouscorruption(this.target);
+			this.luminouscorruption2(this.target);
 			this.bPlayer.addCooldown(this);
 
 			
@@ -74,7 +74,7 @@ public class LuminousCorruption extends LightAbility {
 		this.remove();
 	}
     
-	private void luminouscorruption (final Entity entity) {
+	private void luminouscorruption2 (final Entity entity) {
 	    int absorptionDur = 0;
 	    int absorptionLv = 0;
 	    int health_boostDur = 0;
@@ -86,15 +86,13 @@ public class LuminousCorruption extends LightAbility {
 			((HumanEntity) entity).setSaturation(0);
 			((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, (int) duration*20, saturationT));
 			DamageHandler.damageEntity(entity, saturationMultiplier*saturationT+playerDamage, this);
-			System.out.println("LuminousCorruption Debug: If player Entity Triggered");
+			//System.out.println("LuminousCorruption Debug: If player Entity Triggered");
 		}
 		else if (entity instanceof Mob) {
-			System.out.println("LuminousCorruption Debug: If Mob Entity Triggered");
+			//System.out.println("LuminousCorruption Debug: If Mob Entity Triggered");
 			DamageHandler.damageEntity(entity, luminouscorruptionMobDamage, this);
 		}
-		else {
-			
-		}
+		else {}
 
 		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.ABSORPTION)) {
 	          absorptionDur = ((LivingEntity) entity).getPotionEffect(PotionEffectType.ABSORPTION).getDuration();

@@ -122,7 +122,7 @@ public class Abilities implements Listener {
 			return;
 		}
 		final Ability boundAbil = sourceBPlayer.getBoundAbility();
-		
+		if (e.getDamage() == 0) return;
 		if (sourceBPlayer.getBoundAbility() != null) {
 			if (!sourceBPlayer.isOnCooldown(boundAbil)) {
 				if (sourceBPlayer.canBendPassive(sourceBPlayer.getBoundAbility())) {
@@ -135,7 +135,9 @@ public class Abilities implements Listener {
 									} else if (boundAbil.equals(CoreAbility.getAbility(LuminousCorruption.class))) {
 										new LuminousCorruption(sourcePlayer, entity);
 									}
-								}
+							
+							}
+						
 							}
 						}
 					}
@@ -180,7 +182,11 @@ public class Abilities implements Listener {
         if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Agility")) {
             if (bPlayer.isOnCooldown("Dash")) return;
             new Dash(player);
-
+            
+        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("SpiritVortex")) {
+            if (bPlayer.isOnCooldown("SpiritVortex")) return;
+            new SpiritVortex(player);
+            
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("LightAgility")) {
             if (bPlayer.isOnCooldown("LightDash")) return;
             new LightDash(player);

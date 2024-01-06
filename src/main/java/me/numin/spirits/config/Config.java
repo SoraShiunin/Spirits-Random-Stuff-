@@ -38,6 +38,9 @@ public class Config {
         config.addDefault("Language.Abilities.Spirit.Swap.Description", "Swap places with the targets hit");
         config.addDefault("Language.Abilities.Spirit.Swap.Instructions", "Left-Click: Blast");
         
+        config.addDefault("Language.Abilities.Spirit.SpiritVortex.Description", "Create a Gravity Well using energy that sends any being to the ground. This ability was used by the ancients to collect grapes from the giraffe palm trees");
+        config.addDefault("Language.Abilities.Spirit.SpiritVortex.Instructions", "Shift and Left-Click: Create Well");
+        
         config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body. However this takes a toll on you, you will take damage.");
         config.addDefault("Language.Abilities.Spirit.SpiritStruck.Instructions", "Punch someone");
         
@@ -129,8 +132,8 @@ public class Config {
         config.addDefault("Abilities.Spirits.Neutral.Agility.Soar.Speed", 0.8);
 
         config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Enabled", true);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Cooldown", 3500);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 1000);   
+        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Cooldown", 3900);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 1200);   
         
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Cooldown", 2500);
@@ -288,9 +291,17 @@ public class Config {
         config.addDefault("Abilities.Spirits.DarkSpirit.Shackle.Radius", 2);
 
         config.addDefault("Abilities.Spirits.Neutral.Swap.Enabled", true);
-        config.addDefault("Abilities.Spirits.Neutral.Swap.Cooldown", 4000);
+        config.addDefault("Abilities.Spirits.Neutral.Swap.Cooldown", 3000);
         config.addDefault("Abilities.Spirits.Neutral.Swap.Range", 28);
-        config.addDefault("Abilities.Spirits.Neutral.Swap.Radius", 2);        
+        config.addDefault("Abilities.Spirits.Neutral.Swap.Radius", 2);   
+        
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Cooldown", 9500);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Duration", 3600);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Radius", 16);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Pull", 12);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.EffectAmplifier", 1);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.EffectDuration", 1);
         
         config.addDefault("Abilities.Spirits.DarkSpirit.Strike.Enabled", true);
         config.addDefault("Abilities.Spirits.DarkSpirit.Strike.Cooldown", 800);
