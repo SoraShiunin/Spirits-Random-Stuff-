@@ -16,6 +16,7 @@ DarkSpirit:
 Spirit
   - SpiritStruck
   - Swap
+  - SpiritVortex
   - EnergyVeil (Passive)
 
 LightSpirit
