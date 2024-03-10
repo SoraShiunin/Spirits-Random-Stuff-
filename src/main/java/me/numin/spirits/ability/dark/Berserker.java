@@ -91,7 +91,7 @@ public class Berserker extends DarkAbility {
     	Methods.playSpiritParticles(player, player.getLocation(), 0.5, 0.5, 0.5, 0, 10);
         location.getWorld().playSound(location, Sound.ITEM_TRIDENT_RETURN, 1F, 0.6F);
         GeneralMethods.setVelocity(this, player, Methods.setVelocity(player, (float) distance, 0.2));
-        player.damage(player.getHealth()*0.99);
+        player.setHealth(player.getHealth()-player.getHealth()*0.99);
         player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, (int) Math.floor(healthSacrificed)*10, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/10)));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/3)));

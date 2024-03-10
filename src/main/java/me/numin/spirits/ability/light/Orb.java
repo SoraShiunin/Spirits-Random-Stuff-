@@ -124,13 +124,13 @@ public class Orb extends LightAbility {
                 playDormant = false;
             }
         }
-        if (System.currentTimeMillis() > getStartTime() + duration) {
+        if (System.currentTimeMillis() > getStartTime() + duration + 3000) {
             playDormant = false;
             player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 30, 0, 0, 0, 0.09);
             bPlayer.addCooldown(this);
             remove();
         } else {
-            bPlayer.addCooldown(this, duration);
+            //bPlayer.addCooldown(this, duration);
             checkEntities = true;
         }
     }

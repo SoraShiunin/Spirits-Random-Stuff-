@@ -41,7 +41,7 @@ public class Config {
         config.addDefault("Language.Abilities.Spirit.SpiritVortex.Description", "Create a Gravity Well using energy that sends any being to the ground. This ability was used by the ancients to collect grapes from the giraffe palm trees");
         config.addDefault("Language.Abilities.Spirit.SpiritVortex.Instructions", "Shift and Left-Click: Create Well");
         
-        config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body. However this takes a toll on you, you will take damage.");
+        config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body. However this takes a toll on you, you will take damage. Deals extra damage to mobs.");
         config.addDefault("Language.Abilities.Spirit.SpiritStruck.Instructions", "Punch someone");
         
         config.addDefault("Language.Abilities.LightSpirit.LightAgility.Description", "Just like a Spirits Agility, except... the landing is much rougher and you can't really keep it as long.");
@@ -133,7 +133,8 @@ public class Config {
 
         config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Cooldown", 3900);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 1200);   
+        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 1200);
+        config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.MobDamage", 12);
         
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Cooldown", 2500);
@@ -232,12 +233,12 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.Cooldown", 4500);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.ChargeTime", 2000);
-        config.addDefault("Abilities.Spirits.LightSpirit.Orb.Duration", 1500);
+        config.addDefault("Abilities.Spirits.LightSpirit.Orb.Duration", 2500);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.WarmUpTime", 10);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.Damage", 4);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.PlaceRange", 16);
-        config.addDefault("Abilities.Spirits.LightSpirit.Orb.DetonateRange", 3);
-        config.addDefault("Abilities.Spirits.LightSpirit.Orb.EffectRange", 6);
+        config.addDefault("Abilities.Spirits.LightSpirit.Orb.DetonateRange", 2);
+        config.addDefault("Abilities.Spirits.LightSpirit.Orb.EffectRange", 3);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.BlindnessDuration", 60);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.NauseaDuration", 220);
         config.addDefault("Abilities.Spirits.LightSpirit.Orb.PotionPower", 2);

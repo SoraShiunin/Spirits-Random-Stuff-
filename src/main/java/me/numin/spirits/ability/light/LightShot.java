@@ -65,7 +65,8 @@ public class LightShot extends LightAbility {
 
 		if (player.isSneaking()) {
 	        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 2);
-	        DamageHandler.damageEntity(player, selfDamage, this);
+	        //DamageHandler.damageEntity(player, selfDamage, this);
+	        player.setHealth(player.getHealth()-selfDamage);
 			bPlayer.addCooldown(this);
 			
 			start();

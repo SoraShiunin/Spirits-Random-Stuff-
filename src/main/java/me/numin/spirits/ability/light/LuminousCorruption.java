@@ -191,6 +191,6 @@ public class LuminousCorruption extends LightAbility {
 	@Override
 	public String getAbilityType() {
 		// TODO Auto-generated method stub
-		return null;
+		return OFFENSE;
 	}
 }

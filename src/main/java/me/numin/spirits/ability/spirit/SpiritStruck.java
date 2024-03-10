@@ -6,6 +6,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -28,6 +29,8 @@ public class SpiritStruck extends SpiritAbility {
 	private long cooldown;
 	@Attribute(Attribute.DURATION)
 	private long duration;
+	@Attribute(Attribute.DAMAGE)
+	private long mobDamage;
 	private Entity target;
 
 	public SpiritStruck(final Player sourceplayer, final Entity targetentity) {
@@ -41,6 +44,7 @@ public class SpiritStruck extends SpiritAbility {
 		}
         this.cooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Neutral.SpiritStruck.Cooldown");
         this.duration = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Neutral.SpiritStruck.Duration");
+        this.mobDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Neutral.SpiritStruck.MobDamage");
 		this.start();
 	}
 
@@ -54,8 +58,13 @@ public class SpiritStruck extends SpiritAbility {
 				}
 			}
 			this.spiritstruck(this.target);
-			double HPDamage = player.getHealth()*0.1;
-			DamageHandler.damageEntity(player, HPDamage+1, this);
+			double HPDamage = player.getHealth()*0.1+1;
+			player.setHealth(player.getHealth()-HPDamage);
+			if (target instanceof Mob) {
+					//System.out.println("SpiritStruck Debug: If Mob Entity Triggered");
+					DamageHandler.damageEntity(target, mobDamage, this);
+			}
+			else {}
 			this.bPlayer.addCooldown(this);
 		}
 		this.remove();
