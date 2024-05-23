@@ -4,10 +4,6 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import com.projectkorra.projectkorra.attribute.Attribute;
-import me.numin.spirits.SpiritElement;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.ability.api.WaterAbility;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -23,9 +19,13 @@ import org.bukkit.potion.PotionEffectType;
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.airbending.Suffocate;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.MovementHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
+import me.numin.spirits.SpiritElement;
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.WaterAbility;
 import net.md_5.bungee.api.ChatColor;
 
 public class Purify extends WaterAbility {

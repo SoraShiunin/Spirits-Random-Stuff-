@@ -1,8 +1,9 @@
 package me.numin.spirits.utilities;
 
+import org.bukkit.Location;
+
 import me.numin.spirits.ability.api.SpiritAbility;
 import me.numin.spirits.ability.spirit.Possess;
-import org.bukkit.Location;
 
 public class PossessRecoil extends SpiritAbility {
 

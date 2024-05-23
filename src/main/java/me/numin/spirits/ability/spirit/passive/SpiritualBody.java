@@ -1,10 +1,12 @@
 package me.numin.spirits.ability.spirit.passive;
 
-import com.projectkorra.projectkorra.ability.PassiveAbility;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.ability.api.SpiritAbility;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import com.projectkorra.projectkorra.ability.PassiveAbility;
+
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.SpiritAbility;
 
 public class SpiritualBody extends SpiritAbility implements PassiveAbility {
 
@@ -66,6 +68,6 @@ public class SpiritualBody extends SpiritAbility implements PassiveAbility {
     }
 
     public static double getFallDamageModifier() {
-        return Spirits.plugin.getConfig().getDouble("Abilities.Spirits.Neutral.SpiritualBody.FallDamageModifier", 0.0);
+        return Spirits.plugin.getConfig().getDouble("Abilities.Spirits.Neutral.SpiritualBody.FallDamageModifier");
     }
 }

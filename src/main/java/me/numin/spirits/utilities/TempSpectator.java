@@ -1,5 +1,14 @@
 package me.numin.spirits.utilities;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
@@ -7,15 +16,6 @@ import com.projectkorra.projectkorra.command.Commands;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.region.RegionProtection;
 import com.projectkorra.projectkorra.util.Cooldown;
-import me.numin.spirits.ability.spirit.Possess;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class TempSpectator {
 

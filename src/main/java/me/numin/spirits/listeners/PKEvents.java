@@ -1,20 +1,10 @@
 package me.numin.spirits.listeners;
 
-import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.PKListener;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
-import com.projectkorra.projectkorra.event.BendingPlayerCreationEvent;
-import com.projectkorra.projectkorra.event.BendingReloadEvent;
-import com.projectkorra.projectkorra.event.PlayerChangeElementEvent.Result;
-import com.projectkorra.projectkorra.event.PlayerChangeElementEvent;
-import com.projectkorra.projectkorra.storage.DBConnection;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.SpiritElement;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
@@ -25,10 +15,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.RegisteredListener;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.PKListener;
+import com.projectkorra.projectkorra.configuration.ConfigManager;
+import com.projectkorra.projectkorra.event.BendingReloadEvent;
+import com.projectkorra.projectkorra.storage.DBConnection;
+
+import me.numin.spirits.SpiritElement;
+import me.numin.spirits.Spirits;
+import me.numin.spirits.utilities.Methods;
+import net.md_5.bungee.api.ChatColor;
 
 
 public class PKEvents implements Listener {

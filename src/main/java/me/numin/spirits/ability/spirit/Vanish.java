@@ -2,9 +2,6 @@ package me.numin.spirits.ability.spirit;
 
 import java.util.Random;
 
-import com.projectkorra.projectkorra.ability.CoreAbility;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import me.numin.spirits.ability.spirit.combo.Levitation;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -13,10 +10,13 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 
 import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
 import me.numin.spirits.ability.api.SpiritAbility;
+import me.numin.spirits.ability.spirit.combo.Levitation;
+import me.numin.spirits.utilities.Methods;
 
 public class Vanish extends SpiritAbility {
 

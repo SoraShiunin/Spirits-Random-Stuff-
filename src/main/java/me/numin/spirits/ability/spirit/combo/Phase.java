@@ -1,26 +1,22 @@
 package me.numin.spirits.ability.spirit.combo;
 
-import com.projectkorra.projectkorra.ability.ComboAbility;
-import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
-import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.region.RegionProtection;
-import com.projectkorra.projectkorra.util.ClickType;
-import com.projectkorra.projectkorra.util.Cooldown;
-import com.projectkorra.projectkorra.util.ParticleEffect;
-import me.numin.spirits.ability.spirit.Possess;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.ability.api.SpiritAbility;
-import me.numin.spirits.utilities.TempSpectator;
-import org.bukkit.GameMode;
+import java.util.ArrayList;
+
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.projectkorra.projectkorra.ability.ComboAbility;
+import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
+import com.projectkorra.projectkorra.util.ClickType;
+import com.projectkorra.projectkorra.util.ParticleEffect;
+
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.SpiritAbility;
+import me.numin.spirits.utilities.Methods;
+import me.numin.spirits.utilities.TempSpectator;
 
 public class Phase extends SpiritAbility implements ComboAbility {
 

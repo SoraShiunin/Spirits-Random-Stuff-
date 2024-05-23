@@ -3,7 +3,6 @@ package me.numin.spirits.ability.light;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
@@ -13,18 +12,12 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.joml.Math;
 
-import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.ability.ChiAbility;
-import com.projectkorra.projectkorra.ability.CoreAbility;
-import com.projectkorra.projectkorra.airbending.Suffocate;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.command.Commands;
 import com.projectkorra.projectkorra.util.DamageHandler;
-import com.projectkorra.projectkorra.util.MovementHandler;
 
 import me.numin.spirits.Spirits;
 import me.numin.spirits.ability.api.LightAbility;
-import me.numin.spirits.ability.api.SpiritAbility;
 
 public class LuminousCorruption extends LightAbility {
 

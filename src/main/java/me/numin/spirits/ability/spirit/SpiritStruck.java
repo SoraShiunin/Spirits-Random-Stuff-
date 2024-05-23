@@ -12,8 +12,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.ability.ChiAbility;
-import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.airbending.Suffocate;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.command.Commands;
@@ -45,6 +43,7 @@ public class SpiritStruck extends SpiritAbility {
         this.cooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Neutral.SpiritStruck.Cooldown");
         this.duration = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Neutral.SpiritStruck.Duration");
         this.mobDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Neutral.SpiritStruck.MobDamage");
+        
 		this.start();
 	}
 
@@ -56,10 +55,35 @@ public class SpiritStruck extends SpiritAbility {
 					this.remove();
 					return;
 				}
-			}
+			}		
 			this.spiritstruck(this.target);
-			double HPDamage = player.getHealth()*0.1+1;
-			player.setHealth(player.getHealth()-HPDamage);
+			if (player.getHealth() >= player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getBaseValue()/1.5) {
+				/*double HPDamage = player.getHealth()*0.05+1;
+				player.setHealth(player.getHealth()-HPDamage);
+				DamageHandler.damageEntity(target, HPDamage, this);*/
+				target.getWorld().spawnParticle(Particle.PORTAL, target.getLocation(), 10, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
+				target.getWorld().spawnParticle(Particle.SPELL, target.getLocation(), 10, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 3));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 3));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20, 1));
+			}
+			else if (player.getHealth() >= player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getBaseValue()/2) {
+				/*double HPDamage = player.getHealth()*0.05+1;
+				player.setHealth(player.getHealth()-HPDamage);
+				DamageHandler.damageEntity(target, HPDamage, this);*/
+				target.getWorld().spawnParticle(Particle.PORTAL, target.getLocation(), 2, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20, 1));
+			}
+			else {
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 1));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 1));
+			}
+
 			if (target instanceof Mob) {
 					//System.out.println("SpiritStruck Debug: If Mob Entity Triggered");
 					DamageHandler.damageEntity(target, mobDamage, this);

@@ -1,18 +1,8 @@
 package me.numin.spirits.ability.light.combo;
 
-import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.ComboAbility;
-import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.ClickType;
-import com.projectkorra.projectkorra.util.DamageHandler;
-import com.projectkorra.projectkorra.util.ParticleEffect;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.ability.api.LightAbility;
-import me.numin.spirits.SpiritElement;
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -25,8 +15,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.ComboAbility;
+import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.ClickType;
+import com.projectkorra.projectkorra.util.DamageHandler;
+import com.projectkorra.projectkorra.util.ParticleEffect;
+
+import me.numin.spirits.SpiritElement;
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.LightAbility;
+import me.numin.spirits.utilities.Methods;
 
 public class Rejuvenate extends LightAbility implements ComboAbility {
 

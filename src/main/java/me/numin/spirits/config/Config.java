@@ -1,10 +1,10 @@
 package me.numin.spirits.config;
 
-import me.numin.spirits.SpiritElement;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 
+import me.numin.spirits.SpiritElement;
 import me.numin.spirits.Spirits;
 
 public class Config {
@@ -27,22 +27,37 @@ public class Config {
         language.addDefault("Chat.Colors.LightSpiritSub", "WHITE");
         language.addDefault("Chat.Colors.DarkSpirit", SpiritElement.DARK.getDefaultColor().getName());
         language.addDefault("Chat.Colors.DarkSpiritSub", "DARK_GRAY");
+        language.addDefault("Chat.Colors.Primal", SpiritElement.PRIMAL.getDefaultColor().getName());
+        language.addDefault("Chat.Colors.PrimalSub", "LIGHT_PURPLE");
         language.addDefault("Chat.Prefixes.Spirit", "[Spirit]");
         language.addDefault("Chat.Prefixes.LightSpirit", "[LightSpirit]");
         language.addDefault("Chat.Prefixes.DarkSpirit", "[DarkSpirit]");
+        language.addDefault("Chat.Prefixes.Primal", "[Primal]");
 
         //Descriptions & Instructions
         config.addDefault("Language.Abilities.Spirit.Agility.Description", "This ability offers you 2 modes of mobility. The first being the ability to dash forward very quickly. The second being the ability to soar through the skies as if gravity is non-existant.");
         config.addDefault("Language.Abilities.Spirit.Agility.Instructions", "Left-Click: Dash ⏐ Hold shift: Soar");
         
-        config.addDefault("Language.Abilities.Spirit.Swap.Description", "Swap places with the targets hit");
+        config.addDefault("Language.Abilities.Spirit.Swap.Description", "Conjure a makeshift portal, which swaps places of creatures hit.");
         config.addDefault("Language.Abilities.Spirit.Swap.Instructions", "Left-Click: Blast");
         
-        config.addDefault("Language.Abilities.Spirit.SpiritVortex.Description", "Create a Gravity Well using energy that sends any being to the ground. This ability was used by the ancients to collect grapes from the giraffe palm trees");
-        config.addDefault("Language.Abilities.Spirit.SpiritVortex.Instructions", "Shift and Left-Click: Create Well");
+        config.addDefault("Language.Abilities.Spirit.Vortex.Description", "Create a Gravity Well using energy that sends any being to the ground. This ability was used by the ancients to collect grapes from the giraffe palm trees");
+        config.addDefault("Language.Abilities.Spirit.Vortex.Instructions", "Shift and Left-Click: Create Well");
         
-        config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body. However this takes a toll on you, you will take damage. Deals extra damage to mobs.");
+        config.addDefault("Language.Abilities.Spirit.SpiritStruck.Description", "Temporarily disturb the targets spirit, stunning their body. The less HP you have, the less you can tinker with their energy and the more you are influenced by it. Deals extra damage to mobs.");
         config.addDefault("Language.Abilities.Spirit.SpiritStruck.Instructions", "Punch someone");
+        
+        config.addDefault("Language.Abilities.Spirit.Calling.Description", "Tap into the energies of the world and use your body as a medium to open a rift, which will let spirits out that target anything else. This will cost you health. You may also sacrifice all your energy to create a more powerful Rift");
+        config.addDefault("Language.Abilities.Spirit.Calling.Instructions", "Calling: Tap Sneak. Rift: Hold Sneak + Left Click");
+        
+        config.addDefault("Language.Abilities.Spirit.Paint.Description", "Create a small disruption in the energy in front of you. Leaving a temporary mark");
+        config.addDefault("Language.Abilities.Spirit.Paint.Instructions", "Paint: Left Click");
+        
+        config.addDefault("Language.Abilities.Primal.CallingRift.Description", "Unleash Terror by using your massive energy to open a rift that immediatly sucks in something into your world from another plane. You need High Health to use Dark Terror. Terrors will attack ANYTHING.");
+        config.addDefault("Language.Abilities.Primal.CallingRift.Instructions", "Terror: Left-Click. Dark Terror: Hold Sneak");
+        
+        config.addDefault("Language.Abilities.Primal.SummonSheepOnABoatAndPiston.Description", "Unleash either terror or nurture those around you");
+        config.addDefault("Language.Abilities.Primal.SummonSheepOnABoatAndPiston.Instructions", "Terror: Left-Click. Nurture: Hold Sneak");
         
         config.addDefault("Language.Abilities.LightSpirit.LightAgility.Description", "Just like a Spirits Agility, except... the landing is much rougher and you can't really keep it as long.");
         config.addDefault("Language.Abilities.LightSpirit.LightAgility.Instructions", "Left-Click: Dash ⏐ Hold shift: Soar");
@@ -61,6 +76,12 @@ public class Config {
         
         config.addDefault("Language.Abilities.Spirit.Passive.SpiritualBody.Description", "Spirits do not have a physical form. As such, they are immune to all forms of kinetic damage like fall damage");
         config.addDefault("Language.Abilities.Spirit.Passive.SpiritualBody.Instructions", "Spirits are passively immune to fall damage");
+        //Abilities.Spirits.LightSpirit.Passive.EphemerealBody.FallDamageModifier
+        config.addDefault("Language.Abilities.DarkSpirit.Passive.EtherealBody.Description", "DarkSpirits are natural fighters and their bodies have adapted to take strong hits");
+        config.addDefault("Language.Abilities.DarkSpirit.Passive.EtherealBody.Instructions", "DarkSpirits are take reduced fall and attack damage");
+        
+        config.addDefault("Language.Abilities.LightSpirit.Passive.EphemeralBody.Description", "LightSpirits naturally manipulate and restore their energy, their flow is highly tuned to the earthly tethers");
+        config.addDefault("Language.Abilities.LightSpirit.Passive.EphemeralBody.Instructions", "LightSpirits are take reduced fall and maguc damage");
         
         config.addDefault("Language.Abilities.Spirit.Passive.EnergyVeil.Description", "Spirits naturally draw more energy to them and use it more efficiently.");
         config.addDefault("Language.Abilities.Spirit.Passive.EnergyVeil.Instructions", "Spirits gain a boosted amount of XP based on their current Health. The healthier you are, the more you get.");
@@ -136,6 +157,24 @@ public class Config {
         config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.Duration", 1200);
         config.addDefault("Abilities.Spirits.Neutral.SpiritStruck.MobDamage", 12);
         
+        config.addDefault("Abilities.Spirits.Neutral.Calling.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.Cooldown", 100);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.Duration", 8000);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.Amount", 3);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.SelfDamage", 4);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.SpiritDamage", 0);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.AttackRadius", 22);
+        config.addDefault("Abilities.Spirits.Neutral.Calling.AttackYRadius", 9);
+        
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.Enabled", true);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.Cooldown", 100);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.Duration", 16000);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.Amount", 1);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.SpiritDamage", 0);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.SelfDamage", 10);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.AttackRadius", 22);
+        config.addDefault("Abilities.Spirits.Primal.CallingRift.AttackYRadius", 9);
+        
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Cooldown", 2500);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Duration", 8);
@@ -185,6 +224,14 @@ public class Config {
         
         config.addDefault("Abilities.Spirits.Neutral.Passive.SpiritualBody.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Passive.SpiritualBody.FallDamageModifier", 0.0);
+        
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.EtherealBody.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.EtherealBody.FallDamageModifier", 0.5);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.EtherealBody.AttackDamageModifier", 0.5);
+        
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.EphemeralBody.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.EphemeralBody.FallDamageModifier", 0.7);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.EphemeralBody.MagicDamageModifier", 0.7);
         
         config.addDefault("Abilities.Spirits.Neutral.Passive.EnergyVeil.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Passive.EnergyVeil.experienceMultiplier", 1.0);
@@ -293,16 +340,20 @@ public class Config {
 
         config.addDefault("Abilities.Spirits.Neutral.Swap.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Swap.Cooldown", 3000);
-        config.addDefault("Abilities.Spirits.Neutral.Swap.Range", 28);
+        config.addDefault("Abilities.Spirits.Neutral.Swap.Range", 32);
         config.addDefault("Abilities.Spirits.Neutral.Swap.Radius", 2);   
         
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Enabled", true);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Cooldown", 9500);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Duration", 3600);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Radius", 16);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.Pull", 12);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.EffectAmplifier", 1);
-        config.addDefault("Abilities.Spirits.Neutral.SpiritVortex.EffectDuration", 1);
+        config.addDefault("Abilities.Spirits.Neutral.Paint.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.Paint.Cooldown", 50);
+        config.addDefault("Abilities.Spirits.Neutral.Paint.Duration", 30000);
+        
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.Cooldown", 8500);
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.Duration", 3600);
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.Radius", 16);
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.Pull", 14);
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.EffectAmplifier", 1);
+        config.addDefault("Abilities.Spirits.Neutral.Vortex.EffectDuration", 1);
         
         config.addDefault("Abilities.Spirits.DarkSpirit.Strike.Enabled", true);
         config.addDefault("Abilities.Spirits.DarkSpirit.Strike.Cooldown", 800);
@@ -328,7 +379,7 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.EffectInterval", 15);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.HurtDarkSpirits", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.HurtMonsters", true);
-        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.playerDamage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.playerDamage", 0);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.RadiantCorruption.radiantcorruptionMobDamage", 1);
 
         config.addDefault("Abilities.Spirits.Neutral.Combo.Levitation.Enabled", true);
@@ -371,6 +422,215 @@ public class Config {
         config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.Damage", 1);
         config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.DamageEntities", true);
         config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.HealDarkSpirits", true);
+
+        //Neutral - Float
+        config.addDefault("Abilities.Spirits.Neutral.Float.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.Float.Cooldown", 500);
+        config.addDefault("Abilities.Spirits.Neutral.Float.FloatDuration", 4500);
+        config.addDefault("Abilities.Spirits.Neutral.Float.FloatPower", 1);
+        config.addDefault("Language.Abilities.Spirit.Float.Description", "Some spirits are able to levitate and even fly through the air! The physiology of these spirits allow them to float for a while.");
+        config.addDefault("Language.Abilities.Spirit.Float.Instructions", "To use this ability, left click and you are able to float.");
+
+        //Dark
+        //Corruption
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.Cooldown", 6000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.Radius", 5);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.Duration", 15);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.EffectDuration", 2);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.EffectAmplifier", 1);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.AttackRadius", 22);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.AttackYRadius", 9);
+        config.addDefault("Language.Abilities.DarkSpirit.Corruption.Description", "Dark spirits are entities filled with rage and malevolence. "
+                + "They are able to infect and influence the area around them and imbue their negative "
+                + "energies to it. They could also summon more dark spirits within this area in order to spread their corruption. "
+                + "Mobs and land are also affected in this area of influence.");
+        config.addDefault("Language.Abilities.DarkSpirit.Corruption.Instructions", "To use, hold sneak.");
+
+        //DarkBeam
+        config.addDefault("Abilities.Spirits.DarkSpirit.DarkBeam.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.DarkBeam.Cooldown", 5000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.DarkBeam.ChargeTime", 2000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.DarkBeam.Duration", 1300);
+        config.addDefault("Abilities.Spirits.DarkSpirit.DarkBeam.Damage", 3);
+        config.addDefault("Abilities.Spirits.DarkSpirit.DarkBeam.Range", 30);
+        config.addDefault("Language.Abilities.DarkSpirit.DarkBeam.Description", "By channeling all the stored energy within the bodies of "
+                + "Dark spirits, they are able to release it in the form of a deadly beam!");
+        config.addDefault("Language.Abilities.DarkSpirit.DarkBeam.Instructions", "To use, hold sneak until purple spell particles appear and left click.");
+
+        //Onslaught
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.Cooldown", 700);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.Speed", 0.43);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.EffectAmplifier", 1);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.EffectDuration", 1.5);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.Duration", 0.5);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Onslaught.Damage", 1);
+        config.addDefault("Language.Abilities.DarkSpirit.Onslaught.Description", "Dark spirits are able to charge and assault their "
+                + "victims, oftentimes badly deforming and corrupting them!");
+        config.addDefault("Language.Abilities.DarkSpirit.Onslaught.Instructions", "To use, hold sneak and left click.");
+
+        //Shadow
+        config.addDefault("Abilities.Spirits.DarkSpirit.Shadow.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Shadow.Cooldown", 6000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Shadow.Duration", 1000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Shadow.CollisionRadius", 2);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Shadow.TeleportRange", 3);
+        config.addDefault("Language.Abilities.DarkSpirit.Shadow.Description", "Dark spirits are able to travel quickly in the darkness and render themselves "
+                + "permeable for a split second to any attack by transforming into the night! When in shadow mode however, spirits are unable "
+                + "to see due to transforming into pure darkness.");
+        config.addDefault("Language.Abilities.DarkSpirit.Shadow.Instructions", "To use, hold sneak. While holding sneak and in shadow mode temporarily, release to teleport. "
+                + "(Note: This is quick use ability, all effects are to be used within that split second of shadow mode)");
+
+        //Light Abilities
+        //Enlightenment
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.Cooldown", 21000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.ChargeTime", 2);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.EnlightenRadius", 1.5);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.EffectAmplifier", 3);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.EffectDuration", 14);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.AbsorptionHealth", 0);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.Forcefield.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.Forcefield.ShieldRadius", 4);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.Forcefield.Damage", 3);
+        config.addDefault("Abilities.Spirits.LightSpirit.Enlightenment.Forcefield.Repel", 0.3);
+        config.addDefault("Abilities.LightSpirit.Enlightenment.DeathMessage", "{victim} was repelled by {attacker}'s {ability} shield!");
+        config.addDefault("Language.Abilities.LightSpirit.Enlightenment.Description", "Enlightenment allows the user to gain buffs and positive effects "
+                + "through the use of spiritual knowledge! With the help of other spirits and light spirits, buffs are "
+                + "more stronger and effective and you are able to share your enlightenment! After gaining enlightenment, your light "
+                + "attacks become stronger and you produce a temporary forcefield to ward out dark spirits.");
+        config.addDefault("Language.Abilities.LightSpirit.Enlightenment.Instructions", "To use, hold sneak until a certain time and release. If close to other spirits or light spirits, "
+                + "your buffs increase and you are able to enlighten them as well.");
+
+        //LightBeam
+        config.addDefault("Abilities.Spirits.LightSpirit.LightBeam.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightBeam.Cooldown", 1500);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightBeam.ChargeTime", 1000);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightBeam.Duration", 3000);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightBeam.Damage", 2);
+        config.addDefault("Abilities.Spirits.LightSpirit.LightBeam.Range", 8);
+        config.addDefault("Language.Abilities.LightSpirit.LightBeam.Description", "By channeling all the stored energy within the bodies of "
+                + "Light spirits, they are able to release it in the form of a bright beam!");
+        config.addDefault("Language.Abilities.LightSpirit.LightBeam.Instructions", "To use, hold sneak until white spell particles appear and left click.");
+
+        //Safeguard
+        config.addDefault("Abilities.Spirits.LightSpirit.Safeguard.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Safeguard.Cooldown", 8000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Safeguard.Duration", 7500);
+        config.addDefault("Language.Abilities.LightSpirit.Safeguard.Description", "By creating a shield of positive light energy around themselves, "
+                + "Light spirits are able to protect themselves from negative status effects with positive status effects. Clears all negative effects and grants buffs for a duration.");
+        config.addDefault("Language.Abilities.LightSpirit.Safeguard.Instructions", "To use, tap sneak.");
+
+        //Wish
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.Cooldown", 10000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.ChargeTime", 1500);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.WaitDuration", 6000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.HealAmount", 6);
+        config.addDefault("Language.Abilities.LightSpirit.Wish.Description", "By wishing and having a great mind, "
+                + "light spirits are able to harness and channel their inner energies and gain energy from the Spirit World after a time.");
+        config.addDefault("Language.Abilities.LightSpirit.Wish.Instructions", "To use, hold sneak until white spell particles appear and release");
+
+        //Passives
+        //AfterGlow (light)
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.Afterglow.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.Afterglow.Cooldown", 2000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.Afterglow.HealAmount", 6);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.Afterglow.Damage", 4);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.Afterglow.Duration", 20000);
+        config.addDefault("Language.Abilities.LightSpirit.Passive.Afterglow.Description", "When Light spirits perish, they leave behind a piece of residual energy containing "
+                        + "light. Any fellow Light spirits touching and absorbing this afterglow will gain back health and energy while "
+                        + "any Dark spirit or creature will be hurt.");
+
+        //WishfulThinking
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.WishfulThinking.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.WishfulThinking.EffectDuration", 8);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.WishfulThinking.EffectAmplifier", 0);
+        config.addDefault("Abilities.Spirits.LightSpirit.Passive.WishfulThinking.Chance", 0.33);
+        config.addDefault("Language.Abilities.LightSpirit.Passive.WishfulThinking.Description", "Light spirits are the embodiment of positive energy! "
+                + "With the mentality of hopeful and positive thinking, they gain positive effects! "
+                + "Everytime you get hit, there is a small chance of getting regeneration.");
+
+        //DarkAlliance
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.DarkAlliance.Enabled", false);
+        config.addDefault("Language.Abilities.DarkSpirit.Passive.DarkAlliance.Description", "Dark spirits and mobs alike are mutual with one another! "
+                + "Their alliance compels monsters to not target the dark spirits.");
+
+        //SinisterAura
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.SinisterAura.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.SinisterAura.Cooldown", 500);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.SinisterAura.Range", 3);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.SinisterAura.EffectAmplifier", 1);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.SinisterAura.EffectDuration", 3);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Passive.SinisterAura.Chance", 0.33);
+        config.addDefault("Language.Abilities.DarkSpirit.Passive.SinisterAura.Description", "Dark spirits are full of negative energy that can influence their targets. "
+                + "Dark spirits are able to release this energy and conjure an aura that gives negative effects to any nearby entity. "
+                + "Everytime you get hit, there is a small chance of releasing an aura wave.");
+
+        //Combos
+        //Awakening
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.Cooldown", 21000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.Duration", 10000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.Damage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.Radius", 6);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.HealAmount", 0.5);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.AttackChance", 0.01);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Awakening.EnableParticles", true);
+        config.addDefault("Language.Abilities.LightSpirit.Combo.Awakening.Description", "Light spirits like dark spirits are able to summon aid from "
+                + "the other worlds. Your aid will attack anything nearby except you with a "
+                + "powerful beam of light! By intercepting these beams as a light spirit, you are able to gain health!");
+        config.addDefault("Language.Abilities.LightSpirit.Combo.Awakening.Instructions", "Alleviate (Tap sneak) > Alleviate (Tap Sneak) > Alleviate (Left click)");
+
+        //Nightmare
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Nightmare.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Nightmare.Cooldown", 6000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Nightmare.Radius", 5);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Nightmare.Damage", 2);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Nightmare.EffectAmplifier", 5);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Nightmare.EffectDuration", 3000);
+        config.addDefault("Language.Abilities.DarkSpirit.Combo.Nightmare.Description", "Dark spirits are able to infect their targets with dark energy and spread "
+                + "their negative energies towards their mind. By doing so, they can cause absolute chaos towards the strengths of "
+                + "all creatures with every worst status effect.");
+        config.addDefault("Language.Abilities.DarkSpirit.Combo.Nightmare.Instructions", "Intoxicate (Hold sneak) > Onslaught (Release sneak) > Onslaught (Left click) > Shackle (Hold sneak)");
+
+        //Pandemonium
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.Enabled", true);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.Cooldown", 6000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.Duration", 5000);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.Radius", 10);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.Pull", 0.02);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.EffectAmplifier", 0);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Pandemonium.EffectDuration", 3);
+        config.addDefault("Language.Abilities.DarkSpirit.Combo.Pandemonium.Description", "Dark spirits are able to use their dark influence on other creatures nearby, "
+                + "slowly corrupting them by penetrating their free will and their ability to move and pulling them towards the darkness.");
+        config.addDefault("Language.Abilities.DarkSpirit.Combo.Pandemonium.Instructions", "Intoxicate (Tap sneak) > Intoxicate (Hold sneak) > Shackle (Release sneak)");
+
+        //Sanctuary
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.Enabled", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.Cooldown", 4500);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.Duration", 1400);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.Radius", 8);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.Repel", 0.3);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.Damage", 2);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.EffectDuration", 2.5);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Sanctuary.EffectAmplifier", 1);
+        config.addDefault("Language.Abilities.LightSpirit.Combo.Sanctuary.Description", "Light spirits are able to generate a protective " +
+                "barrier that expands from their location and repel Dark Spirits and Mobs away while boosting their " +
+                "light spirit allies with damage protection and removing negative effects!");
+        config.addDefault("Language.Abilities.LightSpirit.Combo.Sanctuary.Instructions", "Alleviate (Tap sneak) > Alleviate (Hold sneak) > Shelter (Release sneak)");
+
+        //Skyrocket
+        config.addDefault("Abilities.Spirits.Neutral.Combo.Skyrocket.Enabled", true);
+        config.addDefault("Abilities.Spirits.Neutral.Combo.Skyrocket.Cooldown", 3000);
+        config.addDefault("Abilities.Spirits.Neutral.Combo.Skyrocket.RegenTime", 5000);
+        config.addDefault("Abilities.Spirits.Neutral.Combo.Skyrocket.Speed", 1.5);
+        config.addDefault("Abilities.Spirits.Neutral.Combo.Skyrocket.Damage", 5);
+        config.addDefault("Abilities.Spirits.Neutral.Combo.Skyrocket.Radius", 3);
+        config.addDefault("Language.Abilities.Spirit.Combo.Skyrocket.Description", "Spirits are able to launch themselves in the air with such high speeds and acceleration that they are able to "
+                + "aggressively slam themselves on the ground to cause ruptures.");
+        config.addDefault("Language.Abilities.Spirit.Combo.Skyrocket.Instructions", "Agility (Tap sneak) > Agility (Tap sneak) > Agility (Left click)");
 
         ConfigManager.languageConfig.save();
         config.options().copyDefaults(true);

@@ -1,13 +1,11 @@
 package me.numin.spirits.ability.api;
 
-import com.projectkorra.projectkorra.Element;
+import org.bukkit.entity.Player;
+
 import com.projectkorra.projectkorra.ability.AddonAbility;
 import com.projectkorra.projectkorra.ability.ComboAbility;
-import com.projectkorra.projectkorra.ability.ElementalAbility;
-import me.numin.spirits.SpiritElement;
+
 import me.numin.spirits.Spirits;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public abstract class WaterAbility extends com.projectkorra.projectkorra.ability.WaterAbility implements AddonAbility {
 

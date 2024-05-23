@@ -1,16 +1,19 @@
 package me.numin.spirits;
 
+import org.bukkit.Color;
+
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
+
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Color;
 
 public class SpiritElement extends Element {
 
     public static final SpiritElement NEUTRAL = new SpiritElement("Spirit", ChatColor.DARK_AQUA, "Neutral", 0x408fff);
     public static final SpiritElement LIGHT = new SpiritElement("LightSpirit", ChatColor.AQUA, "LightSpirit", 0xfffa63);
     public static final SpiritElement DARK = new SpiritElement("DarkSpirit", ChatColor.BLUE, "DarkSpirit", 0x4f00cf);
-
+    public static final SpiritElement PRIMAL = new SpiritElement("Primal", ChatColor.LIGHT_PURPLE, "Primal", 0x4f00cf); //146037168
+    
     private ChatColor defaultColor;
     private String configName;
     private int dust;

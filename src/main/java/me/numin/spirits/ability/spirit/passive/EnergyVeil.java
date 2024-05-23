@@ -1,22 +1,13 @@
 package me.numin.spirits.ability.spirit.passive;
 
-import com.projectkorra.projectkorra.ability.PassiveAbility;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
-import com.projectkorra.projectkorra.util.ParticleEffect;
-
-import me.numin.spirits.SpiritElement;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.ability.api.SpiritAbility;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-import me.numin.spirits.listeners.Abilities;
+
+import com.projectkorra.projectkorra.ability.PassiveAbility;
+
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.SpiritAbility;
 
 
 public class EnergyVeil extends SpiritAbility implements PassiveAbility {

@@ -1,13 +1,5 @@
 package me.numin.spirits.ability.dark;
 
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.Manager;
-import com.projectkorra.projectkorra.ProjectKorra;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.FlightHandler;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.ability.api.DarkAbility;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -17,6 +9,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.attribute.Attribute;
+
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.DarkAbility;
 
 public class Shackle extends DarkAbility {
 

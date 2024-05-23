@@ -1,18 +1,8 @@
 package me.numin.spirits.ability.light.combo;
 
-import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.ComboAbility;
-import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.ClickType;
-import com.projectkorra.projectkorra.util.DamageHandler;
-import com.projectkorra.projectkorra.util.ParticleEffect;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.ability.api.LightAbility;
-import me.numin.spirits.SpiritElement;
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -22,14 +12,23 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.joml.Math;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.ability.ComboAbility;
+import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.ClickType;
+import com.projectkorra.projectkorra.util.DamageHandler;
+import com.projectkorra.projectkorra.util.ParticleEffect;
+
+import me.numin.spirits.SpiritElement;
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.LightAbility;
+import me.numin.spirits.utilities.Methods;
 
 public class RadiantCorruption extends LightAbility implements ComboAbility {
 
@@ -145,7 +144,7 @@ public class RadiantCorruption extends LightAbility implements ComboAbility {
 
     private void grabEntities() {
         for (Entity entity : GeneralMethods.getEntitiesAroundPoint(circleCenter, radius)) {
-            if (entity instanceof LivingEntity) {
+            if (entity instanceof LivingEntity && !(entity == player)) {
                 healEntities(entity);
             }
         }
@@ -153,16 +152,16 @@ public class RadiantCorruption extends LightAbility implements ComboAbility {
 
     private void healEntities(Entity entity) {
         if (new Random().nextInt(effectInt) == 0) {
-            if (entity instanceof Player) {
+        	/*if (entity instanceof Player) {
                 Player ePlayer = (Player) entity;
-             /*   BendingPlayer bEntity = BendingPlayer.getBendingPlayer(ePlayer);
+              BendingPlayer bEntity = BendingPlayer.getBendingPlayer(ePlayer);
                 if (!bEntity.hasElement(Element.getElement("DarkSpirit"))) {
                     ParticleEffect.PORTAL.display(ePlayer.getLocation().add(0, 2, 0), 0, 0, 0, 0, 1);
-                }*/
-            } /*else if (entity instanceof Monster && damageMonsters) {
+                }
+                } else if (entity instanceof Monster && damageMonsters) {
                 DamageHandler.damageEntity(entity, damage, this);
 
-            }*/ else {
+            }*/ 
                 LivingEntity le = (LivingEntity)entity;
                 ParticleEffect.END_ROD.display(entity.getLocation().add(0, 2, 0), 0, 0, 0, 0, 1); 
         	    int absorptionDur = 0;
@@ -171,11 +170,12 @@ public class RadiantCorruption extends LightAbility implements ComboAbility {
         	    int health_boostLv = 0;
         	    int regenerationDur = 0;
         	    int regenerationLv = 0;
+        	    
         		if (entity instanceof HumanEntity) {
         			int saturationT = (int) ((HumanEntity) entity).getSaturation();
+        			le.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, saturationT*20, saturationT));
+        			DamageHandler.damageEntity(entity, saturationT/2+playerDamage, this);
         			((HumanEntity) entity).setSaturation(0);
-        			((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, (int) duration*20, saturationT));
-        			DamageHandler.damageEntity(entity, saturationT+playerDamage, this);
         			System.out.println("If player Entity Triggered");
         		}
         		else if (entity instanceof Mob) {
@@ -183,18 +183,18 @@ public class RadiantCorruption extends LightAbility implements ComboAbility {
         			DamageHandler.damageEntity(entity, radiantcorruptionMobDamage, this);
         		}
 
-        		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.ABSORPTION)) {
-        	          absorptionDur = ((LivingEntity) entity).getPotionEffect(PotionEffectType.ABSORPTION).getDuration();
-        	          absorptionLv = ((LivingEntity) entity).getPotionEffect(PotionEffectType.ABSORPTION).getAmplifier();
+        		if (le.hasPotionEffect(PotionEffectType.ABSORPTION)) {
+        	          absorptionDur = le.getPotionEffect(PotionEffectType.ABSORPTION).getDuration();
+        	          absorptionLv = le.getPotionEffect(PotionEffectType.ABSORPTION).getAmplifier();
         		}
-        		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.HEALTH_BOOST)) {
-        	         health_boostDur = ((LivingEntity) entity).getPotionEffect(PotionEffectType.HEALTH_BOOST).getDuration();
-        	         health_boostLv = ((LivingEntity) entity).getPotionEffect(PotionEffectType.HEALTH_BOOST).getAmplifier();
+        		if (le.hasPotionEffect(PotionEffectType.HEALTH_BOOST)) {
+        	         health_boostDur = le.getPotionEffect(PotionEffectType.HEALTH_BOOST).getDuration();
+        	         health_boostLv = le.getPotionEffect(PotionEffectType.HEALTH_BOOST).getAmplifier();
         		}
         			
-        		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.REGENERATION)) {
-        	         regenerationDur = ((LivingEntity) entity).getPotionEffect(PotionEffectType.REGENERATION).getDuration();
-        	         regenerationLv = ((LivingEntity) entity).getPotionEffect(PotionEffectType.REGENERATION).getAmplifier();
+        		if (le.hasPotionEffect(PotionEffectType.REGENERATION)) {
+        	         regenerationDur = le.getPotionEffect(PotionEffectType.REGENERATION).getDuration();
+        	         regenerationLv = le.getPotionEffect(PotionEffectType.REGENERATION).getAmplifier();
         		}
         		
                 int witherLv = 0; 
@@ -219,20 +219,12 @@ public class RadiantCorruption extends LightAbility implements ComboAbility {
         */
         		((LivingEntity) entity).removePotionEffect(PotionEffectType.ABSORPTION);
         		((LivingEntity) entity).removePotionEffect(PotionEffectType.HEALTH_BOOST);
-        		((LivingEntity) entity).removePotionEffect(PotionEffectType.REGENERATION);
-        		
-                
-                
-                
-                
-                
-                
-                
+        		((LivingEntity) entity).removePotionEffect(PotionEffectType.REGENERATION);      
                 
                 
             }
         }
-    }
+    
 
     @Override
     public Object createNewComboInstance(Player player) {

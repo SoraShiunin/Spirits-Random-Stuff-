@@ -12,17 +12,15 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.ElementalAbility;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
 import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
 import me.numin.spirits.ability.api.LightAbility;
+import me.numin.spirits.utilities.Methods;
 
 public class Alleviate extends LightAbility {
 

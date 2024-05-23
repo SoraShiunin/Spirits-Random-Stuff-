@@ -1,16 +1,18 @@
 package me.numin.spirits.utilities;
 
-import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.Element;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.numin.spirits.SpiritElement;
-import me.numin.spirits.Spirits;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
+import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
+
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import me.numin.spirits.SpiritElement;
+import me.numin.spirits.Spirits;
 
 public class SpiritPlaceholder extends PlaceholderExpansion {
 

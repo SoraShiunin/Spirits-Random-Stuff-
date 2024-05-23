@@ -1,22 +1,8 @@
 package me.numin.spirits.ability.spirit;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import com.projectkorra.projectkorra.ability.CoreAbility;
-import com.projectkorra.projectkorra.attribute.Attribute;
-
-import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.region.RegionProtection;
-import com.projectkorra.projectkorra.util.ActionBar;
-import com.projectkorra.projectkorra.util.ChatUtil;
-import com.projectkorra.projectkorra.util.Cooldown;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.utilities.PossessRecoil;
-import me.numin.spirits.utilities.TempSpectator;
-import net.md_5.bungee.api.ChatColor;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -34,15 +20,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ProjectKorra;
+import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.ActionBar;
+import com.projectkorra.projectkorra.util.ChatUtil;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
 import me.numin.spirits.Spirits;
 import me.numin.spirits.ability.api.SpiritAbility;
-import org.bukkit.util.Vector;
+import me.numin.spirits.utilities.Methods;
+import me.numin.spirits.utilities.PossessRecoil;
+import me.numin.spirits.utilities.TempSpectator;
+import net.md_5.bungee.api.ChatColor;
 
 public class Possess extends SpiritAbility {
 
@@ -303,29 +296,35 @@ public class Possess extends SpiritAbility {
         double multiplier = (double)currentDuration / (double) duration;
         double extraDamage = (damage - minDamage) * multiplier; //Calculate the extra damage to give based on the duration possessed
 
-        
-        DamageHandler.damageEntity(target, minDamage + extraDamage, this);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40, 1));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 40, 0));
         target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 30, 0));
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 4));
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_HURT, 0.2F, 0F);
         player.getWorld().spawnParticle(Particle.SWEEP_ATTACK, target.getEyeLocation(), 1, 0, 0, 0, 0);
         player.getWorld().spawnParticle(Particle.CRIT, target.getEyeLocation(), 20, 0.3, 1, 0.3, 0);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 40, 0));
+        DamageHandler.damageEntity(target, minDamage + extraDamage, this);
+        
         if (target.getHealth() < 40) {
-        	player.setAbsorptionAmount(target.getHealth()*0.08);
+        	player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_ABSORPTION).setBaseValue(20);
+        	player.setAbsorptionAmount(Math.round(target.getHealth()*0.08));
+        	//System.out.println("Absoprtion percent");
         	} else {
+        		player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_ABSORPTION).setBaseValue(20);
         		player.setAbsorptionAmount(6);
+        		//System.out.println("Absoprtion t");
         	}
-        new BukkitRunnable() {
+      /* new BukkitRunnable() {
         	@Override
         	public void run() {
-        		player.setAbsorptionAmount(0);
         	}
-        }.runTaskLater(ProjectKorra.plugin, 100);
+        }.runTaskLater(ProjectKorra.plugin, 4500); */
+        Bukkit.getScheduler().runTaskLater(ProjectKorra.plugin, () -> {
+    	player.setAbsorptionAmount(0);
+        //System.out.println("Absoprtion Removed");
+        }, 60L);
+        remove();       
         
-        remove();
-     
     }
 
     private ArmorStand createArmorStand() {

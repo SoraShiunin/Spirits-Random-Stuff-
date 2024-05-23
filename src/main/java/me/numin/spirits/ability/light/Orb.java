@@ -1,6 +1,8 @@
 package me.numin.spirits.ability.light;
 
-import com.projectkorra.projectkorra.attribute.Attribute;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -12,15 +14,12 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
 import me.numin.spirits.Spirits;
-import me.numin.spirits.utilities.Methods;
 import me.numin.spirits.ability.api.LightAbility;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Orb extends LightAbility {
 

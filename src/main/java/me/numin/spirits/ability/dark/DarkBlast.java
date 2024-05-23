@@ -1,11 +1,5 @@
 package me.numin.spirits.ability.dark;
 
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.DamageHandler;
-import me.numin.spirits.ability.api.DarkAbility;
-import me.numin.spirits.utilities.Methods;
-import me.numin.spirits.Spirits;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -17,6 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+
+import com.projectkorra.projectkorra.GeneralMethods;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.DamageHandler;
+
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.DarkAbility;
+import me.numin.spirits.utilities.Methods;
 
 public class DarkBlast extends DarkAbility {
 

@@ -3,7 +3,6 @@ package me.numin.spirits.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.numin.spirits.SpiritElement;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
@@ -13,6 +12,8 @@ import org.bukkit.util.Vector;
 
 import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
+
+import me.numin.spirits.SpiritElement;
 
 public class Methods {
 
@@ -97,6 +98,8 @@ public class Methods {
             return SpiritElement.DARK;
         } else if (bPlayer.hasElement(SpiritElement.NEUTRAL)) {
             return SpiritElement.NEUTRAL;
+        } else if (bPlayer.hasElement(SpiritElement.PRIMAL)) {
+            return SpiritElement.PRIMAL;
         } else {
             return null;
         }
@@ -123,6 +126,8 @@ public class Methods {
         } else if (spiritType == SpiritElement.DARK) {
             location.getWorld().spawnParticle(Particle.SPELL_WITCH, location, amount, x, y, z, speed);
         } else if (spiritType == SpiritElement.LIGHT) {
+            location.getWorld().spawnParticle(Particle.SPELL_INSTANT, location, amount, x, y, z, speed);
+        }	else if (spiritType == SpiritElement.PRIMAL) {
             location.getWorld().spawnParticle(Particle.SPELL_INSTANT, location, amount, x, y, z, speed);
         }
         location.getWorld().spawnParticle(Particle.REDSTONE, location, amount, x, y, z, speed, new DustOptions(spiritType.getDustColor(), 2));

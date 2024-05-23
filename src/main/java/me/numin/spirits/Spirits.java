@@ -1,8 +1,12 @@
 package me.numin.spirits;
 
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
 import com.projectkorra.projectkorra.ability.util.CollisionInitializer;
+
 import me.numin.spirits.ability.dark.DarkBlast;
 import me.numin.spirits.ability.dark.Shackle;
 import me.numin.spirits.ability.dark.Strike;
@@ -10,11 +14,9 @@ import me.numin.spirits.ability.light.LightBlast;
 import me.numin.spirits.ability.light.Shelter;
 import me.numin.spirits.config.Config;
 import me.numin.spirits.listeners.Abilities;
-import me.numin.spirits.listeners.Passives;
 import me.numin.spirits.listeners.PKEvents;
+import me.numin.spirits.listeners.Passives;
 import me.numin.spirits.utilities.SpiritPlaceholder;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Spirits extends JavaPlugin {
 

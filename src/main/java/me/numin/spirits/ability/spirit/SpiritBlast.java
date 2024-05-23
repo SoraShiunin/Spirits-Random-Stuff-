@@ -1,15 +1,8 @@
 package me.numin.spirits.ability.spirit;
 
-import com.projectkorra.projectkorra.Element;
-import com.projectkorra.projectkorra.GeneralMethods;
-import com.projectkorra.projectkorra.ability.ComboAbility;
-import com.projectkorra.projectkorra.ability.CoreAbility;
-import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.DamageHandler;
-import me.numin.spirits.SpiritElement;
-import me.numin.spirits.Spirits;
-import me.numin.spirits.ability.api.SpiritAbility;
-import me.numin.spirits.utilities.Methods;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -20,8 +13,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
-import java.util.Collection;
-import java.util.Iterator;
+import com.projectkorra.projectkorra.Element;
+import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.DamageHandler;
+
+import me.numin.spirits.SpiritElement;
+import me.numin.spirits.Spirits;
+import me.numin.spirits.ability.api.SpiritAbility;
+import me.numin.spirits.utilities.Methods;
 
 public class SpiritBlast extends SpiritAbility {
 

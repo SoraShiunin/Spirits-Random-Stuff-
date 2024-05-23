@@ -4,12 +4,12 @@ main: me.numin.spirits.Spirits
 api-version: 1.16
 depend: [ProjectKorra]
 softdepend: [PlaceholderAPI]
-authors: [Numin, StrangeOne101]
+authors: [Numin, StrangeOne101, Darkermoon, Pride]
 description: Enables your players to be Spirits.
 
 permissions:
   bending.neutralspirit:
-    default: false
+    default: true
     description: Gives access to all neutral Spirit Abilities
     children:
       bending.ability.agility: true
@@ -24,11 +24,16 @@ permissions:
       bending.ability.EnergyVeil: true
       bending.ability.SpiritVortex: true
       bending.ability.SpiritBlast: true
+      bending.ability.Calling: true
+      bending.ability.Paint: true
+      bending.ability.skyrocket: true
+      bending.ability.float: true
   bending.lightspirit:
     default: true
     description: Gives access to all LightSpirit abilities.
     children:
       bending.command.choose.lightspirit: true
+      bending.ability.ephemeralbody: true
       bending.ability.alleviate: true
       bending.ability.lightagility: true
       bending.ability.orb: true
@@ -37,20 +42,34 @@ permissions:
       bending.ability.RadiantCorruption: true
       bending.ability.shelter: true
       bending.ability.lightblast: true
-      bending.ability.lightshot: true
-      bending.neutralspirit: true
+      bending.ability.awakening: true
+      bending.ability.sanctuary: true
+      bending.ability.enlightenment: true
+      bending.ability.LightBeam: true
+      bending.ability.safeguard: true
+      bending.ability.Wish: true
   bending.darkspirit:
     default: true
     description: Gives access to all DarkSpirit abilities.
     children:
       bending.command.choose.darkspirit: true
+      bending.ability.etherealbody: true
       bending.ability.infest: true
       bending.ability.darkagility: true
       bending.ability.intoxicate: true
       bending.ability.shackle: true
       bending.ability.strike: true
       bending.ability.berserker: true
-      bending.neutralspirit: true
+      bending.ability.nightmare: true
+      bending.ability.pandemonium: true
+      bending.ability.corruption: true
+      bending.ability.onslaught: true
+      bending.ability.shadow: true
+  bending.primal:
+    default: false
+    children:
+      bending.command.choose.primal: false
+      bending.ability.callingrift: true
   bending.spirit:
     default: false
     description: Do not grant this permission. This being false stops players from becoming ONLY a neutral spirit
