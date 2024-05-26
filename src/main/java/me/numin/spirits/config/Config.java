@@ -48,7 +48,7 @@ public class Config {
         config.addDefault("Language.Abilities.Spirit.SpiritStruck.Instructions", "Punch someone");
         
         config.addDefault("Language.Abilities.Spirit.Calling.Description", "Tap into the energies of the world and use your body as a medium to open a rift, which will let spirits out that target anything else. This will cost you health. You may also sacrifice all your energy to create a more powerful Rift");
-        config.addDefault("Language.Abilities.Spirit.Calling.Instructions", "Calling: Tap Sneak. Rift: Hold Sneak + Left Click");
+        config.addDefault("Language.Abilities.Spirit.Calling.Instructions", "Calling: Hold Sneak + Left Click");
         
         config.addDefault("Language.Abilities.Spirit.Paint.Description", "Create a small disruption in the energy in front of you. Leaving a temporary mark");
         config.addDefault("Language.Abilities.Spirit.Paint.Instructions", "Paint: Left Click");
@@ -294,6 +294,9 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.RemoveOnDamage", false);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Duration", 3000);
+        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.DarkSpiritDamage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.HostileMobDamage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.DamageAll", 1);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Others.ClickDelay", 2000);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Others.Cooldown", 10000);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Self.Cooldown", 5200);
@@ -368,6 +371,8 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.Duration", 2500);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.Radius", 4);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.Damage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.RegenDuration", 129);
+        config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.RegenPower", 0);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.EffectInterval", 15);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.HurtDarkSpirits", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.HurtMonsters", true);
@@ -422,7 +427,10 @@ public class Config {
         config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.Damage", 1);
         config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.DamageEntities", true);
         config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.HealDarkSpirits", true);
-
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.ResistanceDuration", 60);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.ResistancePower", 0);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.OffenseDuration", 60);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Combo.Infest.OffensePower", 1);
         //Neutral - Float
         config.addDefault("Abilities.Spirits.Neutral.Float.Enabled", true);
         config.addDefault("Abilities.Spirits.Neutral.Float.Cooldown", 500);
@@ -527,7 +535,12 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Wish.Cooldown", 10000);
         config.addDefault("Abilities.Spirits.LightSpirit.Wish.ChargeTime", 1500);
         config.addDefault("Abilities.Spirits.LightSpirit.Wish.WaitDuration", 6000);
-        config.addDefault("Abilities.Spirits.LightSpirit.Wish.HealAmount", 6);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.WishDuration", 600);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.AbsorptionHealthRatio", 0.325);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.HealthBoostDuration", 600);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.HealthBoostPower", 9);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.RegenerationDuration", 50);
+        config.addDefault("Abilities.Spirits.LightSpirit.Wish.RegenerationPower", 5);
         config.addDefault("Language.Abilities.LightSpirit.Wish.Description", "By wishing and having a great mind, "
                 + "light spirits are able to harness and channel their inner energies and gain energy from the Spirit World after a time.");
         config.addDefault("Language.Abilities.LightSpirit.Wish.Instructions", "To use, hold sneak until white spell particles appear and release");

@@ -154,6 +154,14 @@ public class Vortex extends SpiritAbility {
 		        ParticleEffect.CRIT_MAGIC.display(loc, 3, 0.1F, 2.1F, 0.1F, 0.1F);
 		    
 	    	}
+			for (int jer = -180; jer < 180; jer += 20) {
+	        	double angle = jer * 3.141592653589793D / 180.0D;
+	        	double x = size * Math.cos(angle + rotation);
+	        	double z = size * Math.sin(angle + rotation);
+	        	Location loc = origin.clone();
+	        	loc.add(x, 0, z);
+	        	ParticleEffect.CRIT_MAGIC.display(loc, 1, 0.1F, 0.1F, 0.1F, 0.1F);
+			}
 			
 			for (int j = -180; j < 180; j += 20) {
 	        	double angle = Math.toRadians(j + rotation * 5);

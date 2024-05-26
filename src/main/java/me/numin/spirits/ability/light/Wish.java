@@ -26,13 +26,19 @@ public class Wish extends LightAbility {
 	private long cooldown;
 	private long chargeTime;
 	private long waitDuration;
-	private double healAmount;
+
 	
 	private boolean charged;
 	private boolean wished;
 	private long time;
 	private double tickTime;
-
+	private double absorptionHealthRatio;
+	private int healthBoostDuration;
+	private int healthBoostPower;
+	private int regenerationDuration;
+	private int regenerationPower;
+	private long wishDuration;
+	
 	public Wish(Player player) {
 		super(player);
 
@@ -43,7 +49,12 @@ public class Wish extends LightAbility {
 		cooldown = config.getLong(path + "Cooldown");
 		chargeTime = config.getLong(path + "ChargeTime");
 		waitDuration = config.getLong(path + "WaitDuration");
-		healAmount = config.getDouble(path + "HealAmount");
+		absorptionHealthRatio = config.getDouble(path + "AbsorptionHealthRatio");
+		healthBoostDuration = config.getInt(path + "HealthBoostDuration");
+		healthBoostPower = config.getInt(path + "HealthBoostPower");
+		regenerationDuration = config.getInt(path + "RegenerationDuration");
+		regenerationPower = config.getInt(path + "RegenerationPower");
+		wishDuration = config.getLong(path + "WishDuration");
 		
 		time = System.currentTimeMillis();
 		
@@ -99,11 +110,8 @@ public class Wish extends LightAbility {
 		tickTime += 0.05;
 		long time = (long) (tickTime * 1000);
 		if (time >= waitDuration) {
-			double health = player.getHealth() + healAmount;
-			if (health > player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
-	            health = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
-	        }
-			player.setHealth(health);
+
+			
 			
 			for (int i = 0; i < 10 ; i++) {
 				ParticleEffect.END_ROD.display(player.getLocation().add(0, 1, 0), 5, 0.3F, 0.3F, 0.3F, 0.2F);
@@ -114,19 +122,27 @@ public class Wish extends LightAbility {
 			player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_TWINKLE, 1F, 1F);
 			
 			player.sendMessage(SpiritElement.LIGHT.getColor() + "Your wish came true!");
-			 if (player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()/3 - player.getHealth()/1.2 >= 0) {
-		        	player.setAbsorptionAmount(Math.round(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()/3 - player.getHealth()/2));
-		        	// Calculation for absorption
-		        	}
-			player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 600, 9));
-			player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 30, 5));
+			// if (player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()/3 - player.getHealth()/1.2 >= 0) {}
+			if ((int)Math.round(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth()) > 0) {
+
+			    
+			    double absorptionAmount = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth();
+			    int roundedAbsorptionAmount = (int) Math.round(absorptionAmount);
+			    player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 9999, 3, true, false));
+			    player.setAbsorptionAmount(roundedAbsorptionAmount);
+			    System.out.println("New absorption amount set to: " + player.getAbsorptionAmount());
+			}
+		    
+		        	
+			player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, healthBoostDuration, healthBoostPower));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, regenerationDuration, regenerationPower));
 	       
 	        new BukkitRunnable() {
 	        	@Override
 	        	public void run() {
 	        		player.setAbsorptionAmount(0);
 	        	}
-	        }.runTaskLater(ProjectKorra.plugin, 600);
+	        }.runTaskLater(ProjectKorra.plugin, wishDuration);
 	        
 			remove();
 			return;

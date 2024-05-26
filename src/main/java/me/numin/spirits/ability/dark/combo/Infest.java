@@ -47,7 +47,11 @@ public class Infest extends DarkAbility implements ComboAbility {
     private long cooldown;
     @Attribute(Attribute.DURATION)
     private long duration;
-
+    private int resistanceDuration;
+    private int offenseDuration;
+    private int resistancePower;
+    private int offensePower;
+    
     public Infest(Player player) {
         super(player);
 
@@ -73,6 +77,10 @@ public class Infest extends DarkAbility implements ComboAbility {
         this.damage = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.Damage");
         this.damageEntities = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.Combo.Infest.DamageEntities");
         this.healDarkSpirits = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.Combo.Infest.HealDarkSpirits");
+        this.resistanceDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.ResistanceDuration");
+        this.resistancePower = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.ResistancePower");
+        this.offenseDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.OffenseDuration");
+        this.offensePower = Spirits.plugin.getConfig().getInt("Abilities.Spirits.DarkSpirit.Combo.Infest.OffensePower");
         location = player.getLocation();
         location2 = player.getLocation();
         location3 = player.getLocation();
@@ -145,10 +153,10 @@ public class Infest extends DarkAbility implements ComboAbility {
                 if (bEntity.hasElement(Element.getElement("DarkSpirit"))) {
                     if (healDarkSpirits) {
                         LivingEntity le = (LivingEntity)entity;
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 0));
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 60, 0));
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 60, 1));
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60, 1));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, resistanceDuration, resistancePower));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, resistanceDuration, resistancePower));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, offenseDuration, offensePower));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, offenseDuration, offensePower));
                         ParticleEffect.SOUL.display(entity.getLocation().add(0, 2, 0), 1, 0, 0, 0, 0);
                     }
                 } else {
@@ -158,7 +166,7 @@ public class Infest extends DarkAbility implements ComboAbility {
 
             } else if (entity instanceof Monster) {
                 LivingEntity le = (LivingEntity)entity;
-                le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 120, 1));
+                le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, resistanceDuration, resistancePower));
                 ParticleEffect.VILLAGER_ANGRY.display(entity.getLocation().add(0, 1, 0), 1, 0, 0, 0, 0);
             } else if (entity instanceof LivingEntity && damageEntities) {
                 DamageHandler.damageEntity(entity, damage, this);

@@ -4,17 +4,22 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.attribute.Attribute;
+import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
+import me.numin.spirits.SpiritElement;
 import me.numin.spirits.Spirits;
 import me.numin.spirits.ability.api.LightAbility;
 
@@ -46,7 +51,9 @@ public class Shelter extends LightAbility {
     private long duration;
     private long othersCooldown;
     private long selfCooldown;
-
+    private long darkSpiritDamage;
+    private long hostilemobDamage;
+    private long allDamage;
     @Attribute(Attribute.COOLDOWN)
     private long cooldown;
     private long realStartTime;
@@ -80,6 +87,9 @@ public class Shelter extends LightAbility {
         this.selfRadius = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.LightSpirit.Shelter.Self.Radius");
         this.blockArrowsSelf = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Shelter.Self.BlockArrows");
         this.blockArrowsOthers = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Shelter.Others.BlockArrows");
+        this.darkSpiritDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.Shelter.DarkSpiritDamage");
+        this.hostilemobDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.Shelter.HostileMobDamage");
+        this.allDamage = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.Shelter.DamageAll");
 
         this.origin = player.getLocation().clone().add(0, 1, 0);
         this.location = origin.clone();
@@ -133,7 +143,7 @@ public class Shelter extends LightAbility {
             for (Entity target : GeneralMethods.getEntitiesAroundPoint(blast, 2)) {
                 if (target instanceof LivingEntity && !target.getUniqueId().equals(player.getUniqueId())) {
                     this.target = target;
-                    LivingEntity livingTarget = (LivingEntity)this.target;
+                    //LivingEntity livingTarget = (LivingEntity)this.target;
                     this.realStartTime = System.currentTimeMillis();
                     this.moveBlast = false;
                 }
@@ -199,6 +209,23 @@ public class Shelter extends LightAbility {
         velocity.setY(-0.7);
         entity.setVelocity(velocity);
         entity.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 60, 1));
+        
+        if (entity.getType() == EntityType.PLAYER) {
+        	if (((BendingPlayer) entity).hasElement(SpiritElement.DARK) && darkSpiritDamage > 0) {
+        		DamageHandler.damageEntity(entity, darkSpiritDamage, this);
+        		
+        	}
+        }
+    	
+    	if (entity instanceof Monster && hostilemobDamage > 0) {
+    		DamageHandler.damageEntity(entity, hostilemobDamage, this);
+    	
+    	}
+    	
+    	if (allDamage > 0) {
+    		DamageHandler.damageEntity(entity, allDamage, this);
+    	
+    	}
     }
 
     @Override

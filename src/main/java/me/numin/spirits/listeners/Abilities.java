@@ -201,7 +201,7 @@ public class Abilities implements Listener {
 					if (event.getEntity() instanceof Player) {
 						if (bPlayer.hasElement(SpiritElement.DARK) && bPlayer.canUsePassive(CoreAbility.getAbility(SinisterAura.class))) {
 							if (new RandomChance(darkChance).chanceReached()) {
-								System.out.println("Triggered SinisterAura");
+								//System.out.println("Triggered SinisterAura");
 								new SinisterAura(player);
 							
 						}
@@ -224,7 +224,7 @@ public class Abilities implements Listener {
 	
 	@EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
 	public void onDeath(EntityDeathEvent event) {
-		System.out.println("Triggered Death");
+		//System.out.println("Triggered Death");
 		if (!(event.getEntity() instanceof Player)) {
         	return;
         }
@@ -232,7 +232,7 @@ public class Abilities implements Listener {
 		if (event.getEntity() instanceof Player) {
 			Player player = (Player) event.getEntity();
 			BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
-			System.out.println("Triggered Death 2");
+			//System.out.println("Triggered Death 2");
 			if (bPlayer == null) {
 				return;
 			}
@@ -242,7 +242,7 @@ public class Abilities implements Listener {
 			Location location = player.getLocation();
 			
 			if (bPlayer.hasElement(SpiritElement.LIGHT) && bPlayer.canUsePassive(afterglow)) {
-				System.out.println("Triggered Afterglow");
+				//System.out.println("Triggered Afterglow");
 				new Afterglow(player, location);	
 			}
 		}
@@ -309,6 +309,9 @@ public class Abilities implements Listener {
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("SpiritBlast")) {
             new SpiritBlast(player);
             
+        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Calling")) {
+            new Calling(player);
+
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("CallingRift")) {
             new CallingRift(player);
 
@@ -357,10 +360,7 @@ public class Abilities implements Listener {
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Orb")) {
             new Orb(player);
 
-        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Calling")) {
-            new Calling(player);
-
-        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Wish") && bPlayer.canBend(CoreAbility.getAbility(Wish.class)) && !CoreAbility.hasAbility(player, Wish.class)) {
+        }  else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Wish") && bPlayer.canBend(CoreAbility.getAbility(Wish.class)) && !CoreAbility.hasAbility(player, Wish.class)) {
 			new Wish(player);
 			
 		} else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Enlightenment") && bPlayer.canBend(CoreAbility.getAbility(Enlightenment.class)) && !CoreAbility.hasAbility(player, Enlightenment.class)) {

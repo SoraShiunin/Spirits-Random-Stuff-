@@ -47,6 +47,8 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
     private long cooldown;
     @Attribute(Attribute.DURATION)
     private long duration;
+    private int regenduration;
+    private int regenpower;
 
     public Rejuvenate(Player player) {
         super(player);
@@ -68,6 +70,8 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
         this.damage = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.Damage");
         this.damageDarkSpirits = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.HurtDarkSpirits");
         this.damageMonsters = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.HurtMonsters");
+        this.regenduration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.RegenDuration");
+        this.regenpower = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Combo.Rejuvenate.RegenPower");
         location = player.getLocation();
         location2 = player.getLocation();
         location3 = player.getLocation();
@@ -138,7 +142,7 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
                 Player ePlayer = (Player) entity;
                 BendingPlayer bEntity = BendingPlayer.getBendingPlayer(ePlayer);
                 if (!bEntity.hasElement(Element.getElement("DarkSpirit")) || bEntity.hasElement(Element.getElement("Lightspirit"))) {
-                    ePlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, 0));
+                    ePlayer.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, regenduration, regenpower));
                     ParticleEffect.HEART.display(ePlayer.getLocation().add(0, 2, 0), 0, 0, 0, 0, 1);
                 } else {
                     if (damageDarkSpirits) {
@@ -150,7 +154,7 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
 
             } else {
                 LivingEntity le = (LivingEntity)entity;
-                le.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 120, 0));
+                le.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, regenduration, regenpower));
                 ParticleEffect.HEART.display(entity.getLocation().add(0, 2, 0), 0, 0, 0, 0, 1);
             }
         }

@@ -70,7 +70,7 @@ public class Calling extends SpiritAbility {
 			return;
 		}
 		
-		if (player.getHealth() >= selfDamage+1) {
+		if (player.getHealth() >= selfDamage+1 && player.isSneaking()) {
 	        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
 	        //DamageHandler.damageEntity(player, selfDamage, this);
 	        player.setHealth(player.getHealth()-selfDamage);
@@ -117,7 +117,7 @@ public class Calling extends SpiritAbility {
 		origin = player.getLocation();
 		
 
-		while (summon <=amount) {
+		while (summon < amount) {
 			Location loc = origin.clone();
 			loc.add((rand.nextBoolean() ? 0.3 : -0.3) * rand.nextInt((int) radius),
 					(rand.nextBoolean() ? 0.3 : -0.3) * rand.nextInt((int) radius),
