@@ -294,9 +294,9 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.RemoveOnDamage", false);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Duration", 3000);
-        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.DarkSpiritDamage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.DarkSpiritDamage", 0);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.HostileMobDamage", 1);
-        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.DamageAll", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Shelter.DamageAll", 0);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Others.ClickDelay", 2000);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Others.Cooldown", 10000);
         config.addDefault("Abilities.Spirits.LightSpirit.Shelter.Self.Cooldown", 5200);

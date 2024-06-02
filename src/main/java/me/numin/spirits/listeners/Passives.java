@@ -44,7 +44,11 @@ public class Passives implements Listener {
 
             Player player = (Player) event.getEntity();
             BendingPlayer bPlayer = BendingPlayer.getBendingPlayer(player);
-
+            
+    		if (bPlayer == null) {
+    			return;
+    		}
+    		
             if (event.getCause() == DamageCause.FALL && bPlayer.hasElement(SpiritElement.NEUTRAL)
                     && bPlayer.canUsePassive(spiritualBody) && bPlayer.canBendPassive(spiritualBody)) {
                 double newDamage = event.getDamage() * SpiritualBody.getFallDamageModifier();

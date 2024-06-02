@@ -211,18 +211,19 @@ public class Shelter extends LightAbility {
         entity.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 60, 1));
         
         if (entity.getType() == EntityType.PLAYER) {
-        	if (((BendingPlayer) entity).hasElement(SpiritElement.DARK) && darkSpiritDamage > 0) {
+        	if (entity instanceof BendingPlayer) {
+        		if (((BendingPlayer) entity).hasElement(SpiritElement.DARK) && darkSpiritDamage > 0 && entity != null && bPlayer != null) {
         		DamageHandler.damageEntity(entity, darkSpiritDamage, this);
         		
+        		}
         	}
         }
-    	
-    	if (entity instanceof Monster && hostilemobDamage > 0) {
+    	if (entity instanceof Monster && hostilemobDamage > 0 && entity != null) {
     		DamageHandler.damageEntity(entity, hostilemobDamage, this);
     	
     	}
     	
-    	if (allDamage > 0) {
+    	if (allDamage > 0 && entity != null) {
     		DamageHandler.damageEntity(entity, allDamage, this);
     	
     	}
