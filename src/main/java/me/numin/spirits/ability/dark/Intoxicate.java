@@ -104,8 +104,8 @@ public class Intoxicate extends DarkAbility {
     private void showSelection() {
         Location blast = Methods.advanceLocationToPoint(vector, location, target.getLocation().add(0, 1, 0), blastSpeed);
 
-        player.getWorld().spawnParticle(Particle.REDSTONE, blast, 10, 0.1, 0.1, 0.1, 0, black);
-        player.getWorld().spawnParticle(Particle.REDSTONE, blast, 10, 0.1, 0.1, 0.1, 0, customColor);
+        player.getWorld().spawnParticle(Particle.DUST, blast, 10, 0.1, 0.1, 0.1, 0, black);
+        player.getWorld().spawnParticle(Particle.DUST, blast, 10, 0.1, 0.1, 0.1, 0, customColor);
 
         if (blast.distance(player.getLocation()) > range ||
                 blast.getBlock().isLiquid() ||
@@ -136,7 +136,7 @@ public class Intoxicate extends DarkAbility {
         if (System.currentTimeMillis() - getStartTime() > harmInt) {
             target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20 * witherDuration, witherPower, false, true, false));
             target.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 20 * hungerDuration, hungerPower, false, true, false));
-            target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 20 * confusionDuration, confusionPower, false, true, false));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 20 * confusionDuration, confusionPower, false, true, false));
             target.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 20 * confusionDuration, confusionPower));
             DamageHandler.damageEntity(player, selfDamage, this);
             remove();
@@ -162,8 +162,8 @@ public class Intoxicate extends DarkAbility {
             double y = 1.2 * Math.cos(angle) + 1.2;
             double z = (float) 0.04 * (Math.PI * 4 - angle) * Math.sin(angle + i);
             location.add(x, y, z);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, black);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, customColor);
+            player.getWorld().spawnParticle(Particle.DUST, location, 1, 0, 0, 0, 0, black);
+            player.getWorld().spawnParticle(Particle.DUST, location, 1, 0, 0, 0, 0, customColor);
             location.subtract(x, y, z);
         }
     }

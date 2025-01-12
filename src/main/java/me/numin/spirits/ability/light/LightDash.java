@@ -59,7 +59,7 @@ public class LightDash extends LightAbility {
         }
         progressDash();
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, 2));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 40, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 40, 0));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_FALLING, 40, 0));
     }
 

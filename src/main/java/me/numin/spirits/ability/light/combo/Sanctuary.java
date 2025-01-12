@@ -21,7 +21,6 @@ import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.util.ClickType;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
@@ -36,8 +35,8 @@ public class Sanctuary extends LightAbility implements ComboAbility {
 	FileConfiguration config = Spirits.plugin.getConfig();
 	
 	private PotionEffectType[] negativeEffects = new PotionEffectType[] {
-			PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION, PotionEffectType.POISON,
-			PotionEffectType.SLOW, PotionEffectType.SLOW_DIGGING, PotionEffectType.WEAKNESS,
+			PotionEffectType.BLINDNESS, PotionEffectType.NAUSEA, PotionEffectType.POISON,
+			PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE, PotionEffectType.WEAKNESS,
 			PotionEffectType.UNLUCK, PotionEffectType.WITHER};
 	
 	private long cooldown;
@@ -210,7 +209,7 @@ public class Sanctuary extends LightAbility implements ComboAbility {
 			                
 			                if (bEntity.hasElement(lightSpirit)) {
 			                	((LivingEntity) entity).addPotionEffect(new PotionEffect(
-										PotionEffectType.DAMAGE_RESISTANCE, resistanceDuration, resistancePower));
+										PotionEffectType.RESISTANCE, resistanceDuration, resistancePower));
 								
 								for (PotionEffectType negativeEffects : this.negativeEffects) {
 									((LivingEntity) entity).removePotionEffect(negativeEffects);

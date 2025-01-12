@@ -99,7 +99,7 @@ public class Paint extends SpiritAbility {
 		    
 		    Location spawnLocation = findSafeSpawnLocation(new Location(initialLocation.getWorld(), x, y, z), direction);
 
-		                player.getWorld().spawnParticle(Particle.REDSTONE, spawnLocation, 1, 0, 0, 0, 0.1, customColor);
+		                player.getWorld().spawnParticle(Particle.DUST, spawnLocation, 1, 0, 0, 0, 0.1, customColor);
 		                if (System.currentTimeMillis() - time > duration) {
 		                    remove();
 		                }
@@ -133,7 +133,7 @@ public class Paint extends SpiritAbility {
 			    double z = initialLocation.getZ() + direction.getZ() * offset;
 			    
 			    Location spawnLocation = findSafeSpawnLocation(new Location(initialLocation.getWorld(), x, y, z), direction);
-			     player.getWorld().spawnParticle(Particle.REDSTONE, spawnLocation, 1, 0, 0, 0, 0.1, customColor);
+			     player.getWorld().spawnParticle(Particle.DUST, spawnLocation, 1, 0, 0, 0, 0.1, customColor);
 			                
 	        }
 		    // Apply offset to the coordinates

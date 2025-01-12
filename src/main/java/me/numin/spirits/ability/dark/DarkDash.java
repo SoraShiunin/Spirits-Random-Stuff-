@@ -59,7 +59,7 @@ public class DarkDash extends DarkAbility {
         }
         progressDash();
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 40, 7));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 40, 2));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 40, 2));
     }
 
     private void progressDash() {

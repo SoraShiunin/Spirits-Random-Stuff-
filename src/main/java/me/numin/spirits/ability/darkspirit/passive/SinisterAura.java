@@ -111,11 +111,11 @@ public class SinisterAura extends DarkAbility implements PassiveAbility {
 			for (Location location : locations) {
 				for (Entity entity : GeneralMethods.getEntitiesAroundPoint(location, 2)) {
 					if (entity.getUniqueId() != player.getUniqueId() && entity instanceof LivingEntity) {
-						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration, power));
-						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, duration, power));
+						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, duration, power));
+						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, duration, power));
 						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration, power));
 						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, duration, power));
-						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration, power));
+						((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, duration, power));
 					}
 				}
 			}

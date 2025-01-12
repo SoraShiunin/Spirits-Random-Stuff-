@@ -182,7 +182,7 @@ public class SpiritBlast extends SpiritAbility {
                 double z = Math.sin(i * 120 + rotation) * radius;
                 Vector vec = new Vector(x, 0, z);
                 vec = direction.crossProduct(vec);
-                player.getWorld().spawnParticle(Particle.REDSTONE, displayLoc.clone().add(vec), 1, 0, 0, 0, 0.1, new Particle.DustOptions(spiritElement.getDustColor(), 2));
+                player.getWorld().spawnParticle(Particle.DUST, displayLoc.clone().add(vec), 1, 0, 0, 0, 0.1, new Particle.DustOptions(spiritElement.getDustColor(), 2));
             }
 
             displayLoc.add(tempVec);

@@ -91,7 +91,7 @@ public class Swap extends SpiritAbility {
                 return;
             }
             if (true) {
-                target.getWorld().spawnParticle(Particle.CRIT_MAGIC, target.getLocation(), 5, 0, 0, 0, 0.08);
+                target.getWorld().spawnParticle(Particle.ENCHANTED_HIT, target.getLocation(), 5, 0, 0, 0, 0.08);
                 target.getWorld().playSound(target.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1F, 2F);
             	player.teleport(target.getLocation());
             	target.teleport(playerLoc);
@@ -113,7 +113,7 @@ public class Swap extends SpiritAbility {
             double x = 0.04 * (Math.PI * 4 - angle) * Math.cos(angle + i);
             double z = 0.04 * (Math.PI * 4 - angle) * Math.sin(angle + i);
             location.add(x, 0.1F, z);
-            player.getWorld().spawnParticle(Particle.CRIT_MAGIC, location, 1, 0, 0, 0, 0);
+            player.getWorld().spawnParticle(Particle.ENCHANTED_HIT , location, 1, 0, 0, 0, 0);
             location.subtract(x, 0.1F, z);
         }
     }
@@ -127,7 +127,7 @@ public class Swap extends SpiritAbility {
             double x2 = 0.04 * (Math.PI * 5 - angle2) * Math.cos(angle2 + t);
             double z2 = 0.04 * (Math.PI * 5 - angle2) * Math.sin(angle2 + t);
             location.add(x2, 0.1F, z2);
-            player.getWorld().spawnParticle(Particle.CRIT_MAGIC, location, 1, 0, 0, 0, 0);
+            player.getWorld().spawnParticle(Particle.ENCHANTED_HIT, location, 1, 0, 0, 0, 0);
             location.subtract(x2, 0.1F, z2);
         }
     }

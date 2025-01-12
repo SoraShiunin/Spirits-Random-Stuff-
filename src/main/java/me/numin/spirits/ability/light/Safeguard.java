@@ -26,8 +26,8 @@ public class Safeguard extends LightAbility {
 	private long time;
 	
 	private PotionEffectType[] negativeEffects = new PotionEffectType[] {
-			PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION, PotionEffectType.POISON,
-			PotionEffectType.SLOW, PotionEffectType.SLOW_DIGGING, PotionEffectType.WEAKNESS,
+			PotionEffectType.BLINDNESS, PotionEffectType.NAUSEA, PotionEffectType.POISON,
+			PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE, PotionEffectType.WEAKNESS,
 			PotionEffectType.UNLUCK, PotionEffectType.WITHER };
 
 	public Safeguard(Player player) {
@@ -72,7 +72,7 @@ public class Safeguard extends LightAbility {
 	@Override
 	public void progress() {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 40, 0));
-		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 40, 0));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 40, 0));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 40, 1));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 40, 0));
 		player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 40, 0));
@@ -121,8 +121,8 @@ public class Safeguard extends LightAbility {
 	public void remove() {
 		super.remove();
 		
-		if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
-			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+		if (player.hasPotionEffect(PotionEffectType.RESISTANCE)) {
+			player.removePotionEffect(PotionEffectType.RESISTANCE);
 		}
 	}
 

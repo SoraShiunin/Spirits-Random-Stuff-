@@ -61,7 +61,7 @@ public class LightSoar extends LightAbility {
                     player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_AMBIENT, 0.3F, 5F);
                 }
                 Methods.playSpiritParticles(player, player.getLocation(), 0.5, 0.5, 0.5, 0, 2);
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 15, 0));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 15, 0));
             }
         }
     }

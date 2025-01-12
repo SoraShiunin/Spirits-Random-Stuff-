@@ -336,7 +336,7 @@ public class Enlightenment extends LightAbility {
 	private void addEffects(LivingEntity entity, int potionDuration, int potionPower) {
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, potionDuration, potionPower));
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, potionDuration, potionPower));
-		entity.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, potionDuration, potionPower));
+		entity.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, potionDuration, potionPower));
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, potionDuration, potionPower));
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, potionDuration, potionPower));
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, potionDuration, potionPower));

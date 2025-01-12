@@ -22,7 +22,6 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 import com.projectkorra.projectkorra.util.TempBlock;
 
@@ -48,9 +47,19 @@ public class Corruption extends DarkAbility {
 	private long poisonDuration;
 	private int attackRadius;
 	private int attackYRadius;
-	
+	private int spidertotal;
 	private double time;
+	private int spidernumber = 0;
+
+	static String[] darkSpiritNames = { "Abyssal", "Blighted", "Corrupted", "Dark", "Dread", "Ebon", "Ghastly", "Grim", "Malevolent", "Necrotic", 
+	"Shadow", "Sinister", "Spectral", "Vile", "Wicked", "Wrathful", "Vengeful", "Vicious", "Vindictive", "Voracious", "Wretched", "Zealous",
+	"Baleful", "Cursed", "Doomed", "Forsaken", "Gloomy", "Haunted", "Infernal", "Macabre", "Morbid", "Ominous", "Pernicious", "Ravenous", 
+	"Spiteful", "Tenebrous", "Unholy", "Unhallowed", "Malevolent", "Malignant", "Menacing", "Mournful", "Nocturnal", "Phantom", "Sable", 
+	"Somber", "Sorrowful", "Twilight", "Umbra", "Void"
+	};
+
 	
+
 	private Location origin;
 	public Entity darkSpirit;
 	
@@ -67,7 +76,6 @@ public class Corruption extends DarkAbility {
 		if (bPlayer.isOnCooldown(this)) {
 			return;
 		}
-		
 		cooldown = config.getLong(path + "Cooldown");
 		radius = config.getDouble(path + "Radius");
 		duration = config.getDouble(path + "Duration");
@@ -75,6 +83,7 @@ public class Corruption extends DarkAbility {
 		poisonDuration = config.getLong(path + "EffectDuration");
 		attackRadius = config.getInt(path + "AttackRadius");
 		attackYRadius = config.getInt(path + "AttackYRadius");
+		spidertotal = config.getInt(path + "SpiderTotal");
 		
 		effectDuration = Math.toIntExact((poisonDuration * 1000) / 50);
 		
@@ -143,7 +152,10 @@ public class Corruption extends DarkAbility {
 		time += 0.05;
 		
 		summonDarkSpirits();
-		
+		summonDarkSpirits();
+		corruptBlocks();
+		corruptBlocks();
+		corruptBlocks();
 		corruptBlocks();
 		
 		for (Entity entity : GeneralMethods.getEntitiesAroundPoint(origin, radius)) {
@@ -156,13 +168,13 @@ public class Corruption extends DarkAbility {
 	                Player ePlayer = (Player) entity;
 	                BendingPlayer bEntity = BendingPlayer.getBendingPlayer(ePlayer);
 	                
-	                if (bEntity != null) { //fix error when, when the, when the, when the no element player gets hit
+	                if (bEntity != null) { //to fix error when, when the, when the, when the no element player gets hit
 	                Element darkSpirit = SpiritElement.DARK;
 					Element lightSpirit = SpiritElement.LIGHT;
 					
 					if (bEntity.hasElement(darkSpirit) && entity.getUniqueId() != player.getUniqueId()) {
 						((LivingEntity) entity).addPotionEffect(new PotionEffect(
-								PotionEffectType.DAMAGE_RESISTANCE, effectDuration, effectPower));
+								PotionEffectType.RESISTANCE, effectDuration, effectPower));
 						
 	                } else if (bEntity.hasElement(lightSpirit) && entity.getUniqueId() != player.getUniqueId()) {
 	                	((LivingEntity) entity).addPotionEffect(new PotionEffect(
@@ -202,18 +214,48 @@ public class Corruption extends DarkAbility {
 			ParticleEffect.DRAGON_BREATH.display(origin, 1, radius, 0F, radius, 0.05F);
 			
 			if (GeneralMethods.isSolid(block)) {
-				final TempBlock tempBlock = new TempBlock(block, Material.MYCELIUM);
+				int randomBlock = rand.nextInt(6);
+				if (randomBlock == 0) {
+					//block.setType(Material.COARSE_DIRT); Maybe to use later for a configuration option for permanent block changes
+					final TempBlock tempBlock = new TempBlock(block, Material.MUDDY_MANGROVE_ROOTS);
+					tempBlocks.add(tempBlock);
+				} else if (randomBlock == 1) {
+					final TempBlock tempBlock = new TempBlock(block, Material.PODZOL);
+					tempBlocks.add(tempBlock);
+				}
+				else if (randomBlock == 2) {
+					final TempBlock tempBlock = new TempBlock(block, Material.MUD);
+					tempBlocks.add(tempBlock);
+				}
+				else if (randomBlock > 3) {
+					final TempBlock tempBlock = new TempBlock(block, Material.MYCELIUM);
+					tempBlocks.add(tempBlock);
+				}
+
 				ParticleEffect.SPELL_WITCH.display(block.getLocation().add(0, 1, 0), 3, 0.2F, 0.2F, 0.2F, 0.2F);
 				
-				tempBlocks.add(tempBlock);
+				
 			}
 			
 			for (Material plants : this.plants) {
+
 				if (block.getType() == plants) {
-					final TempBlock tempBlock = new TempBlock(block, Material.DEAD_BUSH);
 					ParticleEffect.SPELL_WITCH.display(block.getLocation().add(0, 1, 0), 3, 0.2F, 0.2F, 0.2F, 0.2F);
-					
+				int randomBlock = rand.nextInt(6);
+
+				if (randomBlock == 0) {
+					//block.setType(Material.COARSE_DIRT);
+					final TempBlock tempBlock = new TempBlock(block, Material.PALE_OAK_SAPLING);
 					tempBlocks.add(tempBlock);
+				} else if (randomBlock == 1) {
+					final TempBlock tempBlock = new TempBlock(block, Material.MANGROVE_ROOTS);
+					tempBlocks.add(tempBlock);
+				}
+				else if (randomBlock > 2) {
+					final TempBlock tempBlock = new TempBlock(block, Material.DEAD_BUSH);
+					tempBlocks.add(tempBlock);
+				}
+
 				}
 			}
 		}
@@ -230,11 +272,20 @@ public class Corruption extends DarkAbility {
 				if (GeneralMethods.isRegionProtectedFromBuild(this, loc)) {
 					return;
 				}
+
+
 				
-				darkSpirit = player.getWorld().spawnEntity(loc, EntityType.CAVE_SPIDER);
-				darkSpirit.setCustomName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "DarkSpirit");
+				//this while might break things
+				if (spidernumber < spidertotal) {
+					darkSpirit = player.getWorld().spawnEntity(loc, EntityType.CAVE_SPIDER);
+					player.getWorld().playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 1F, 0.5F);
+					spidernumber++;
+					//System.out.println("Spider number: " + spidernumber + " out of " + spidertotal);
+				}
+				
+				darkSpirit.setCustomName(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + darkSpiritNames[rand.nextInt(darkSpiritNames.length)]);
 				((Mob) darkSpirit).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (int) duration*20, 2, false));
-				((Mob) darkSpirit).addPotionEffect(new PotionEffect(PotionEffectType.JUMP, (int) duration*20, 1, false));
+				((Mob) darkSpirit).addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, (int) duration*20, 1, false));
 				
 				List<Entity> darkspiritTargets11 = player.getNearbyEntities(attackRadius, attackYRadius, attackRadius);
 				for (Entity target15 : darkspiritTargets11) {
@@ -254,16 +305,17 @@ public class Corruption extends DarkAbility {
 								continue;
 							}
 							((LivingEntity) entity).addPotionEffect(new PotionEffect(
-		                			PotionEffectType.SLOW, 40, 1));
+		                			PotionEffectType.SLOWNESS, 40, 1));
 						}
 					}
 				}
 				
-				player.getWorld().playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 1F, 0.5F);
+				
 				
 				ParticleEffect.SPELL_WITCH.display(loc, 10, 0.2F, 0.2F, 0.2F, 0.2F);
 				
 				entities.add(darkSpirit);
+			
 			}
 		}
 	}

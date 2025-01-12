@@ -122,15 +122,15 @@ public class Methods {
                 black = new DustOptions(Color.fromRGB(0, 0, 0), 1);*/
 
         if (spiritType == SpiritElement.NEUTRAL) {
-            location.getWorld().spawnParticle(Particle.CRIT_MAGIC, location, amount, x, y, z, speed);
+            location.getWorld().spawnParticle(Particle.ENCHANTED_HIT, location, amount, x, y, z, speed);
         } else if (spiritType == SpiritElement.DARK) {
-            location.getWorld().spawnParticle(Particle.SPELL_WITCH, location, amount, x, y, z, speed);
+            location.getWorld().spawnParticle(Particle.WITCH, location, amount, x, y, z, speed);
         } else if (spiritType == SpiritElement.LIGHT) {
-            location.getWorld().spawnParticle(Particle.SPELL_INSTANT, location, amount, x, y, z, speed);
+            location.getWorld().spawnParticle(Particle.ENCHANT, location, amount, x, y, z, speed);
         }	else if (spiritType == SpiritElement.PRIMAL) {
-            location.getWorld().spawnParticle(Particle.SPELL_INSTANT, location, amount, x, y, z, speed);
+            location.getWorld().spawnParticle(Particle.ENCHANT, location, amount, x, y, z, speed);
         }
-        location.getWorld().spawnParticle(Particle.REDSTONE, location, amount, x, y, z, speed, new DustOptions(spiritType.getDustColor(), 2));
+        location.getWorld().spawnParticle(Particle.DUST, location, amount, x, y, z, speed, new DustOptions(spiritType.getDustColor(), 2));
     }
 
     /**

@@ -44,6 +44,13 @@ public class Calling extends SpiritAbility {
 	public Entity SpiritSummon;
 	private long time;
 	private double radius = 5;
+
+	static String[] NeutralSpiritNames = {
+		"Clowner", "Fighter", "Trickster", "Phantom", "Wraith", "Specter", 
+		"Shadow", "Banshee", "Poltergeist", "Ghoul", "Revenant", "Shade", 
+		"Apparition", "Haunter", "Spook", "Mischief", "Rogue", "Illusionist"
+	};
+
 	Random rand = new Random();
 	private Location origin;
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -129,7 +136,7 @@ public class Calling extends SpiritAbility {
 				 //remember, starts at 0, so 2 is 3 etc
 				
 				SpiritSummon = player.getWorld().spawnEntity(loc, EntityType.VEX);
-				SpiritSummon.setCustomName(ChatColor.AQUA + "" + ChatColor.BOLD + "Spirit");
+				SpiritSummon.setCustomName(ChatColor.AQUA + "" + ChatColor.BOLD + NeutralSpiritNames[rand.nextInt(NeutralSpiritNames.length)]);
 			    ItemStack mainhandItem = new ItemStack(Material.AIR); //Hand is now poof, make it barrier or torch for funny
 			    ((LivingEntity) SpiritSummon).getEquipment().setItemInMainHand(mainhandItem);
 			    //((LivingEntity) SpiritSummon).setMaxHealth(player.getMaxHealth()); 
@@ -154,7 +161,7 @@ public class Calling extends SpiritAbility {
 								continue;
 							}
 							((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 9000, 0));
-							((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, spiritDamage));
+							((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 9000, spiritDamage));
 						}
 					}
 				}

@@ -76,8 +76,8 @@ public class CallingRift extends PrimalAbility {
 
 		if (player.isSneaking())
 		{ //Big Rift
-			if (player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue()-selfDamage <= player.getHealth()) {
-			double playerMaxHP = player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue();
+			if (player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue()-selfDamage <= player.getHealth()) {
+			double playerMaxHP = player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue();
 	        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_DEATH, 1, 0);
 	        //DamageHandler.damageEntity(player, selfDamage, this);
 	        player.setHealth(1);
@@ -173,7 +173,7 @@ public class CallingRift extends PrimalAbility {
 									continue;
 								}
 								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 9000, 0));
-								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, spiritDamage));
+								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 9000, spiritDamage));
 							}
 						}
 					}
@@ -243,7 +243,7 @@ public class CallingRift extends PrimalAbility {
 									continue;
 								}
 								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 9000, 0));
-								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, spiritDamage));
+								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 9000, spiritDamage));
 							}
 						}
 					}

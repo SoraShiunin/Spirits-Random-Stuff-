@@ -16,6 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityDismountEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
@@ -25,13 +26,10 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.spigotmc.event.entity.EntityDismountEvent;
 
 import com.projectkorra.projectkorra.BendingPlayer;
-import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ability.Ability;
 import com.projectkorra.projectkorra.ability.CoreAbility;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.event.PlayerSwingEvent;
 import com.projectkorra.projectkorra.util.DamageHandler;
 
@@ -371,6 +369,7 @@ public class Abilities implements Listener {
 			
 		} else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("LightBeam") && bPlayer.canBendIgnoreBinds(CoreAbility.getAbility(LightBeamCharge.class)) && !CoreAbility.hasAbility(player, LightBeamCharge.class)) {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRIGGER, 0.3F, 0.5F);
+			//System.out.println("LightBeamCharge Triggered");
 			new LightBeamCharge(player);
 			
 		} else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("DarkBeam") && bPlayer.canBendIgnoreBinds(CoreAbility.getAbility(DarkBeamCharge.class)) && !CoreAbility.hasAbility(player, DarkBeamCharge.class)) {

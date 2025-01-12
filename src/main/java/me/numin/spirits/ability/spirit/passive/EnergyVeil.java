@@ -31,7 +31,7 @@ public class EnergyVeil extends SpiritAbility implements PassiveAbility {
 		maxHPBonus = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.Neutral.Passive.EnergyVeil.maxHPBonus");
 		
 		Player player1 = playerEvent;
-		double playerMaxHP = player1.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+		double playerMaxHP = player1.getAttribute(Attribute.MAX_HEALTH).getValue();
 		double playerCurrentHP = player1.getHealth();
 		double playerHPMaxCurrDiff = playerCurrentHP / playerMaxHP * healthDivider;
 		double playerCurrentXP = player1.getTotalExperience();

@@ -34,15 +34,20 @@ public class Infest extends DarkAbility implements ComboAbility {
 
     //TODO: Add sounds.
 
-    private Location circleCenter, location, location2, location3;
+    private Location circleCenter;
+    private Location  location;
+    private Location  location2;
+    private Location  location3;
 
-    private boolean damageEntities, healDarkSpirits;
+    private boolean damageEntities;
+    private boolean healDarkSpirits;
     @Attribute(Attribute.DAMAGE)
     private double damage;
     @Attribute(Attribute.RADIUS)
     private double radius;
     private double counter;
-    private int currPoint, effectInt;
+    private int currPoint;
+    private int effectInt;
     @Attribute(Attribute.COOLDOWN)
     private long cooldown;
     @Attribute(Attribute.DURATION)
@@ -59,7 +64,9 @@ public class Infest extends DarkAbility implements ComboAbility {
             return;
         }
         setFields();
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 0.3F, -1);
+        if (player.getWorld() != null) {
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 0.3F, -1);
+        }
         start();
         bPlayer.addCooldown(this);
     }
@@ -102,7 +109,7 @@ public class Infest extends DarkAbility implements ComboAbility {
     }
 
     private void spawnCircle() {
-        Methods.createPolygon(location, 8, radius, 0.2, Particle.SPELL_WITCH);
+        Methods.createPolygon(location, 8, radius, 0.2, Particle.WITCH);
         for (int i = 0; i < 6; i++) {
             this.currPoint += 360 / 300;
             if (this.currPoint > 360) {
@@ -129,12 +136,12 @@ public class Infest extends DarkAbility implements ComboAbility {
                 double z = 0.5 * (Math.PI * 4 - counter) * Math.sin(counter - i);
                 location.add(x, y, z);
                 Methods.playSpiritParticles(SpiritElement.DARK, location, 0, 0, 0, 0, 1);
-                player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(100, 100, 100), 1));
+                player.getWorld().spawnParticle(Particle.DUST, location, 1, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(100, 100, 100), 1));
                 location.subtract(x, y, z);
             }
         }
 
-        player.getWorld().spawnParticle(Particle.TOWN_AURA, location, 10, radius / 2, 0.6, radius / 2, 0);
+        player.getWorld().spawnParticle(Particle.DUST, location, 10, radius / 2, 0.6, radius / 2, 0);
     }
 
     private void grabEntities() {
@@ -153,9 +160,9 @@ public class Infest extends DarkAbility implements ComboAbility {
                 if (bEntity.hasElement(Element.getElement("DarkSpirit"))) {
                     if (healDarkSpirits) {
                         LivingEntity le = (LivingEntity)entity;
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, resistanceDuration, resistancePower));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, resistanceDuration, resistancePower));
                         le.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, resistanceDuration, resistancePower));
-                        le.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, offenseDuration, offensePower));
+                        le.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, offenseDuration, offensePower));
                         le.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, offenseDuration, offensePower));
                         ParticleEffect.SOUL.display(entity.getLocation().add(0, 2, 0), 1, 0, 0, 0, 0);
                     }
@@ -166,7 +173,7 @@ public class Infest extends DarkAbility implements ComboAbility {
 
             } else if (entity instanceof Monster) {
                 LivingEntity le = (LivingEntity)entity;
-                le.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, resistanceDuration, resistancePower));
+                le.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, resistanceDuration, resistancePower));
                 ParticleEffect.VILLAGER_ANGRY.display(entity.getLocation().add(0, 1, 0), 1, 0, 0, 0, 0);
             } else if (entity instanceof LivingEntity && damageEntities) {
                 DamageHandler.damageEntity(entity, damage, this);

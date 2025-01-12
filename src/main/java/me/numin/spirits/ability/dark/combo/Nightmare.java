@@ -32,8 +32,8 @@ public class Nightmare extends DarkAbility implements ComboAbility {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	
 	private PotionEffectType[] negativeEffects = new PotionEffectType[] {
-			PotionEffectType.BLINDNESS, PotionEffectType.CONFUSION,
-			PotionEffectType.SLOW, PotionEffectType.SLOW_DIGGING, PotionEffectType.WEAKNESS,
+			PotionEffectType.BLINDNESS, PotionEffectType.NAUSEA,
+			PotionEffectType.SLOWNESS, PotionEffectType.MINING_FATIGUE, PotionEffectType.WEAKNESS,
 			PotionEffectType.UNLUCK };
 	
 	private long cooldown;

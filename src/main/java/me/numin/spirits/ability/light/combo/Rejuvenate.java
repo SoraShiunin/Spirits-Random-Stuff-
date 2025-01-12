@@ -93,7 +93,7 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
     }
 
     private void spawnCircle() {
-        Methods.createPolygon(location, 8, radius, 0.2, Particle.SPELL_INSTANT);
+        Methods.createPolygon(location, 8, radius, 0.2, Particle.ENCHANT);
         for (int i = 0; i < 6; i++) {
             this.currPoint += 360 / 300;
             if (this.currPoint > 360) {
@@ -120,7 +120,7 @@ public class Rejuvenate extends LightAbility implements ComboAbility {
                 double z = 0.5 * (Math.PI * 4 - counter) * Math.sin(counter - i);
                 location.add(x, y, z);
                 Methods.playSpiritParticles(SpiritElement.LIGHT, location, 0, 0, 0, 0, 1);
-                player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(255, 255, 255), 1));
+                player.getWorld().spawnParticle(Particle.DUST, location, 1, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(255, 255, 255), 1));
                 location.subtract(x, y, z);
             }
         }

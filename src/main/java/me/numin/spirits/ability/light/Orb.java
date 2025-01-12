@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -125,7 +126,7 @@ public class Orb extends LightAbility {
         }
         if (System.currentTimeMillis() > getStartTime() + duration + 3000) {
             playDormant = false;
-            player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 30, 0, 0, 0, 0.09);
+            player.getWorld().spawnParticle(Particle.FIREWORK, location, 30, 0, 0, 0, 0.09);
             bPlayer.addCooldown(this);
             remove();
         } else {
@@ -144,13 +145,14 @@ public class Orb extends LightAbility {
             }
         }
         if (progressExplosion) {
-            player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, targetLoc, 30, 0.2, 0.2, 0.2, 0.4);
+            player.getWorld().spawnParticle(Particle.FIREWORK, targetLoc, 30, 0.2, 0.2, 0.2, 0.4);
             ParticleEffect.END_ROD.display(targetLoc, 15, 2, 3, 2, 0);
             for (Entity entity : GeneralMethods.getEntitiesAroundPoint(targetLoc, effectRange)) {
                 if (entity instanceof LivingEntity && entity.getUniqueId() != player.getUniqueId()) {
                     LivingEntity le = (LivingEntity)entity;
                     le.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, blindDuration, potionAmp));
-                    le.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, nauseaDuration, potionAmp));
+                    le.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, nauseaDuration, potionAmp));
+                    le.getWorld().playSound(le.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.5F, 2F);
                     DamageHandler.damageEntity(entity, damage, this);
                 }
             }

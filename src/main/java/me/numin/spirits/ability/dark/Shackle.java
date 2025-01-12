@@ -107,12 +107,12 @@ public class Shackle extends DarkAbility {
 
                 if (this.target instanceof Player) {
                     Player playerTarget = (Player)this.target;
-                    playerTarget.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 5));
-                    playerTarget.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, 128));
+                    playerTarget.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 120, 5));
+                    playerTarget.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 120, 128));
                 } else {
                     LivingEntity livingTarget = (LivingEntity)this.target;
-                    livingTarget.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 128));
-                    livingTarget.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 120, 128));
+                    livingTarget.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 120, 128));
+                    livingTarget.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 120, 128));
                 }
             }
 
@@ -129,7 +129,7 @@ public class Shackle extends DarkAbility {
             double x = 0.04 * (Math.PI * 4 - angle) * Math.cos(angle + i);
             double z = 0.04 * (Math.PI * 4 - angle) * Math.sin(angle + i);
             location.add(x, 0.1F, z);
-            player.getWorld().spawnParticle(Particle.SPELL_WITCH, location, 1, 0, 0, 0, 0);
+            player.getWorld().spawnParticle(Particle.WITCH, location, 1, 0, 0, 0, 0);
             location.subtract(x, 0.1F, z);
         }
     }
@@ -143,7 +143,7 @@ public class Shackle extends DarkAbility {
             double x2 = 0.04 * (Math.PI * 5 - angle2) * Math.cos(angle2 + t);
             double z2 = 0.04 * (Math.PI * 5 - angle2) * Math.sin(angle2 + t);
             location.add(x2, 0.1F, z2);
-            player.getWorld().spawnParticle(Particle.SPELL_WITCH, location, 1, 0, 0, 0, 0);
+            player.getWorld().spawnParticle(Particle.WITCH, location, 1, 0, 0, 0, 0);
             location.subtract(x2, 0.1F, z2);
         }
     }
@@ -155,8 +155,8 @@ public class Shackle extends DarkAbility {
                 ((Player)this.target).setWalkSpeed(this.originWalkSpeed);
             }
             LivingEntity livingTarget = (LivingEntity)this.target;
-            if (livingTarget.hasPotionEffect(PotionEffectType.JUMP)) livingTarget.removePotionEffect(PotionEffectType.JUMP);
-            if (livingTarget.hasPotionEffect(PotionEffectType.SLOW)) livingTarget.removePotionEffect(PotionEffectType.SLOW);
+            if (livingTarget.hasPotionEffect(PotionEffectType.JUMP_BOOST)) livingTarget.removePotionEffect(PotionEffectType.JUMP_BOOST);
+            if (livingTarget.hasPotionEffect(PotionEffectType.SLOWNESS)) livingTarget.removePotionEffect(PotionEffectType.SLOWNESS);
         }
         bPlayer.addCooldown(this);
         super.remove();

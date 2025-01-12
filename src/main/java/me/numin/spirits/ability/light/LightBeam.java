@@ -102,7 +102,7 @@ public class LightBeam extends LightAbility {
 
     @Override
     public boolean isEnabled() {
-        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.DarkBeam.Enabled");
+        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.LightBeam.Enabled");
     }
 
 	@Override

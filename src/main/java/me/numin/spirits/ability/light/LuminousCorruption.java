@@ -90,7 +90,7 @@ public class LuminousCorruption extends LightAbility {
 		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.ABSORPTION)) {
 	          absorptionDur = ((LivingEntity) entity).getPotionEffect(PotionEffectType.ABSORPTION).getDuration();
 	          absorptionLv = ((LivingEntity) entity).getPotionEffect(PotionEffectType.ABSORPTION).getAmplifier();
-	          entity.getWorld().spawnParticle(Particle.SPELL_WITCH, target.getLocation(), 20, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0.10);
+	          entity.getWorld().spawnParticle(Particle.WITCH, target.getLocation(), 20, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0.10);
 		}
 		if (((LivingEntity) entity).hasPotionEffect(PotionEffectType.HEALTH_BOOST)) {
 	         health_boostDur = ((LivingEntity) entity).getPotionEffect(PotionEffectType.HEALTH_BOOST).getDuration();

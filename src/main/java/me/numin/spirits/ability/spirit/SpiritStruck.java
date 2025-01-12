@@ -57,31 +57,31 @@ public class SpiritStruck extends SpiritAbility {
 				}
 			}		
 			this.spiritstruck(this.target);
-			if (player.getHealth() >= player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getBaseValue()/1.5) {
+			if (player.getHealth() >= player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getBaseValue()/1.5) {
 				/*double HPDamage = player.getHealth()*0.05+1;
 				player.setHealth(player.getHealth()-HPDamage);
 				DamageHandler.damageEntity(target, HPDamage, this);*/
 				target.getWorld().spawnParticle(Particle.PORTAL, target.getLocation(), 10, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
-				target.getWorld().spawnParticle(Particle.SPELL, target.getLocation(), 10, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
-				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 3));
-				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 3));
+				target.getWorld().spawnParticle(Particle.ENCHANTED_HIT, target.getLocation(), 10, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 3));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 100, 3));
 				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 100, 1));
 				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20, 1));
 			}
-			else if (player.getHealth() >= player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getBaseValue()/2) {
+			else if (player.getHealth() >= player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getBaseValue()/2) {
 				/*double HPDamage = player.getHealth()*0.05+1;
 				player.setHealth(player.getHealth()-HPDamage);
 				DamageHandler.damageEntity(target, HPDamage, this);*/
 				target.getWorld().spawnParticle(Particle.PORTAL, target.getLocation(), 2, (float) Math.random() / 3, 1+(float) Math.random() / 3, (float) Math.random() / 3, 0);
-				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
-				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 100, 1));
 				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 20, 1));
 			}
 			else {
-				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
-				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 1));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 1));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
+				((LivingEntity) target).addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 100, 1));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 100, 1));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, 100, 1));
 			}
 
 			if (target instanceof Mob) {

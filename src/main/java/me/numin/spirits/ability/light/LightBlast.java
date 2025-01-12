@@ -129,7 +129,7 @@ public class LightBlast extends LightAbility {
             if (target instanceof LivingEntity && !target.getUniqueId().equals(player.getUniqueId()) &&
                     !(target instanceof ArmorStand)) {
                 DamageHandler.damageEntity(target, this.damage, this);
-                player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, target.getLocation().add(0, 1, 0), 10, 0, 0, 0, 0.2);
+                player.getWorld().spawnParticle(Particle.FIREWORK, target.getLocation().add(0, 1, 0), 10, 0, 0, 0, 0.2);
                 remove();
             }
         }
@@ -166,7 +166,7 @@ public class LightBlast extends LightAbility {
         if (!hasReached) {
             this.blast = Methods.advanceLocationToPoint(vector, location, target.getLocation().add(0, 1,0), this.finalBlastSpeed);
 
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 2, 0.1, 0.1, 0.1, 0, pink);
+            player.getWorld().spawnParticle(Particle.DUST, location, 2, 0.1, 0.1, 0.1, 0, pink);
 
             if (player.getLocation().distance(target.getLocation()) > this.range ||
                     origin.distance(target.getLocation()) > this.range ||
@@ -197,13 +197,13 @@ public class LightBlast extends LightAbility {
 
     private void genericBlast(Location location, boolean healing) {
         player.getWorld().spawnParticle(Particle.END_ROD, location, 2, 0.1, 0.1, 0.1, 0);
-        player.getWorld().spawnParticle(Particle.REDSTONE, location, 2, 0.2, 0.2, 0.2, 0, white);
+        player.getWorld().spawnParticle(Particle.DUST, location, 2, 0.2, 0.2, 0.2, 0, white);
 
         if (healing)
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 2, 0.2, 0.2, 0.2, 0, pink);
+            player.getWorld().spawnParticle(Particle.DUST, location, 2, 0.2, 0.2, 0.2, 0, pink);
 
         if (burst) {
-            player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, location, 10, 0, 0, 0, 0.1);
+            player.getWorld().spawnParticle(Particle.FIREWORK, location, 10, 0, 0, 0, 0.1);
             burst = false;
         }
     }
@@ -211,7 +211,7 @@ public class LightBlast extends LightAbility {
     private void showSelectedTarget() {
         if (target != null)
             player.getWorld().spawnParticle(
-                    Particle.REDSTONE, target.getLocation().add(0, 1, 0),
+                    Particle.DUST, target.getLocation().add(0, 1, 0),
                     2, 0.5, 1, 0.5, 0, white);
     }
 

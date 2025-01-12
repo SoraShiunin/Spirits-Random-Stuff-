@@ -125,7 +125,7 @@ public class Shelter extends LightAbility {
                     this.blockEntity((LivingEntity)approachingEntity);
                 } else if (approachingEntity instanceof Projectile && blockArrowsSelf) {
                     Projectile projectile = (Projectile)approachingEntity;
-                    projectile.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, projectile.getLocation(), 20, 0, 0, 0, 0.09);
+                    projectile.getWorld().spawnParticle(Particle.FIREWORK, projectile.getLocation(), 20, 0, 0, 0, 0.09);
                     projectile.remove();
                 }
             }
@@ -166,7 +166,7 @@ public class Shelter extends LightAbility {
                         this.blockEntity((LivingEntity)approachingEntity);
                     } else if (approachingEntity instanceof Projectile && blockArrowsOthers) {
                         Projectile projectile = (Projectile)approachingEntity;
-                        projectile.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, projectile.getLocation(), 20, 0, 0, 0, 0.09);
+                        projectile.getWorld().spawnParticle(Particle.FIREWORK, projectile.getLocation(), 20, 0, 0, 0, 0.09);
                         projectile.remove();
                     }
                 }

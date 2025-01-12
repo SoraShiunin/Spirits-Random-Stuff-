@@ -179,12 +179,12 @@ public class Corrupt extends WaterAbility {
                         ParticleEffect.SPELL_WITCH.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
                     } else {
                         DamageHandler.damageEntity(target, 7, this);
-                        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 300, 2));
+                        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 2));
                         ParticleEffect.SPELL_WITCH.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
                     }
                 } else if (target != null) {
                     DamageHandler.damageEntity(target, 7, this);
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 300, 2));
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 2));
                     ParticleEffect.SPELL_WITCH.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
                 }
             }
@@ -213,8 +213,8 @@ public class Corrupt extends WaterAbility {
                 //ParticleEffect.MAGIC_CRIT.display(0.3F, 0.3F, 0.3F, 0.1F, 8, target.getLocation().clone().add(0, 0.8, 0), 90);
                 //f7f2f6
                 for (int i = -180; i < 180; i += 10) {
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 300, 128));
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 300, 128));
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 128));
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 300, 128));
                 }
                 return;
             }
@@ -256,10 +256,10 @@ public class Corrupt extends WaterAbility {
             double x2 = Math.cos(Math.toRadians(angle2)) * distanceFromPlayer;
             double z2 = Math.sin(Math.toRadians(angle2)) * distanceFromPlayer;
             Location displayLoc2 = target.getLocation().clone().add(x2, height, z2);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc, 1, 0, 0, 0, dustBlue);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc2, 1, 0, 0, 0, dustBlue);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc, 1, 0, 0, 0, dustLight);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc2, 1, 0, 0, 0, dustLight);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustBlue);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustBlue);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustLight);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustLight);
         }
     }
     private void createNewSpirals() {
@@ -284,10 +284,10 @@ public class Corrupt extends WaterAbility {
             double x2 = Math.cos(Math.toRadians(angle2)) * distanceFromPlayer;
             double z2 = Math.sin(Math.toRadians(angle2)) * distanceFromPlayer;
             Location displayLoc2 = target.getLocation().clone().add(x2, height, z2);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc, 1, 0, 0, 0, 0, dustPurple);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc2, 1, 0, 0, 0, 0, dustPurple);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc, 1, 0, 0, 0, 0, dustDark);
-            target.getWorld().spawnParticle(Particle.REDSTONE, displayLoc2, 1, 0, 0, 0, 0, dustDark);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, 0, dustPurple);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, 0, dustPurple);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, 0, dustDark);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, 0, dustDark);
         }
     }
 

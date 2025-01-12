@@ -45,12 +45,12 @@ permissions:
       bending.ability.awakening: true
       bending.ability.sanctuary: true
       bending.ability.enlightenment: true
-      bending.ability.lightbeam: true
-      bending.ability.lightbeamcharge: true
       bending.ability.safeguard: true
       bending.ability.Wish: true
       bending.ability.afterglow: true
       bending.ability.wishfulthinking: true
+      bending.ability.lightbeam: true
+      bending.ability.lightbeamcharge: true
   bending.darkspirit:
     default: true
     description: Gives access to all DarkSpirit abilities.

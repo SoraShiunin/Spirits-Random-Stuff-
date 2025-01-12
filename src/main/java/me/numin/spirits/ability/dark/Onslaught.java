@@ -94,8 +94,8 @@ public class Onslaught extends DarkAbility {
 			
 			onslaught();
 		} else {
-			if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
-				player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+			if (player.hasPotionEffect(PotionEffectType.RESISTANCE)) {
+				player.removePotionEffect(PotionEffectType.RESISTANCE);
 			}
 			bPlayer.addCooldown(this);
 			remove();
@@ -115,7 +115,7 @@ public class Onslaught extends DarkAbility {
 		
 		ParticleEffect.SMOKE_NORMAL.display(player.getLocation(), 5, 0.2F, 0.8F, 0.2F, 0.05F);
 		
-		player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, invisDuration, 1));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, invisDuration, 1));
 		
 		for (Entity entity : GeneralMethods.getEntitiesAroundPoint(player.getLocation(), 2)) {
 			if (entity.getUniqueId() != player.getUniqueId() && entity instanceof LivingEntity) {
@@ -126,7 +126,7 @@ public class Onslaught extends DarkAbility {
 				
 				ParticleEffect.EXPLOSION_LARGE.display(entity.getLocation(), 1);
 				
-				((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, potionDuration, potionPower));
+				((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, potionDuration, potionPower));
 				((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.POISON, potionDuration, potionPower));
 			}
 		}

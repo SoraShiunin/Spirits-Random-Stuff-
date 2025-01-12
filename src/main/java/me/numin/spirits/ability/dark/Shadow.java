@@ -95,7 +95,7 @@ public class Shadow extends DarkAbility {
 				
 				player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1F, 0.5F);
 				
-				player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 90));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, Integer.MAX_VALUE, 90));
 				player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 2));
 				player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 5));
 				player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 5));
@@ -156,8 +156,8 @@ public class Shadow extends DarkAbility {
 			player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 		}
 		
-		if (player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)) {
-			player.removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+		if (player.hasPotionEffect(PotionEffectType.RESISTANCE)) {
+			player.removePotionEffect(PotionEffectType.RESISTANCE);
 		}
 		
 		ParticleEffect.SMOKE_LARGE.display(player.getLocation(), 5, 0.2F, 0.8F, 0.2F, 0.08F);

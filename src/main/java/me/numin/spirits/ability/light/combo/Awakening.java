@@ -61,7 +61,10 @@ public class Awakening extends LightAbility implements ComboAbility {
 	private Location location;
 	private Vector direction;
 	private Entity lightSpirit;
-	
+	static String[] lightSpiritNames = {"Aurora", "Celestia", "Dawn", "Eos", "Helios", "Luna", "Phoebe", "Ra", "Sol", "Sun", "Venus", "Zephyr", "Harmony", "Joy", "Bliss", 
+	"Grace", "Hope", "Faith", "Charity", "Serenity", "Peace", "Love", "Kindness", "Purity", "Radiance", "Virtue", "Bliss", "Euphoria", "Tranquility", "Compassion", "Gentleness", 
+	"Mercy", "Benevolence", "Generosity", "Forgiveness", "Humility", "Patience", "Wisdom", "Courage", "Strength", "Unity", "Friendship", "Honesty", "Integrity", "Loyalty", "Respect",
+	 "Dignity", "Empathy"};
 	Random rand = new Random();
 	
 	private Material[] plants = new Material[] {
@@ -213,7 +216,7 @@ public class Awakening extends LightAbility implements ComboAbility {
 					lightSpirit = player.getWorld().spawnEntity(loc, EntityType.ALLAY);
 				}
 				
-				lightSpirit.setCustomName(ChatColor.YELLOW + "" + ChatColor.BOLD + "Helper");
+				lightSpirit.setCustomName(ChatColor.YELLOW + "" + ChatColor.BOLD + lightSpiritNames[rand.nextInt(lightSpiritNames.length)]);
 				lightSpirit.setInvulnerable(true);
 				lightSpirit.setGlowing(true);
 				

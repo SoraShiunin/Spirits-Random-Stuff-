@@ -136,7 +136,7 @@ public class LightShot extends LightAbility {
             double x = 0.04 * (Math.PI * 3 - angle) * Math.cos(angle + i); //Modified from 4 to 3
             double z = 0.04 * (Math.PI * 3 - angle) * Math.sin(angle + i); //Modified from 4 to 3
             location.add(x, 0.1F, z);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 5, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(255, 255, 255), 1));
+            player.getWorld().spawnParticle(Particle.DUST, location, 5, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(255, 255, 255), 1));
             player.getWorld().spawnParticle(Particle.ELECTRIC_SPARK, location, 5, 0, 0.8, 0, 0);
             location.subtract(x, 0.1F, z);
         }
@@ -160,13 +160,13 @@ public class LightShot extends LightAbility {
     			if (entity instanceof LivingEntity && !(entity == player)) {
     				((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, potionduration, 4));
     	            //livingTarget.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 60, 1));
-    				((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, potionduration, 0));
+    				((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, potionduration, 0));
     				Location elocation1 = entity.getLocation();
     				((LivingEntity) entity).getWorld().spawnParticle(Particle.END_ROD, elocation1, 5, 0, 0, 0, 0.3);
-    				((LivingEntity) entity).getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, elocation1, 1, 0, 0.1, 0, 0.3);
+    				((LivingEntity) entity).getWorld().spawnParticle(Particle.ENCHANT, elocation1, 1, 0, 0.1, 0, 0.3);
     				((LivingEntity) entity).getWorld().spawnParticle(Particle.ELECTRIC_SPARK, elocation1, 1, 0, 0, 0.2, 0.3);
-    				((LivingEntity) entity).getWorld().spawnParticle(Particle.REDSTONE, elocation1, 2, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(255, 255, 255), 1));
-    				((LivingEntity) entity).getWorld().spawnParticle(Particle.REDSTONE, elocation1, 2, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(235, 207, 0), 1));
+    				((LivingEntity) entity).getWorld().spawnParticle(Particle.DUST, elocation1, 2, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(255, 255, 255), 1));
+    				((LivingEntity) entity).getWorld().spawnParticle(Particle.DUST, elocation1, 2, 0.1, 0.1, 0.1, 0, new DustOptions(Color.fromBGR(235, 207, 0), 1));
     	            
     			}
     		}

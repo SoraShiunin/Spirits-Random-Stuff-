@@ -79,10 +79,10 @@ public class Berserker extends DarkAbility {
         GeneralMethods.setVelocity(this, player, Methods.setVelocity(player, (float) distance, 0.2));
         player.setHealth(player.getHealth()-player.getHealth()*0.99);
         player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, (int) Math.floor(healthSacrificed)*10, 0));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/10)));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/10)));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/3)));
         player.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/3)));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/15)));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/15)));
         player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, (int) Math.floor(healthSacrificed)*10, (int) Math.floor(healthSacrificed/15)));
         remove();
     	}

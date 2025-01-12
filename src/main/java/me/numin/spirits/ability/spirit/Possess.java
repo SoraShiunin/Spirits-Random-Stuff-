@@ -140,7 +140,7 @@ public class Possess extends SpiritAbility {
         if (charge >= chargeTime) {
             if (player.isSneaking()) {
                 player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_BLINDNESS, 0.3F, -1);
-                player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, player.getEyeLocation(), 1, 0.3F, 0.3F, 0.3F, 0);
+                player.getWorld().spawnParticle(Particle.FIREWORK, player.getEyeLocation(), 1, 0.3F, 0.3F, 0.3F, 0);
 
             } else {
                 this.armorStand = this.createArmorStand();
@@ -149,7 +149,7 @@ public class Possess extends SpiritAbility {
                 this.state = State.TRAVELING;
             }
         } else {
-            player.getWorld().spawnParticle(Particle.SMOKE_NORMAL, player.getLocation().add(0, 1, 0), 2, 0.3F, 0.3F, 0.3F, 0);
+            player.getWorld().spawnParticle(Particle.SMOKE, player.getLocation().add(0, 1, 0), 2, 0.3F, 0.3F, 0.3F, 0);
         }
     }
 
@@ -171,7 +171,7 @@ public class Possess extends SpiritAbility {
         if (getRunningTicks() % 5 == 0) {
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, this.volume, this.pitch);
         }
-        player.getWorld().spawnParticle(Particle.SMOKE_LARGE, player.getEyeLocation(), 5, 0.4, 0.4, 0.4, 0);
+        player.getWorld().spawnParticle(Particle.SMOKE, player.getEyeLocation(), 5, 0.4, 0.4, 0.4, 0);
 
         if (this.distanceTraveled >= range) {
             //player.sendMessage("Removed from range");
@@ -197,12 +197,12 @@ public class Possess extends SpiritAbility {
             return;
         }
 
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 1));
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20, 1));
         target.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 20, 1));
         double yy = target.getHeight() / 2D;
         double xx = (target.getWidth() * 1.2) / 2D;
 
-        target.getWorld().spawnParticle(Particle.SPELL_WITCH, target.getLocation().add(0, yy, 0), 1, xx, yy, xx, 0);
+        target.getWorld().spawnParticle(Particle.WITCH, target.getLocation().add(0, yy, 0), 1, xx, yy, xx, 0);
         Methods.playSpiritParticles(player, target.getLocation().add(0, yy, 0), xx, yy, xx, 0, 1);
 
         if (getRunningTicks() % 5 == 0) {
@@ -297,20 +297,20 @@ public class Possess extends SpiritAbility {
         double extraDamage = (damage - minDamage) * multiplier; //Calculate the extra damage to give based on the duration possessed
 
         target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 30, 0));
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 60, 4));
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 60, 4));
         player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ILLUSIONER_HURT, 0.2F, 0F);
         player.getWorld().spawnParticle(Particle.SWEEP_ATTACK, target.getEyeLocation(), 1, 0, 0, 0, 0);
         player.getWorld().spawnParticle(Particle.CRIT, target.getEyeLocation(), 20, 0.3, 1, 0.3, 0);
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 40, 1));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 40, 0));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 40, 0));
         DamageHandler.damageEntity(target, minDamage + extraDamage, this);
         
         if (target.getHealth() < 40) {
-        	player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_ABSORPTION).setBaseValue(20);
+        	player.getAttribute(org.bukkit.attribute.Attribute.MAX_ABSORPTION).setBaseValue(20);
         	player.setAbsorptionAmount(Math.round(target.getHealth()*0.08));
         	//System.out.println("Absoprtion percent");
         	} else {
-        		player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_ABSORPTION).setBaseValue(20);
+        		player.getAttribute(org.bukkit.attribute.Attribute.MAX_ABSORPTION).setBaseValue(20);
         		player.setAbsorptionAmount(6);
         		//System.out.println("Absoprtion t");
         	}

@@ -449,6 +449,7 @@ public class Config {
         config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.EffectAmplifier", 1);
         config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.AttackRadius", 22);
         config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.AttackYRadius", 9);
+        config.addDefault("Abilities.Spirits.DarkSpirit.Corruption.SpiderTotal", 6);
         config.addDefault("Language.Abilities.DarkSpirit.Corruption.Description", "Dark spirits are entities filled with rage and malevolence. "
                 + "They are able to infect and influence the area around them and imbue their negative "
                 + "energies to it. They could also summon more dark spirits within this area in order to spread their corruption. "

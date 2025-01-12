@@ -12,7 +12,6 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.PassiveAbility;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.util.DamageHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
@@ -108,8 +107,8 @@ public class Afterglow extends LightAbility implements PassiveAbility {
 		                if (bEntity.hasElement(lightSpirit) && entity.getUniqueId() != player.getUniqueId()) {
 	        				
 		                	double health = ePlayer.getHealth() + (healAmount / 13);
-		        			if (health > ePlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()) {
-		        	            health = ePlayer.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+		        			if (health > ePlayer.getAttribute(Attribute.MAX_HEALTH).getValue()) {
+		        	            health = ePlayer.getAttribute(Attribute.MAX_HEALTH).getValue();
 		        	        }
 		        			ePlayer.setHealth(health);
 		        			

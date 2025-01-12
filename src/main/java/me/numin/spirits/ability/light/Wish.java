@@ -123,10 +123,10 @@ public class Wish extends LightAbility {
 			
 			player.sendMessage(SpiritElement.LIGHT.getColor() + "Your wish came true!");
 			// if (player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()/3 - player.getHealth()/1.2 >= 0) {}
-			if ((int)Math.round(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth()) > 0) {
+			if ((int)Math.round(player.getAttribute(Attribute.MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth()) > 0) {
 
 			    
-			    double absorptionAmount = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth();
+			    double absorptionAmount = player.getAttribute(Attribute.MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth();
 			    int roundedAbsorptionAmount = (int) Math.round(absorptionAmount);
 			    player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 9999, 3, true, false));
 			    player.setAbsorptionAmount(roundedAbsorptionAmount);
@@ -150,7 +150,7 @@ public class Wish extends LightAbility {
 			player.getWorld().playSound(player.getLocation(), Sound.BLOCK_PORTAL_TRAVEL, 0.3F, 1F);
 			
 			for (int i = 0; i < 8; i++) {
-				player.getWorld().spawnEntity(player.getLocation().add(0, 2, 0), EntityType.FIREWORK);
+				player.getWorld().spawnEntity(player.getLocation().add(0, 2, 0), EntityType.FIREWORK_ROCKET);
 			}
 			
 			player.sendMessage(SpiritElement.LIGHT.getColor() + "You made a wish!");

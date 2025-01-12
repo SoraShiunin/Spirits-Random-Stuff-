@@ -159,7 +159,7 @@ public class DarkBlast extends DarkAbility {
         if (!hasReached) {
             this.blast = Methods.advanceLocationToPoint(vector, location, target.getEyeLocation(), this.finalBlastSpeed);
 
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 2, 0.1, 0.1, 0.1, 0, purple);
+            player.getWorld().spawnParticle(Particle.DUST, location, 2, 0.1, 0.1, 0.1, 0, purple);
 
             if (player.getLocation().distance(target.getLocation()) > this.range ||
                     origin.distance(target.getLocation()) > this.range ||
@@ -189,9 +189,9 @@ public class DarkBlast extends DarkAbility {
     }
 
     private void genericBlast(Location location, boolean healing) {
-        player.getWorld().spawnParticle(Particle.TOWN_AURA, location, 10, 0.1, 0.1, 0.1, 1);
-        player.getWorld().spawnParticle(Particle.REDSTONE, location, 2, 0.2, 0.2, 0.2, 0, black);
-        if (healing) player.getWorld().spawnParticle(Particle.REDSTONE, location, 2, 0.2, 0.2, 0.2, 0, purple);
+        player.getWorld().spawnParticle(Particle.BLOCK_CRUMBLE, location, 10, 0.1, 0.1, 0.1, 1);
+        player.getWorld().spawnParticle(Particle.DUST, location, 2, 0.2, 0.2, 0.2, 0, black);
+        if (healing) player.getWorld().spawnParticle(Particle.DUST, location, 2, 0.2, 0.2, 0.2, 0, purple);
         if (burst) {
             player.getWorld().spawnParticle(Particle.DRAGON_BREATH, location, 10, 0, 0, 0, 0.1);
             burst = false;
@@ -201,7 +201,7 @@ public class DarkBlast extends DarkAbility {
     private void showSelectedTarget() {
         if (target != null)
             player.getWorld().spawnParticle(
-                    Particle.TOWN_AURA, target.getLocation().add(0, 1, 0),
+                    Particle.BLOCK_CRUMBLE, target.getLocation().add(0, 1, 0),
                     10, 0.5, 1, 0.5, 0);
     }
 

@@ -17,7 +17,6 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.util.ComboManager.AbilityInformation;
 import com.projectkorra.projectkorra.command.Commands;
-import com.projectkorra.projectkorra.configuration.ConfigManager;
 import com.projectkorra.projectkorra.util.ClickType;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
@@ -128,7 +127,7 @@ public class Pandemonium extends DarkAbility implements ComboAbility {
 					pullDirection = GeneralMethods.getDirection(entity.getLocation(), origin);
 					entity.setVelocity(pullDirection.multiply(pull));
 					
-					((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowDuration, slowPower));
+					((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, slowDuration, slowPower));
 				}
 			}
 		}

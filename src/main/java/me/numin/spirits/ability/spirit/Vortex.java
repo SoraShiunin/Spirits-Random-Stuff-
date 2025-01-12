@@ -125,7 +125,7 @@ public class Vortex extends SpiritAbility {
 					pullDirection = new Vector(0, -2, 0);
 					entity.setVelocity(pullDirection.multiply(pull));
 					
-					((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, slowDuration, slowPower));
+					((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, slowDuration, slowPower));
 				}
 			}
 		}

@@ -37,11 +37,11 @@ public class LightBeamCharge extends LightAbility {
 	}
     @Override
     public boolean isEnabled() {
-        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.DarkSpirit.LightBeam.Enabled");
+        return Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.LightBeam.Enabled");
     }
 	@Override
 	public boolean isHiddenAbility() {
-		return false;
+		return true;
 	}
 
 	@Override

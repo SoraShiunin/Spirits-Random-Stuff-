@@ -101,7 +101,7 @@ public class Alleviate extends LightAbility {
     private void showSelection() {
         Location blast = Methods.advanceLocationToPoint(vector, location, target.getLocation().add(0, 1, 0), 0.5);
 
-        player.getWorld().spawnParticle(Particle.REDSTONE, blast, 10, 0.1, 0.1, 0.1, 0, customColor);
+        player.getWorld().spawnParticle(Particle.DUST, blast, 10, 0.1, 0.1, 0.1, 0, customColor);
 
         if (blast.distance(player.getLocation()) > range ||
                 blast.getBlock().isLiquid() ||
@@ -136,9 +136,9 @@ public class Alleviate extends LightAbility {
             target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 220, 0));
             target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 220, 0));
             target.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 220, 4));
-        	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 220, 1));
+        	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 220, 1));
         	player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 220, 1));
-        	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 220, 1));
+        	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 220, 1));
     		for (final PotionEffect effect : target.getActivePotionEffects()) {
     			if (ElementalAbility.isNegativeEffect(effect.getType())) {
     				target.removePotionEffect(effect.getType());
@@ -170,18 +170,18 @@ public class Alleviate extends LightAbility {
             	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 1));
             } else if (player.getHealth() <= 30 && player.getHealth() > 21 ) {
             	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 0));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 140, 0));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 0));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 140, 0));
             } else if (player.getHealth() <= 20 && player.getHealth() > 10 ) {
             	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 140, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 0));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 140, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 0));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 140, 1));
             } else if (player.getHealth() <= 10) {
             	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 160, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60, 1));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 1));
             	player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 60, 1));
             	player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 160, 3));
+            	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 160, 3));
             } 
             
     		for (final PotionEffect effect : player.getActivePotionEffects()) {
@@ -209,7 +209,7 @@ public class Alleviate extends LightAbility {
             double y = 1.2 * Math.cos(angle) + 1.2;
             double z = (float) 0.04 * (Math.PI * 4 - angle) * Math.sin(angle + i);
             location.add(x, y, z);
-            player.getWorld().spawnParticle(Particle.REDSTONE, location, 1, 0, 0, 0, 0, customColor);
+            player.getWorld().spawnParticle(Particle.DUST, location, 1, 0, 0, 0, 0, customColor);
             location.subtract(x, y, z);
         }
     }
