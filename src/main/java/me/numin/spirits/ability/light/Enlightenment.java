@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -236,7 +237,7 @@ public class Enlightenment extends LightAbility {
                 l.add(x, y, z);
     	        
     	        if (this.random.nextInt(10) == 0) {
-    	        	ParticleEffect.SPELL_MOB_AMBIENT.display(l, 1, 0.0F, 0.0F, 0.0F, 0.0F);
+					l.getWorld().spawnParticle(Particle.INSTANT_EFFECT, l, 1, 0F, 0F, 0F, 0F);		
     	        }
     	        
     	        for (Entity entity : GeneralMethods.getEntitiesAroundPoint(l, 1.85)) {
@@ -288,7 +289,7 @@ public class Enlightenment extends LightAbility {
 	        double z = size * Math.sin(angle + rotation);
 	        Location loc = location.clone();
 	        loc.add(x, 0, z);
-	        ParticleEffect.CRIT_MAGIC.display(loc, 1, 0F, 0F, 0F, 0F);
+			loc.getWorld().spawnParticle(Particle.INSTANT_EFFECT, loc, 1, 0F, 0F, 0F, 0F);		
     	}
 	}
 	
@@ -311,9 +312,9 @@ public class Enlightenment extends LightAbility {
 			double z = 1.15F * Math.sin(angle);
 			Location loc = baseLoc.add(x, y, z);
 			Location negLoc = baseLoc.add(-x, y, -z);
-			
-			ParticleEffect.CRIT_MAGIC.display(loc, 1, 0F, 0F, 0F, 0.025F);
-			ParticleEffect.CRIT_MAGIC.display(negLoc, 1, 0F, 0F, 0F, 0.025F);
+
+			loc.getWorld().spawnParticle(Particle.INSTANT_EFFECT, loc, 1, 0F, 0F, 0F, 0F);
+			negLoc.getWorld().spawnParticle(Particle.INSTANT_EFFECT, negLoc, 1, 0F, 0F, 0F, 0F);	
 		}
 	}
 	

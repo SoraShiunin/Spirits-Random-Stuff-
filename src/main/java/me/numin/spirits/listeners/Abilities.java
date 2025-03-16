@@ -68,6 +68,7 @@ import me.numin.spirits.ability.light.Wish;
 import me.numin.spirits.ability.lightspirit.passive.Afterglow;
 import me.numin.spirits.ability.lightspirit.passive.WishfulThinking;
 import me.numin.spirits.ability.primal.CallingRift;
+import me.numin.spirits.ability.primal.Exchange;
 import me.numin.spirits.ability.spirit.Calling;
 import me.numin.spirits.ability.spirit.Dash;
 import me.numin.spirits.ability.spirit.Float;
@@ -81,6 +82,8 @@ import me.numin.spirits.ability.spirit.Vanish;
 import me.numin.spirits.ability.spirit.Vortex;
 import me.numin.spirits.ability.spirit.combo.Skyrocket;
 import me.numin.spirits.ability.spirit.passive.EnergyVeil;
+import me.numin.spirits.ability.water.Corrupt;
+import me.numin.spirits.ability.water.Purify;
 import me.numin.spirits.utilities.RandomChance;
 import me.numin.spirits.utilities.TempSpectator;
 
@@ -316,7 +319,11 @@ public class Abilities implements Listener {
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Paint")) {
             new Paint(player);
 
+        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Exchange")) {
+            new Exchange(player);
+
         }
+		
     }
 
     @EventHandler
@@ -331,6 +338,14 @@ public class Abilities implements Listener {
 
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Intoxicate")) {
             new Intoxicate(player);
+
+        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Corrupt")) {
+			System.out.println("Corrupt Triggered");
+            new Corrupt(player);
+
+        } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Purify")) {
+			System.out.println("Purify Triggered");
+            new Purify(player);
 
         } else if (bPlayer.getBoundAbilityName().equalsIgnoreCase("Agility") && event.isSneaking()) {
             if (bPlayer.isOnCooldown("Soar")) return;

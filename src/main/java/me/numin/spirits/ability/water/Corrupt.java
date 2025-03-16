@@ -1,18 +1,26 @@
 package me.numin.spirits.ability.water;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.entity.Animals;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
+import org.bukkit.entity.ZombieVillager;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -21,13 +29,14 @@ import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.airbending.Suffocate;
 import com.projectkorra.projectkorra.attribute.Attribute;
 import com.projectkorra.projectkorra.util.DamageHandler;
-import com.projectkorra.projectkorra.util.MovementHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
 import me.numin.spirits.SpiritElement;
 import me.numin.spirits.Spirits;
 import me.numin.spirits.ability.api.WaterAbility;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class Corrupt extends WaterAbility {
 
@@ -48,30 +57,59 @@ public class Corrupt extends WaterAbility {
     private int chargeTicks;
     private boolean charged = false;
     private boolean setElement;
+    long durationCurrentTime;
+    long durationCurrentTime2;
+
+    //for the future to optimize a bit
+    /*public static int colorMixer(int a) {
+        
+        a = a+30;
+        System.out.println("Value of a: " + a);
+        if (a > 254 || a < 0) {
+            a = 253;
+        }
+        return a;
+    };*/
 
     public Corrupt(Player player) {
         super(player);
+
         if (!bPlayer.canBend(this)) {
+            System.out.println("Fail");
             return;
         }
+
+
+
         firstloop: for (int i = 20; i < 100; i++) {
             Location loc = GeneralMethods.getTargetedLocation(player, range);
             for (Entity e : GeneralMethods.getEntitiesAroundPoint(loc, 10)) {
                 if (e instanceof LivingEntity && e.getEntityId() != player.getEntityId()) {
+                    System.out.println("Target is a living entity 2");
                     target = (LivingEntity) e;
                     break firstloop;
                 }
             }
         }
 
+        if (target instanceof LivingEntity) {
+            heldEntities.add(target.getEntityId());
+            setFields();
+            this.target = (LivingEntity) target;
+            System.out.println("Target is a living entity");
+            start();
+        }
+        
         if (target == null) {
             return;
         }
-        heldEntities.add(target.getEntityId());
+        
+
+        /*heldEntities.add(target.getEntityId());
         setFields();
         if (isEnabled()) {
             start();
-        }
+        }*/
     }
 
     private void setFields() {
@@ -129,6 +167,8 @@ public class Corrupt extends WaterAbility {
         return true;
     }
 
+
+    
     @Override
     public void progress() {
         if (!bPlayer.canBendIgnoreCooldowns(this)) {
@@ -153,9 +193,8 @@ public class Corrupt extends WaterAbility {
             return;
         }
 
-        if (System.currentTimeMillis() - getStartTime() > 10000L) {
-            MovementHandler mh = new MovementHandler((Player) player, this);
-            mh.stop(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE + "* READY *");
+        if (System.currentTimeMillis() - getStartTime() > duration*0.5 /*default 10000L */) {
+            player.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE + "* READY *"));
             charged = true;
             createNewSpirals();
         }
@@ -173,8 +212,10 @@ public class Corrupt extends WaterAbility {
                     if (bPlayer.hasElement(SpiritElement.LIGHT)) {
                         bPlayer.addElement(SpiritElement.DARK);
                         bPlayer.getElements().remove(SpiritElement.LIGHT);
-                        GeneralMethods.saveElements(bPlayer);
-                        GeneralMethods.removeUnusableAbilities(bPlayer.getName());
+                        bPlayer.saveElements();
+                        bPlayer.removeUnusableAbilities();
+                        //GeneralMethods.saveElements(bPlayer);
+                        //GeneralMethods.removeUnusableAbilities(bPlayer.getName());
                         target.sendMessage(SpiritElement.LIGHT.getColor() + "You are now a" + ChatColor.BOLD + "" + ChatColor.BLUE + " DarkSpirit");
                         ParticleEffect.SPELL_WITCH.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
                     } else {
@@ -182,6 +223,19 @@ public class Corrupt extends WaterAbility {
                         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 2));
                         ParticleEffect.SPELL_WITCH.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
                     }
+
+                } else if (target instanceof Animals) {
+                    Location targetlocation = target.getLocation();
+                    target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIE);
+                    target.remove();
+                    ParticleEffect.PORTAL.display(target.getLocation(), 8, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
+
+                }   else if (target instanceof Villager) {
+                    Location targetlocation = target.getLocation();
+                    target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIE_VILLAGER);
+                    target.remove();
+                    ParticleEffect.PORTAL.display(target.getLocation(), 8, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
+
                 } else if (target != null) {
                     DamageHandler.damageEntity(target, 7, this);
                     target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 2));
@@ -231,16 +285,68 @@ public class Corrupt extends WaterAbility {
                 Suffocate.remove((Player) entity);
             }
         }
-        MovementHandler mh = new MovementHandler((LivingEntity) entity, this);
-        mh.stop(ChatColor.DARK_PURPLE + "* CORRUPTING *");
+        
     }
     private void createSpirals() {
-        Color blue = Color.fromBGR(244, 170, 66);
+
+        int bluecolornumber = 244;
+        int greencolornumber = 170;
+        int redcolornumber = 66;
+              
+        Color purple = Color.fromBGR(193, 44, 176);
+        DustOptions dustPurple = new DustOptions(purple, 1);
+
+        Color darkPurple = Color.fromBGR(201, 58, 137);
+        DustOptions dustDark = new DustOptions(darkPurple, 1);
+
+        double increaseValueToChange = (duration*0.5);
+        //12000ms * 0.5 = 6000ms, 6000ms = 100%.
+        //1000ms = 1s
+        //20t = 1s
+        //Color purple = Color.fromBGR(193, 44, 176);
+        //6000ms
+        //193+44+176=413
+        //duration/413()*2
+        
+        durationCurrentTime = (System.currentTimeMillis() - getStartTime()) / 10;
+        durationCurrentTime2 = (System.currentTimeMillis() - getStartTime());
+        durationCurrentTime2 = ((durationCurrentTime2/100)+30);
+        //System.currentTimeMillis() - getStartTime() > duration*0.5
+        durationCurrentTime2 = (duration);
+
+        bluecolornumber = bluecolornumber - (int) (durationCurrentTime2);
+        greencolornumber = greencolornumber - (int) (durationCurrentTime2 );
+        redcolornumber = redcolornumber + (int) (durationCurrentTime2) ;
+        System.out.println("Duration Time" + durationCurrentTime2 + " /100 = " + durationCurrentTime2/100);
+        
+        /* 
+        colorMixer(bluecolornumber);
+        colorMixer(greencolornumber);
+        colorMixer(redcolornumber);
+        */
+
+        System.out.println("Blue: " + bluecolornumber + " Green: " + greencolornumber + " Red: " + redcolornumber);
+
+        Color blue = Color.fromBGR(bluecolornumber,greencolornumber,redcolornumber);
+        DustOptions dustBlue = new DustOptions(blue, 1);
+        
+        durationCurrentTime2 = (durationCurrentTime2/100) - 20;
+        bluecolornumber = bluecolornumber - (int) (durationCurrentTime2);
+        greencolornumber = greencolornumber - (int) (durationCurrentTime2 );
+        redcolornumber = redcolornumber + (int) (durationCurrentTime2) ;
+        
+
+        Color lightBlue = Color.fromBGR(bluecolornumber,greencolornumber,redcolornumber);
+        DustOptions dustLight = new DustOptions(lightBlue, 1);
+
+/*        Color blue = Color.fromBGR(244, 170, 66);
         DustOptions dustBlue = new DustOptions(blue, 1);
 
         Color lightBlue = Color.fromBGR(255, 221, 112);
         DustOptions dustLight = new DustOptions(lightBlue, 1);
+ */
 
+        player.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE + "* CORRUPTING LEVEL * " + durationCurrentTime + " out of "+ ((duration*0.5) / 10 )));
         if (hasReached) {
             int amount = chargeTicks + 2;
             double maxHeight = 4;
@@ -304,11 +410,11 @@ public class Corrupt extends WaterAbility {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isHiddenAbility() {
-        return true; //TODO Temp for now while we redo this ability
+        return false; //TODO Temp for now while we redo this ability
     }
 }

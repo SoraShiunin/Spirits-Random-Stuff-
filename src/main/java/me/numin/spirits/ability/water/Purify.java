@@ -11,7 +11,9 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -174,8 +176,10 @@ public class Purify extends WaterAbility {
                     if (bPlayer.hasElement(SpiritElement.DARK)) {
                         bPlayer.addElement(SpiritElement.LIGHT);
                         bPlayer.getElements().remove(SpiritElement.DARK);
-                        GeneralMethods.saveElements(bPlayer);
-                        GeneralMethods.removeUnusableAbilities(bPlayer.getName());
+                        //GeneralMethods.saveElements(bPlayer);
+                        //GeneralMethods.removeUnusableAbilities(bPlayer.getName());
+                        bPlayer.saveElements();
+                        bPlayer.removeUnusableAbilities();
                         target.sendMessage(SpiritElement.DARK.getColor() + "You are now a" + ChatColor.BOLD + "" + ChatColor.AQUA + " LightSpirit");
                         ParticleEffect.FIREWORKS_SPARK.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0F);
                     } else {
@@ -184,7 +188,11 @@ public class Purify extends WaterAbility {
                         target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 2));
                         ParticleEffect.FIREWORKS_SPARK.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0F);
                     }
-                } else if (target != null) {
+                }  else if (target instanceof Monster) {
+                    Location targetlocation = target.getLocation();
+                    target.getWorld().spawnEntity(targetlocation, EntityType.SHEEP);
+                    target.remove();
+                }  else if (target != null) {
                     target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 2));
                     target.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 300, 2));
                     target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 2));
@@ -302,11 +310,11 @@ public class Purify extends WaterAbility {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isHiddenAbility() {
-        return true;
+        return false;
     }
 }

@@ -141,7 +141,7 @@ public class Infest extends DarkAbility implements ComboAbility {
             }
         }
 
-        player.getWorld().spawnParticle(Particle.DUST, location, 10, radius / 2, 0.6, radius / 2, 0);
+        player.getWorld().spawnParticle(Particle.DUST, location, 10, radius / 2, 0.6, radius / 2, 0, new DustOptions(Color.fromBGR(100, 100, 100), 1));
     }
 
     private void grabEntities() {

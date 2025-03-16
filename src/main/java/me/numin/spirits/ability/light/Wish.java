@@ -123,7 +123,7 @@ public class Wish extends LightAbility {
 			
 			player.sendMessage(SpiritElement.LIGHT.getColor() + "Your wish came true!");
 			// if (player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()/3 - player.getHealth()/1.2 >= 0) {}
-			if ((int)Math.round(player.getAttribute(Attribute.MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth()) > 0) {
+			if (Math.round(player.getAttribute(Attribute.MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth()) > 0) {
 
 			    
 			    double absorptionAmount = player.getAttribute(Attribute.MAX_HEALTH).getValue() * absorptionHealthRatio - player.getHealth();

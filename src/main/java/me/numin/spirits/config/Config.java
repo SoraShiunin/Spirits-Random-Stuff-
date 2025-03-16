@@ -56,6 +56,10 @@ public class Config {
         config.addDefault("Language.Abilities.Primal.CallingRift.Description", "Unleash Terror by using your massive energy to open a rift that immediatly sucks in something into your world from another plane. You need High Health to use Dark Terror. Terrors will attack ANYTHING.");
         config.addDefault("Language.Abilities.Primal.CallingRift.Instructions", "Terror: Left-Click. Dark Terror: Hold Sneak");
         
+        config.addDefault("Language.Abilities.Spirit.Exchange.Description", "Change different materials in your hand");
+        config.addDefault("Language.Abilities.Spirit.Exchange.Instructions", "Exchange: Left Click");
+        
+
         config.addDefault("Language.Abilities.Primal.SummonSheepOnABoatAndPiston.Description", "Unleash either terror or nurture those around you");
         config.addDefault("Language.Abilities.Primal.SummonSheepOnABoatAndPiston.Instructions", "Terror: Left-Click. Nurture: Hold Sneak");
         
@@ -128,6 +132,12 @@ public class Config {
         config.addDefault("Language.Abilities.DarkSpirit.Intoxicate.Description", "Sacrifice some of your energy to pour a bit of chaos into the souls of your nearby enemies by taking away their positive potion effects and adding negative ones. Then watch as it destroys them from the inside out! The great spirit Vaatu was known to have this influence over other unbalanced Spirits.");
         config.addDefault("Language.Abilities.DarkSpirit.Intoxicate.Instructions", "Hold shift");
 
+        config.addDefault("Language.Abilities.Water.Corrupt.Description", "Corrupt an entity by converting them into a dark spirit. This ability is very powerful and can only be used on entities that are weakened. The entity will be converted into a dark spirit, during which they will be able to use dark spirit abilities.");
+        config.addDefault("Language.Abilities.Water.Corrupt.Instructions", "Hold shift");
+
+        config.addDefault("Language.Abilities.Water.Purify.Description", "Purify an entity by converting them into a light spirit. This ability is very powerful and can only be used on entities that are weakened. The entity will be converted into a light spirit, during which they will be able to use light spirit abilities.");
+        config.addDefault("Language.Abilities.Water.Purify.Instructions", "Hold shift");
+
         config.addDefault("Language.Abilities.LightSpirit.Shelter.Description", "A very useful tactic when group battling, a light spirit can temporarily shield a friend or even a foe from incoming enemies. Additionally, they have the options to shield themselves!");
         config.addDefault("Language.Abilities.LightSpirit.Shelter.Instructions", "Left click: Shield others ⏐ Hold shift: Shield yourself.");
 
@@ -174,7 +184,10 @@ public class Config {
         config.addDefault("Abilities.Spirits.Primal.CallingRift.SelfDamage", 10);
         config.addDefault("Abilities.Spirits.Primal.CallingRift.AttackRadius", 22);
         config.addDefault("Abilities.Spirits.Primal.CallingRift.AttackYRadius", 9);
-        
+
+        config.addDefault("Abilities.Spirits.Primal.Exchange.Enabled", true);
+        config.addDefault("Abilities.Spirits.Primal.Exchange.Cooldown", 1000);
+
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Enabled", true);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Cooldown", 2500);
         config.addDefault("Abilities.Spirits.LightSpirit.LuminousCorruption.Duration", 8);
@@ -317,6 +330,19 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.LightShot.AoeRadius", 6);
         config.addDefault("Abilities.Spirits.LightSpirit.LightShot.PotionDuration", 200);
         config.addDefault("Abilities.Spirits.LightSpirit.LightShot.SelfDamage", 8);
+        
+
+        config.addDefault("Abilities.Spirits.Water.Purify.Enabled", true);
+        config.addDefault("Abilities.Spirits.Water.Purify.Cooldown", 2000);
+        config.addDefault("Abilities.Spirits.Water.Purify.Duration", 12000);
+        config.addDefault("Abilities.Spirits.Water.Purify.Range", 10);
+        config.addDefault("Abilities.Spirits.Water.Purify.SetElement", true);
+
+        config.addDefault("Abilities.Spirits.Water.Corrupt.Enabled", true);
+        config.addDefault("Abilities.Spirits.Water.Corrupt.Cooldown", 2000);
+        config.addDefault("Abilities.Spirits.Water.Corrupt.Duration", 12000);
+        config.addDefault("Abilities.Spirits.Water.Corrupt.Range", 10);
+        config.addDefault("Abilities.Spirits.Water.Corrupt.SetElement", true);
         
         config.addDefault("Abilities.Spirits.DarkSpirit.Intoxicate.Enabled", true);
         config.addDefault("Abilities.Spirits.DarkSpirit.Intoxicate.Cooldown", 2000);
