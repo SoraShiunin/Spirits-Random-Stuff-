@@ -82,8 +82,8 @@ public class Exchange extends SpiritAbility {
         if (IteminHand == Material.IRON_ORE){
             player.getInventory().setItemInMainHand(new ItemStack(Material.GOLD_ORE, itemAmount));
         }
-        else if (IteminHand == Material.DIAMOND_ORE){
-            player.getInventory().setItemInMainHand(new ItemStack(Material.NETHER_STAR, itemAmount));
+        else if (IteminHand == Material.DIAMOND_ORE && itemtest.getAmount() == 64){
+            player.getInventory().setItemInMainHand(new ItemStack(Material.NETHER_STAR, 1));
         }
 	}
     

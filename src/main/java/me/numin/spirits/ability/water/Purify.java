@@ -22,13 +22,13 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.GeneralMethods;
 import com.projectkorra.projectkorra.airbending.Suffocate;
 import com.projectkorra.projectkorra.attribute.Attribute;
-import com.projectkorra.projectkorra.util.MovementHandler;
 import com.projectkorra.projectkorra.util.ParticleEffect;
 
 import me.numin.spirits.SpiritElement;
 import me.numin.spirits.Spirits;
 import me.numin.spirits.ability.api.WaterAbility;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class Purify extends WaterAbility {
 
@@ -47,15 +47,20 @@ public class Purify extends WaterAbility {
     private boolean hasReached = true;
     private int ticks;
     private int chargeTicks;
-    private long time;
     private boolean charged = false;
     private boolean setElement;
+    private int potionduration;
+    private int potionlevel;
+    long durationCurrentTime;
+    long durationCurrentTime2;
 
     public Purify(Player player) {
         super(player);
+
         if (!bPlayer.canBend(this)) {
             return;
         }
+
         firstloop: for (int i = 20; i < 100; i++) {
             Location loc = GeneralMethods.getTargetedLocation(player, range);
             for (Entity e : GeneralMethods.getEntitiesAroundPoint(loc, 10)) {
@@ -65,15 +70,16 @@ public class Purify extends WaterAbility {
                 }
             }
         }
-        time = System.currentTimeMillis();
+
+        if (target instanceof LivingEntity) {
+            heldEntities.add(target.getEntityId());
+            setFields();
+            this.target = (LivingEntity) target;
+            start();
+        }
 
         if (target == null) {
             return;
-        }
-        heldEntities.add(target.getEntityId());
-        setFields();
-        if (isEnabled()) {
-            start();
         }
     }
 
@@ -81,6 +87,8 @@ public class Purify extends WaterAbility {
         this.cooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Water.Purify.Cooldown");
         this.duration = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Water.Purify.Duration");
         this.range = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.Water.Purify.Range");
+        this.potionduration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.Water.Purify.PotionDuration");
+        this.potionlevel = Spirits.plugin.getConfig().getInt("Abilities.Spirits.Water.Purify.PotionLevel");
         this.setElement = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.Water.Purify.SetElement");
     }
 
@@ -144,26 +152,23 @@ public class Purify extends WaterAbility {
             return;
         }
 
-
         if (!target.getWorld().equals(player.getWorld())) {
             remove();
             return;
         }
 
         if (target.getLocation().distance(player.getLocation()) > 25) {
-
             remove();
             return;
         }
 
-        if (System.currentTimeMillis() - time > 10000L) {
-            MovementHandler mh = new MovementHandler((Player) player, this);
-            mh.stop(ChatColor.YELLOW + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE + "* READY *");
+        if (System.currentTimeMillis() - getStartTime() > duration * 0.5) {
+            player.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE + "* READY *"));
             charged = true;
             createNewSpirals();
         }
 
-        if (System.currentTimeMillis() - time > duration) {
+        if (System.currentTimeMillis() - getStartTime() > duration) {
             remove();
             bPlayer.addCooldown(this);
             return;
@@ -176,8 +181,6 @@ public class Purify extends WaterAbility {
                     if (bPlayer.hasElement(SpiritElement.DARK)) {
                         bPlayer.addElement(SpiritElement.LIGHT);
                         bPlayer.getElements().remove(SpiritElement.DARK);
-                        //GeneralMethods.saveElements(bPlayer);
-                        //GeneralMethods.removeUnusableAbilities(bPlayer.getName());
                         bPlayer.saveElements();
                         bPlayer.removeUnusableAbilities();
                         target.sendMessage(SpiritElement.DARK.getColor() + "You are now a" + ChatColor.BOLD + "" + ChatColor.AQUA + " LightSpirit");
@@ -188,21 +191,69 @@ public class Purify extends WaterAbility {
                         target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 2));
                         ParticleEffect.FIREWORKS_SPARK.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0F);
                     }
-                }  else if (target instanceof Monster) {
+                } else if (target instanceof Monster) {
                     Location targetlocation = target.getLocation();
-                    target.getWorld().spawnEntity(targetlocation, EntityType.SHEEP);
+                    Random rand = new Random();
+                    int roll = rand.nextInt(100); // 0-99
+
+                    // Zombie Villager -> Villager
+                    if (target.getType() == EntityType.ZOMBIE_VILLAGER) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.VILLAGER);
+                    }
+                    // Zombified Piglin -> Pig
+                    else if (target.getType() == EntityType.ZOMBIFIED_PIGLIN) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.PIG);
+                    }
+                    // Skeleton -> Cow
+                    else if (target.getType() == EntityType.SKELETON) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.COW);
+                    }
+                    // Stray -> Rabbit
+                    else if (target.getType() == EntityType.STRAY) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.RABBIT);
+                    }
+                    // Husk -> Chicken
+                    else if (target.getType() == EntityType.HUSK) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.CHICKEN);
+                    }
+                    // Drowned -> Dolphin
+                    else if (target.getType() == EntityType.DROWNED) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.DOLPHIN);
+                    }
+                    // Witch -> Cat
+                    else if (target.getType() == EntityType.WITCH) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.CAT);
+                    }
+                    // Default: Allay or Sheep
+                    else if (roll < 2) { // 2% chance for Allay
+                        target.getWorld().spawnEntity(targetlocation, EntityType.ALLAY);
+                    } else {
+                        org.bukkit.entity.Sheep sheep = (org.bukkit.entity.Sheep) target.getWorld().spawnEntity(targetlocation, EntityType.SHEEP);
+                        int colorRoll = rand.nextInt(3);
+                        switch (colorRoll) {
+                            case 0:
+                                sheep.setColor(org.bukkit.DyeColor.PINK);
+                                break;
+                            case 1:
+                                sheep.setColor(org.bukkit.DyeColor.LIGHT_BLUE);
+                                break;
+                            default:
+                                sheep.setColor(org.bukkit.DyeColor.WHITE);
+                                break;
+                        }
+                    }
                     target.remove();
-                }  else if (target != null) {
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 300, 2));
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 300, 2));
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 300, 2));
+                    ParticleEffect.PORTAL.display(target.getLocation(), 8, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
+                } else if (target != null) {
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration, potionlevel));
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, potionduration, potionlevel));
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, potionduration, potionlevel));
                     ParticleEffect.FIREWORKS_SPARK.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0F);
                 }
             }
         }
 
         if (stage == 0) {
-
             if (!player.isSneaking()) {
                 bPlayer.addCooldown(this);
                 remove();
@@ -210,10 +261,8 @@ public class Purify extends WaterAbility {
             }
 
             if (travelLoc == null && this.getStartTime() + duration < System.currentTimeMillis()) {
-                remove();
                 bPlayer.addCooldown(this);
                 travelLoc = player.getEyeLocation();
-                return;
             } else if (travelLoc == null) {
                 ticks++;
                 Long chargingTime = System.currentTimeMillis() - getStartTime();
@@ -223,8 +272,6 @@ public class Purify extends WaterAbility {
                 } else {
                     createNewSpirals();
                 }
-                //ParticleEffect.MAGIC_CRIT.display(0.3F, 0.3F, 0.3F, 0.1F, 8, target.getLocation().clone().add(0, 0.8, 0), 90);
-                //f7f2f6
                 for (int i = -180; i < 180; i += 10) {
                     target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 128));
                     target.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 300, 128));
@@ -244,15 +291,68 @@ public class Purify extends WaterAbility {
                 Suffocate.remove((Player) entity);
             }
         }
-        MovementHandler mh = new MovementHandler((LivingEntity) entity, this);
-        mh.stop(ChatColor.YELLOW + "* PURIFYING *");
     }
-    private void createSpirals() {
-        Color blue = Color.fromBGR(244, 170, 66);
-        DustOptions dustBlue = new DustOptions(blue, 1);
 
-        Color lightBlue = Color.fromBGR(255, 221, 112);
-        DustOptions dustLight = new DustOptions(lightBlue, 1);
+    private void createSpirals() {
+        // Use bright, pure colors (cyan/yellow/white)
+        int bluecolornumber = 200;
+        int greencolornumber = 255;
+        int redcolornumber = 255;
+
+        Color cyan = Color.fromRGB(155, 255, 250);
+        DustOptions dustCyan = new DustOptions(cyan, 1);
+
+        Color yellow = Color.fromRGB(255, 255, 112);
+        DustOptions dustYellow = new DustOptions(yellow, 1);
+
+        durationCurrentTime = (System.currentTimeMillis() - getStartTime()) / 10;
+        durationCurrentTime2 = (System.currentTimeMillis() - getStartTime());
+        durationCurrentTime2 = ((durationCurrentTime2/100)+30);
+        durationCurrentTime2 = (duration);
+
+        // Clamp minimums to keep colors bright
+        bluecolornumber = Math.max(200, bluecolornumber - (int) (durationCurrentTime2 / 2));
+        greencolornumber = Math.max(200, greencolornumber - (int) (durationCurrentTime2 / 3));
+        redcolornumber = Math.max(200, redcolornumber - (int) (durationCurrentTime2 / 4));
+
+        bluecolornumber = Math.min(255, bluecolornumber);
+        greencolornumber = Math.min(255, greencolornumber);
+        redcolornumber = Math.min(255, redcolornumber);
+
+        Color light = Color.fromRGB(bluecolornumber, greencolornumber, redcolornumber);
+        DustOptions dustLight = new DustOptions(light, 1);
+
+        player.spigot().sendMessage(net.md_5.bungee.api.ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(ChatColor.AQUA + "" + ChatColor.BOLD + "" + ChatColor.UNDERLINE + "* PURIFYING LEVEL * " + durationCurrentTime + " out of "+ ((duration*0.5) / 10 )));
+        if (hasReached) {
+            int amount = chargeTicks + 2;
+            double maxHeight = 4;
+            double distanceFromPlayer = 1.5;
+
+            int angle = 5 * amount + 5 * ticks;
+            double x = Math.cos(Math.toRadians(angle)) * distanceFromPlayer;
+            double z = Math.sin(Math.toRadians(angle)) * distanceFromPlayer;
+            double height = (amount * 0.10) % maxHeight;
+            Location displayLoc = target.getLocation().clone().add(x, height, z);
+
+            int angle2 = 5 * amount + 180 + 5 * ticks;
+            double x2 = Math.cos(Math.toRadians(angle2)) * distanceFromPlayer;
+            double z2 = Math.sin(Math.toRadians(angle2)) * distanceFromPlayer;
+            Location displayLoc2 = target.getLocation().clone().add(x2, height, z2);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustCyan);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustCyan);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustYellow);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustYellow);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustLight);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustLight);
+        }
+    }
+
+    private void createNewSpirals() {
+        Color cyan = Color.fromRGB(155, 255, 250);
+        DustOptions dustCyan = new DustOptions(cyan, 1);
+
+        Color yellow = Color.fromRGB(255, 255, 112);
+        DustOptions dustYellow = new DustOptions(yellow, 1);
 
         if (hasReached) {
             int amount = chargeTicks + 2;
@@ -269,39 +369,18 @@ public class Purify extends WaterAbility {
             double x2 = Math.cos(Math.toRadians(angle2)) * distanceFromPlayer;
             double z2 = Math.sin(Math.toRadians(angle2)) * distanceFromPlayer;
             Location displayLoc2 = target.getLocation().clone().add(x2, height, z2);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, 0, dustBlue, true);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, 0, dustBlue, true);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, 0, dustLight, true);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, 0, dustLight, true);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustCyan);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustCyan);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, dustYellow);
+            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, dustYellow);
         }
     }
-    private void createNewSpirals() {
-        Color yellow = Color.fromBGR(155, 255, 250);
-        DustOptions dustYellow = new DustOptions(yellow, 1);
 
-        Color darkYellow = Color.fromBGR(94, 255, 246);
-        DustOptions dustDark = new DustOptions(darkYellow, 1);
-        if (hasReached) {
-            int amount = chargeTicks + 2;
-            double maxHeight = 4;
-            double distanceFromPlayer = 1.5;
+    @Override
+    public void load() {}
 
-            int angle = 5 * amount + 5 * ticks;
-            double x = Math.cos(Math.toRadians(angle)) * distanceFromPlayer;
-            double z = Math.sin(Math.toRadians(angle)) * distanceFromPlayer;
-            double height = (amount * 0.10) / maxHeight;
-            Location displayLoc = target.getLocation().clone().add(x, height, z);
-
-            int angle2 = 5 * amount + 180 + 5 * ticks;
-            double x2 = Math.cos(Math.toRadians(angle2)) * distanceFromPlayer;
-            double z2 = Math.sin(Math.toRadians(angle2)) * distanceFromPlayer;
-            Location displayLoc2 = target.getLocation().clone().add(x2, height, z2);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, 0, dustYellow, true);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, 0, dustYellow, true);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc, 1, 0, 0, 0, 0, dustDark, true);
-            target.getWorld().spawnParticle(Particle.DUST, displayLoc2, 1, 0, 0, 0, 0, dustDark, true);
-        }
-    }
+    @Override
+    public void stop() {}
 
     @Override
     public String getAuthor() {

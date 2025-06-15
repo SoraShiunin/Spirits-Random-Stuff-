@@ -34,7 +34,7 @@ public class Alleviate extends LightAbility {
 
     private boolean hasReached, removeNegPots;
     private double range, selfDamage;
-    private int currPoint, healDuration, nightVisDuration;
+    private int currPoint, healDuration, nightVisDuration, potionduration, potionlevel;
     private long chargeTime, healInt, otherCooldown, potInt, selfCooldown, time;
 
     public Alleviate(Player player) {
@@ -60,6 +60,8 @@ public class Alleviate extends LightAbility {
         this.potInt = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.Alleviate.Others.PotionInterval");
         this.healInt = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.Alleviate.Others.HealInterval");
         this.selfDamage = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.LightSpirit.Alleviate.Others.SelfDamage");
+        this.potionduration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Others.PotionDuration");
+        this.potionlevel = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Others.PotionLevel");
 
         //Sanctity
         this.selfCooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.LightSpirit.Alleviate.Self.Cooldown");
@@ -67,6 +69,8 @@ public class Alleviate extends LightAbility {
         this.healDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Self.HealDuration");
         this.nightVisDuration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Self.NightVisionDuration");
         this.removeNegPots = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.LightSpirit.Alleviate.Self.RemoveNegativePotionEffects");
+        this.potionduration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Self.PotionDuration");
+        this.potionlevel = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.Self.PotionLevel");
 
         int red = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Red");
         int green = Spirits.plugin.getConfig().getInt("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Green");
@@ -130,15 +134,15 @@ public class Alleviate extends LightAbility {
             bPlayer.addCooldown(this, otherCooldown);
         }
         if (System.currentTimeMillis() - time > healInt) {
-            target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 220, 1));
-            target.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 220, 1));
-            target.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 220, 1));
-            target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 220, 0));
-            target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 220, 0));
-            target.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 220, 4));
-        	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 220, 1));
-        	player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 220, 1));
-        	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 220, 1));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration, potionlevel));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, potionduration, potionlevel));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, potionduration, potionlevel));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, potionduration, potionlevel));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, potionduration, potionlevel));
+            target.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, potionduration, potionlevel));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, potionduration, potionlevel));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, potionduration, potionlevel));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, potionduration, potionlevel));
     		for (final PotionEffect effect : target.getActivePotionEffects()) {
     			if (ElementalAbility.isNegativeEffect(effect.getType())) {
     				target.removePotionEffect(effect.getType());
@@ -165,24 +169,24 @@ public class Alleviate extends LightAbility {
                 }
             }
             if (player.getHealth() > 41) {
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 0));
-            } else if (player.getHealth() <= 40 && player.getHealth() > 31 ) {
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 80, 1));
-            } else if (player.getHealth() <= 30 && player.getHealth() > 21 ) {
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 0));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 140, 0));
-            } else if (player.getHealth() <= 20 && player.getHealth() > 10 ) {
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 140, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 0));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 140, 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration / 3, potionlevel / 2));
+            } else if (player.getHealth() <= 40 && player.getHealth() > 31) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration / 2, potionlevel / 2));
+            } else if (player.getHealth() <= 30 && player.getHealth() > 21) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration, potionlevel / 2));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, potionduration / 2, potionlevel / 2));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, potionduration, potionlevel / 2));
+            } else if (player.getHealth() <= 20 && player.getHealth() > 10) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration, potionlevel));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, potionduration / 2, potionlevel));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, potionduration, potionlevel));
             } else if (player.getHealth() <= 10) {
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 160, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, 60, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, 60, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 60, 1));
-            	player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 160, 3));
-            } 
+                player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, potionduration, potionlevel + 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.RESISTANCE, potionduration / 2, potionlevel + 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, potionduration / 2, potionlevel + 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, potionduration / 2, potionlevel + 1));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, potionduration, potionlevel + 1));
+            }
             
     		for (final PotionEffect effect : player.getActivePotionEffects()) {
     			if (ElementalAbility.isNegativeEffect(effect.getType())) {

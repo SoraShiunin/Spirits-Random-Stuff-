@@ -55,12 +55,14 @@ public class Corrupt extends WaterAbility {
     private boolean hasReached = true;
     private int ticks;
     private int chargeTicks;
+    private int potionduration;
+    private int potionlevel;
     private boolean charged = false;
     private boolean setElement;
     long durationCurrentTime;
     long durationCurrentTime2;
 
-    //for the future to optimize a bit
+    //for the future to optimize a bit, maybe. This kinda old. 
     /*public static int colorMixer(int a) {
         
         a = a+30;
@@ -85,7 +87,7 @@ public class Corrupt extends WaterAbility {
             Location loc = GeneralMethods.getTargetedLocation(player, range);
             for (Entity e : GeneralMethods.getEntitiesAroundPoint(loc, 10)) {
                 if (e instanceof LivingEntity && e.getEntityId() != player.getEntityId()) {
-                    System.out.println("Target is a living entity 2");
+                    //System.out.println("Target is a living entity 2");
                     target = (LivingEntity) e;
                     break firstloop;
                 }
@@ -96,7 +98,7 @@ public class Corrupt extends WaterAbility {
             heldEntities.add(target.getEntityId());
             setFields();
             this.target = (LivingEntity) target;
-            System.out.println("Target is a living entity");
+            //System.out.println("Target is a living entity");
             start();
         }
         
@@ -116,6 +118,8 @@ public class Corrupt extends WaterAbility {
         this.cooldown = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Water.Corrupt.Cooldown");
         this.duration = Spirits.plugin.getConfig().getLong("Abilities.Spirits.Water.Corrupt.Duration");
         this.range = Spirits.plugin.getConfig().getDouble("Abilities.Spirits.Water.Corrupt.Range");
+        this.potionduration = Spirits.plugin.getConfig().getInt("Abilities.Spirits.Water.Corrupt.PotionDuration");
+        this.potionlevel = Spirits.plugin.getConfig().getInt("Abilities.Spirits.Water.Corrupt.PotionLevel");
         this.setElement = Spirits.plugin.getConfig().getBoolean("Abilities.Spirits.Water.Corrupt.SetElement");
     }
 
@@ -226,19 +230,61 @@ public class Corrupt extends WaterAbility {
 
                 } else if (target instanceof Animals) {
                     Location targetlocation = target.getLocation();
-                    target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIE);
+                    // Pig -> Zombified Piglin
+                    if (target.getType() == EntityType.PIG) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIFIED_PIGLIN);
+                    }
+                    // Cow -> Skeleton
+                    else if (target.getType() == EntityType.COW) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.SKELETON);
+                    }
+                    // Rabbit -> Stray
+                    else if (target.getType() == EntityType.RABBIT) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.STRAY);
+                    }
+                    // Chicken -> Husk
+                    else if (target.getType() == EntityType.CHICKEN) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.HUSK);
+                    }
+                    // Cat -> Witch
+                    else if (target.getType() == EntityType.CAT) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.WITCH);
+                    }
+                    // Villager -> Zombie Villager (random chance)
+                    else if (target.getType() == EntityType.VILLAGER) {
+                                                if (targetlocation.getBlock().isLiquid() || targetlocation.getBlock().getType().toString().contains("WATER")) {
+                            target.getWorld().spawnEntity(targetlocation, EntityType.DROWNED);
+                        }
+                        Random rand = new Random();
+                        int roll = rand.nextInt(100);
+                        if (roll < 10) { // 10% chance for Zombie Villager
+                            target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIE_VILLAGER);
+                        } else {
+                            target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIE);
+                        }
+                    }
+                    // Allay -> Vex
+                    else if (target.getType() == EntityType.ALLAY) {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.VEX);
+                    }
+                    // Default: Vex
+                    else {
+                        target.getWorld().spawnEntity(targetlocation, EntityType.VEX);
+                    }
                     target.remove();
                     ParticleEffect.PORTAL.display(target.getLocation(), 8, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
 
                 }   else if (target instanceof Villager) {
                     Location targetlocation = target.getLocation();
+                    // Villager -> Zombie Villager
                     target.getWorld().spawnEntity(targetlocation, EntityType.ZOMBIE_VILLAGER);
                     target.remove();
                     ParticleEffect.PORTAL.display(target.getLocation(), 8, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
 
                 } else if (target != null) {
-                    DamageHandler.damageEntity(target, 7, this);
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 300, 2));
+                    DamageHandler.damageEntity(target, 4, this);
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, potionduration, potionlevel));
+                    target.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, potionduration, potionlevel));
                     ParticleEffect.SPELL_WITCH.display(target.getLocation(), 3, (float) Math.random(), (float) Math.random(), (float) Math.random(), 0.0);
                 }
             }
@@ -293,17 +339,17 @@ public class Corrupt extends WaterAbility {
         int greencolornumber = 170;
         int redcolornumber = 66;
               
-        Color purple = Color.fromBGR(193, 44, 176);
+        Color purple = Color.fromRGB(193, 44, 176);
         DustOptions dustPurple = new DustOptions(purple, 1);
 
-        Color darkPurple = Color.fromBGR(201, 58, 137);
+        Color darkPurple = Color.fromRGB(201, 58, 137);
         DustOptions dustDark = new DustOptions(darkPurple, 1);
 
         double increaseValueToChange = (duration*0.5);
         //12000ms * 0.5 = 6000ms, 6000ms = 100%.
         //1000ms = 1s
         //20t = 1s
-        //Color purple = Color.fromBGR(193, 44, 176);
+        //Color purple = Color.fromRGB(193, 44, 176);
         //6000ms
         //193+44+176=413
         //duration/413()*2
@@ -317,32 +363,35 @@ public class Corrupt extends WaterAbility {
         bluecolornumber = bluecolornumber - (int) (durationCurrentTime2);
         greencolornumber = greencolornumber - (int) (durationCurrentTime2 );
         redcolornumber = redcolornumber + (int) (durationCurrentTime2) ;
-        System.out.println("Duration Time" + durationCurrentTime2 + " /100 = " + durationCurrentTime2/100);
-        
-        /* 
-        colorMixer(bluecolornumber);
-        colorMixer(greencolornumber);
-        colorMixer(redcolornumber);
-        */
+        //System.out.println("Duration Time" + durationCurrentTime2 + " /100 = " + durationCurrentTime2/100);
 
-        System.out.println("Blue: " + bluecolornumber + " Green: " + greencolornumber + " Red: " + redcolornumber);
+        // Clamp RGB values to 0-255
+        bluecolornumber = Math.max(0, Math.min(255, bluecolornumber));
+        greencolornumber = Math.max(0, Math.min(255, greencolornumber));
+        redcolornumber = Math.max(0, Math.min(255, redcolornumber));
 
-        Color blue = Color.fromBGR(bluecolornumber,greencolornumber,redcolornumber);
+        //System.out.println("Blue: " + bluecolornumber + " Green: " + greencolornumber + " Red: " + redcolornumber);
+
+        Color blue = Color.fromRGB(bluecolornumber,greencolornumber,redcolornumber);
         DustOptions dustBlue = new DustOptions(blue, 1);
-        
+
         durationCurrentTime2 = (durationCurrentTime2/100) - 20;
         bluecolornumber = bluecolornumber - (int) (durationCurrentTime2);
         greencolornumber = greencolornumber - (int) (durationCurrentTime2 );
         redcolornumber = redcolornumber + (int) (durationCurrentTime2) ;
-        
 
-        Color lightBlue = Color.fromBGR(bluecolornumber,greencolornumber,redcolornumber);
+        // Clamp again for lightBlue
+        bluecolornumber = Math.max(0, Math.min(255, bluecolornumber));
+        greencolornumber = Math.max(0, Math.min(255, greencolornumber));
+        redcolornumber = Math.max(0, Math.min(255, redcolornumber));
+
+        Color lightBlue = Color.fromRGB(bluecolornumber,greencolornumber,redcolornumber);
         DustOptions dustLight = new DustOptions(lightBlue, 1);
 
-/*        Color blue = Color.fromBGR(244, 170, 66);
+/*        Color blue = Color.fromRGB(244, 170, 66);
         DustOptions dustBlue = new DustOptions(blue, 1);
 
-        Color lightBlue = Color.fromBGR(255, 221, 112);
+        Color lightBlue = Color.fromRGB(255, 221, 112);
         DustOptions dustLight = new DustOptions(lightBlue, 1);
  */
 
@@ -369,10 +418,10 @@ public class Corrupt extends WaterAbility {
         }
     }
     private void createNewSpirals() {
-        Color purple = Color.fromBGR(193, 44, 176);
+        Color purple = Color.fromRGB(193, 44, 176);
         DustOptions dustPurple = new DustOptions(purple, 1);
 
-        Color darkPurple = Color.fromBGR(201, 58, 137);
+        Color darkPurple = Color.fromRGB(201, 58, 137);
         DustOptions dustDark = new DustOptions(darkPurple, 1);
 
         if (hasReached) {

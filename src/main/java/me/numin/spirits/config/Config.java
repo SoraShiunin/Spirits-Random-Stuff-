@@ -269,14 +269,19 @@ public class Config {
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Others.PotionInterval", 2000);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Others.HealInterval", 5000);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Others.SelfDamage", 1);
+        config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Others.PotionDuration", 300);
+        config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Others.PotionLevel", 1);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.Cooldown", 3000);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.ChargeTime", 500);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.HealDuration", 6);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.NightVisionDuration", 12);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.RemoveNegativePotionEffects", true);
+        config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.PotionDuration", 300);
+        config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.Self.PotionLevel", 1);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Red", 255);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Green", 255);
         config.addDefault("Abilities.Spirits.LightSpirit.Alleviate.ParticleColor.Blue", 255);
+
 
         config.addDefault("Abilities.Spirits.LightSpirit.LightBlast.Enabled", false);
         config.addDefault("Abilities.Spirits.LightSpirit.LightBlast.Cooldown", 0);
@@ -336,12 +341,16 @@ public class Config {
         config.addDefault("Abilities.Spirits.Water.Purify.Cooldown", 2000);
         config.addDefault("Abilities.Spirits.Water.Purify.Duration", 12000);
         config.addDefault("Abilities.Spirits.Water.Purify.Range", 10);
+        config.addDefault("Abilities.Spirits.Water.Purify.PotionDuration", 200);
+        config.addDefault("Abilities.Spirits.Water.Purify.PotionLevel", 1);
         config.addDefault("Abilities.Spirits.Water.Purify.SetElement", true);
 
         config.addDefault("Abilities.Spirits.Water.Corrupt.Enabled", true);
         config.addDefault("Abilities.Spirits.Water.Corrupt.Cooldown", 2000);
         config.addDefault("Abilities.Spirits.Water.Corrupt.Duration", 12000);
         config.addDefault("Abilities.Spirits.Water.Corrupt.Range", 10);
+        config.addDefault("Abilities.Spirits.Water.Corrupt.PotionDuration", 200);
+        config.addDefault("Abilities.Spirits.Water.Corrupt.PotionLevel", 1);
         config.addDefault("Abilities.Spirits.Water.Corrupt.SetElement", true);
         
         config.addDefault("Abilities.Spirits.DarkSpirit.Intoxicate.Enabled", true);

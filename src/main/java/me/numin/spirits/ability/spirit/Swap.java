@@ -90,7 +90,16 @@ public class Swap extends SpiritAbility {
                 remove();
                 return;
             }
+            
             if (true) {
+
+            
+            //Check if the target is a player and if they are in a protected region
+            if (GeneralMethods.isRegionProtectedFromBuild(player, "Swap", target.getLocation())) {
+                return;
+            }
+
+            //Swap the locations of the player and target
                 target.getWorld().spawnParticle(Particle.ENCHANTED_HIT, target.getLocation(), 5, 0, 0, 0, 0.08);
                 target.getWorld().playSound(target.getLocation(), Sound.ENTITY_ENDER_DRAGON_FLAP, 1F, 2F);
             	player.teleport(target.getLocation());
